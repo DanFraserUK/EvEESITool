@@ -105,12 +105,12 @@ namespace EvEESIDownloadTool
 		public class ConfigClass
 		{
 			// todo hide this!!!
-			public string CCEsiUrl = "https://esi.evetech.net/";
-			public DataSource CCDataSource = DataSource.Tranquility;
-			public string CCClientId = "1fdbf25289cd4159b919109a72ff6324";
-			public string CCSecretKey = "jDGeNj2ATou7bkubRjCnhW7JQGElSMORfhvxgjbm";
-			public string CCCallbackUrl = "https://localhost/callback/";
-			public string CCUserAgent = "danielfras@gmail.com";
+			public string CCEsiUrl;
+			public DataSource CCDataSource;
+			public string CCClientId;
+			public string CCSecretKey;
+			public string CCCallbackUrl;
+			public string CCUserAgent;
 
 			public IOptions<EsiConfig> ConfigOutput()
 			{
