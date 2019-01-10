@@ -22,7 +22,7 @@ using ESI.NET.Models.Fittings;
 using ESI.NET.Models;
 using System.Reflection;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	public class DataClassesBase
 	{

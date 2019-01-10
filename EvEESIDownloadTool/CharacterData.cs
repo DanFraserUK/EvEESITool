@@ -22,7 +22,7 @@ using ESI.NET.Models.Fittings;
 using ESI.NET.Models;
 using AssetsItem = ESI.NET.Models.Assets.Item;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	public class CharacterData : DataClassesBase
 	{

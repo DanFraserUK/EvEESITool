@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using ESI.NET.Models.Skills;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	/// <summary>
 	/// This class should be used to interact with the ESI authorisation steps ONLY
@@ -110,7 +110,7 @@ namespace EvEESIDownloadTool
 			Console.WriteLine($"UserAgent = {config.Value.UserAgent}");
 			Console.WriteLine();
 
-			Scopes = EvEESIDownloadTool.Scopes.GetScopes();
+			Scopes = EvEESITool.Scopes.GetScopes();
 			Console.WriteLine($"Scopes file loaded. {Scopes.Count} scopes added.");
 
 			_client = new EsiClient(config);

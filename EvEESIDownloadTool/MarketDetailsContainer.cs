@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using ESI.NET.Models.Skills;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	public class MarketDetailsContainer : MarketDetailsClass
 	{

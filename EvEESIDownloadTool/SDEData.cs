@@ -21,7 +21,7 @@ using System.Text;
 using System.Net;
 using System.Net.Http;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	/// <summary>
 	/// I'm doing something with this, I don't know what but there's something

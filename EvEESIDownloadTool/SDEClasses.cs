@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	public class SDEDataBaseClass
 	{

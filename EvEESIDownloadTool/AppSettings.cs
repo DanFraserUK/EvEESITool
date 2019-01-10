@@ -21,7 +21,7 @@ using ESI.NET.Models.Clones;
 using ESI.NET.Models.Fittings;
 using ESI.NET.Models;
 
-namespace EvEESIDownloadTool
+namespace EvEESITool
 {
 	public class AppSettings
 	{
