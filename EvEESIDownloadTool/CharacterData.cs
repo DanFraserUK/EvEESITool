@@ -79,6 +79,7 @@ namespace EvEESIDownloadTool
 
 		public void MakeChoice()
 		{
+			// todo - this should become a timed check as well, once an hour max?
 			Console.Write("Download new character data? (Y/N) : ");
 			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
 			{
