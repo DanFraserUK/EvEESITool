@@ -149,7 +149,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="README.md" />
     <None Include="scopes.dat" />
   </ItemGroup>
   <ItemGroup>

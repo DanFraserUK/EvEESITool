@@ -8,12 +8,12 @@ This tool will do all of the work for you in downloading data from the EvE Swagg
 
 ## Setting up for first use
 
-To run this, copy config.txt to a folder called "DATA" where the executable is placed upon build.  Also copy scopes.dat to the folder where the executable is placed.
-
 Go to https://developers.eveonline.com/ - log in, create a new application, name it whatever you wish.
-Choose 'Authentication & API Access' add *ALL* the scopes (lol) and set the callback url to https://localhost/callback/
+Choose 'Authentication & API Access' add *ALL* the scopes (this will be variable in the future) and set the callback url to https://localhost/callback/
 
-Confirm, then view application and you'll find the items you need to copy into config.txt.
+Confirm, then view application and you'll find the items you need to copy into the console to set up the data.
+
+If you have concerns about the data being entered `ConfigDataConsoleEntry` in `AppSettings.cs` is where the data entry occurs.  `Authenticator.cs` is where the information gets used to authorise the connection to the EvE Swagger Interface.  This will be subject to changes in the future to appear like many other applications that access the Eve Swagger Interface.
 
 ## Usage in your application
 
