@@ -77,6 +77,15 @@ namespace EvEESIDownloadTool
 			}
 			else
 			{
+				// todo - create a way of requesting the user to enter the details
+				// but for now, we'll just load a file.
+				using (StreamReader myReader = new StreamReader(DataDirectory + "\\config.txt"))
+				{
+					JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
+					JsonReader jsonReader = new JsonTextReader(myReader);
+					Config = serializer.Deserialize<ConfigClass>(jsonReader);
+					DataDirectory += " ";
+				}
 				Config = new ConfigClass();
 			}
 			Save();
