@@ -45,22 +45,21 @@ namespace EvEESITool
 		public List<Title> Titles { get; private set; } = new List<Title>();
 		public List<int> NPCCorps { get; private set; } = new List<int>();
 		public int CorporationID { get; set; } = 0;
-		internal CorporationData()
-		{
 
+		/// <summary>
+		/// Do not remove this constructor.  Even though it might say 0 references, it does get referenced!
+		/// </summary>
+		[JsonConstructor]
+		internal CorporationData() : base()
+		{
+			Settings = new AppSettings();
 		}
-		public CorporationData(ref EsiClient esiClient, ref SDEData sde, ref AppSettings settings) : base(ref esiClient, ref sde, ref settings)
+		public CorporationData(ref AppSettings settings) : base(ref settings)
 		{
 			CorporationID = Settings.AuthorisationData.CorporationID;
-			MakeChoice();
+			GetData();
 		}
-		public CorporationData(ref EsiClient esiClient, ref AppSettings settings) : base(ref esiClient, ref settings)
-		{
-			CorporationID = Settings.AuthorisationData.CorporationID;
-			MakeChoice();
-		}
-
-		private CorporationData(ref EsiClient esiClient, ref AppSettings settings, bool isATempItem) : base(ref esiClient, ref settings)
+		private CorporationData(ref AppSettings settings, bool isATempItem) : base(ref settings)
 		{
 			if (isATempItem)
 			{
@@ -69,105 +68,84 @@ namespace EvEESITool
 			else
 			{
 				CorporationID = Settings.AuthorisationData.CorporationID;
-				MakeChoice();
-			}
-		}
-
-		private void MakeChoice()
-		{
-			Console.Write("Download new corporation data? (Y/N) : ");
-			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
-			{
-				Console.WriteLine();
-				Console.WriteLine();
-				Download();
-			}
-			else
-			{
-				Console.WriteLine();
-				Console.WriteLine();
-				if (File.Exists(SaveFile))
-				{
-					if (LoadFromFile())
-					{
-
-					}
-					else
-					{
-						Download();
-					}
-				}
-				else
-				{
-					Console.WriteLine("Unable to load from file, downloading.");
-					Download();
-				}
+				GetData();
 			}
 		}
 		public override string ToString()
 		{
 			return $"{Information.Name}, Ticker : {Information.Ticker}";
 		}
-		public void Download()
+		public override void Download()
 		{
-			Information = DownloadData<Corporation>("Information", ImportedEsiClient.Corporation.Information(CorporationID));
-			AllianceHistory = DownloadData<List<AllianceHistory>>("Alliance history", ImportedEsiClient.Corporation.AllianceHistory(CorporationID));
-			Blueprints = DownloadData<List<Blueprint>>("Blueprints", ImportedEsiClient.Corporation.Blueprints());
-			ContainerLogs = DownloadData<List<ContainerLog>>("Container logs", ImportedEsiClient.Corporation.ContainerLogs());
-			Divisions = DownloadData<Divisions>("Divisions", ImportedEsiClient.Corporation.Divisions());
-			Facilities = DownloadData<List<ESI.NET.Models.Corporation.Facility>>("Facilities", ImportedEsiClient.Corporation.Facilities());
-			Icon = DownloadData<Images>("Images", ImportedEsiClient.Corporation.Icons(CorporationID));
-			Medals = DownloadData<List<Medal>>("Medals", ImportedEsiClient.Corporation.Medals(1));
-			IssuedMedals = DownloadData<List<IssuedMedal>>("Issued medals", ImportedEsiClient.Corporation.MedalsIssued(1));
+			Information = DownloadData<Corporation>("Information", Settings.EsiClient.Corporation.Information(CorporationID));
+			AllianceHistory = DownloadData<List<AllianceHistory>>("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(CorporationID));
+			Blueprints = DownloadData<List<Blueprint>>("Blueprints", Settings.EsiClient.Corporation.Blueprints());
+			ContainerLogs = DownloadData<List<ContainerLog>>("Container logs", Settings.EsiClient.Corporation.ContainerLogs());
+			Divisions = DownloadData<Divisions>("Divisions", Settings.EsiClient.Corporation.Divisions());
+			Facilities = DownloadData<List<ESI.NET.Models.Corporation.Facility>>("Facilities", Settings.EsiClient.Corporation.Facilities());
+			Icon = DownloadData<Images>("Images", Settings.EsiClient.Corporation.Icons(CorporationID));
+			Medals = DownloadData<List<Medal>>("Medals", Settings.EsiClient.Corporation.Medals(1));
+			IssuedMedals = DownloadData<List<IssuedMedal>>("Issued medals", Settings.EsiClient.Corporation.MedalsIssued(1));
 
 			// todo figure this call out - there's an array not being deserialized properly
-			//Members = DownloadData<List<Member>>("Members", ImportedEsiClient.Corporation.Members());
+			//Members = DownloadData<List<Member>>("Members", Settings.EsiClient.Corporation.Members());
 
-			MemberLimit = DownloadData<int>("Member Limit", ImportedEsiClient.Corporation.MemberLimit());
-			MemberTitles = DownloadData<List<MemberTitles>>("Member titles", ImportedEsiClient.Corporation.MemberTitles());
-			MemberTracking = DownloadData<List<MemberInfo>>("Member tracking", ImportedEsiClient.Corporation.MemberTracking());
-			Roles = DownloadData<List<CharacterRoles>>("Roles", ImportedEsiClient.Corporation.Roles());
-			RolesHistory = DownloadData<List<CharacterRolesHistory>>("Roles history", ImportedEsiClient.Corporation.RolesHistory());
-			Shareholders = DownloadData<List<Shareholder>>("Shareholders", ImportedEsiClient.Corporation.Shareholders());
+			MemberLimit = DownloadData<int>("Member Limit", Settings.EsiClient.Corporation.MemberLimit());
+			MemberTitles = DownloadData<List<MemberTitles>>("Member titles", Settings.EsiClient.Corporation.MemberTitles());
+			MemberTracking = DownloadData<List<MemberInfo>>("Member tracking", Settings.EsiClient.Corporation.MemberTracking());
+			Roles = DownloadData<List<CharacterRoles>>("Roles", Settings.EsiClient.Corporation.Roles());
+			RolesHistory = DownloadData<List<CharacterRolesHistory>>("Roles history", Settings.EsiClient.Corporation.RolesHistory());
+			Shareholders = DownloadData<List<Shareholder>>("Shareholders", Settings.EsiClient.Corporation.Shareholders());
 			// todo - yeah, this is one of those paginated items
-			//Standings = DownloadData<List<Standing>>("Standings", ImportedEsiClient.Corporation.Standings(1));
-			Starbases = DownloadData<List<Starbase>>("Starbases", ImportedEsiClient.Corporation.Starbases());
+			//Standings = DownloadData<List<Standing>>("Standings", Settings.EsiClient.Corporation.Standings(1));
+			Starbases = DownloadData<List<Starbase>>("Starbases", Settings.EsiClient.Corporation.Starbases());
 			// todo this is a kinda of paginated item
 			foreach (Starbase s in Starbases)
 			{
-				StarbasesInfo.Add(ImportedEsiClient.Corporation.Starbase((int)s.StarbaseId, s.SystemId).Result.Data);
+				StarbasesInfo.Add(Settings.EsiClient.Corporation.Starbase((int)s.StarbaseId, s.SystemId).Result.Data);
 			}
 			// todo paginated
-			Structures = DownloadData<List<Structure>>("Structures", ImportedEsiClient.Corporation.Structures(1));
-			Titles = DownloadData<List<Title>>("Titles", ImportedEsiClient.Corporation.Titles());
-			NPCCorps = DownloadData<List<int>>("NPC Corporations", ImportedEsiClient.Corporation.NpcCorps());
+			Structures = DownloadData<List<Structure>>("Structures", Settings.EsiClient.Corporation.Structures(1));
+			Titles = DownloadData<List<Title>>("Titles", Settings.EsiClient.Corporation.Titles());
+			NPCCorps = DownloadData<List<int>>("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps());
 
 			SaveToFile();
 		}
-		public bool LoadFromFile()
+		public override bool ReadInData()
 		{
-			bool result = false;
-			try
+			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				CorporationData temp = new CorporationData(ref ImportedEsiClient, ref Settings, true);
-				using (StreamReader myReader = new StreamReader(SaveFile))
-				{
-					JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-					JsonTextReader reader = new JsonTextReader(myReader);
-					temp = serializer.Deserialize<CorporationData>(new JsonTextReader(myReader));
+				CorporationData temp = Settings.serializer.Deserialize<CorporationData>(new JsonTextReader(myReader));
+				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
+				Information = temp.Information;
+				AllianceHistory = temp.AllianceHistory;
+				Blueprints = temp.Blueprints;
+				ContainerLogs = temp.ContainerLogs;
+				Divisions = temp.Divisions;
+				Facilities = temp.Facilities;
+				Icon = temp.Icon;
+				Medals = temp.Medals;
+				IssuedMedals = temp.IssuedMedals;
+				Members = temp.Members;
+				MemberLimit = temp.MemberLimit;
+				MemberTitles = temp.MemberTitles;
+				MemberTracking = temp.MemberTracking;
+				Roles = temp.Roles;
+				RolesHistory = temp.RolesHistory;
+				Shareholders = temp.Shareholders;
+				Standings = temp.Standings;
+				Starbases = temp.Starbases;
+				StarbasesInfo = temp.StarbasesInfo;
+				Structures = temp.Structures;
+				Titles = temp.Titles;
+				NPCCorps = temp.NPCCorps;
+				CorporationID = temp.CorporationID;
+				Console.Write(" - successful");
+				Console.WriteLine();
+				Console.Write(".");
 
-					Information = temp.Information;
-
-					result = true;
-				}
+				return true;
 			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Loading from file failed.");
-				Console.WriteLine($"Error message : {ex.Message}");
-				result = false;
-			}
-			return result;
 		}
 	}
 }

@@ -33,7 +33,6 @@ readonly		SortedDictionary<int, MarketDetailsContainer> TrimmedMarketDetails = n
 		public void SetTypeID(int typeID)
 		{
 			TypeID = typeID;
-			//Name = SDE.InvTypes.ContainsKey(TypeID) ? SDE.InvTypes[TypeID].TypeName : "Unknown Type";
 		}
 
 		public override string ToString()
@@ -45,12 +44,5 @@ readonly		SortedDictionary<int, MarketDetailsContainer> TrimmedMarketDetails = n
 		{
 			Orders = new List<Order>();
 		}
-		public MarketDetailsClass(ref SDEData sde)
-		{
-			//SDE = sde;
-			Orders = new List<Order>();
-		}
-		//[JsonIgnore]
-		//private SDEData SDE { get; set; }
 	}
 }

@@ -26,14 +26,15 @@ namespace EvEESITool
 	public class AppSettings
 	{
 		public AuthorizedCharacterData AuthorisationData { get; set; } = new AuthorizedCharacterData();
-		public int MarketHistoryDays { get; private set; } = 45;
-		public int DefaultRegionID { get; private set; } = 10000043;
+		public int MarketHistoryDays { get; private set; } = 10;
+		public int DefaultRegionID { get; private set; } = 10000002;
 		public ConfigClass Config { get; private set; } = new ConfigClass();
-
 		[JsonIgnore]
 		public bool LoadedFromFile { get; private set; } = false;
 		[JsonIgnore]
-		EsiClient EsiClient { get; set; }
+		public EsiClient EsiClient { get; set; }
+		[JsonIgnore]
+		public JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
 		[JsonIgnore]
 		private readonly string SaveFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\settings.dat";
 		[JsonIgnore]
@@ -41,8 +42,9 @@ namespace EvEESITool
 		[JsonIgnore]
 		public readonly string SDEDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\SDE\\";
 		[JsonIgnore]
-		public readonly string AppDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
+		public readonly string AppDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
+		[JsonIgnore]
+		public bool InternetAccessAvailable { get; private set; }
 		public AppSettings()
 		{
 
@@ -68,9 +70,6 @@ namespace EvEESITool
 					myWriter.WriteLine(stupidlyLongString);
 				}
 			}
-
-			EsiClient = esiClient;
-
 			if (File.Exists(SaveFile))
 			{
 				Console.WriteLine();
@@ -92,14 +91,13 @@ namespace EvEESITool
 			{
 				GetConfigDataFromUser();
 			}
+			EsiClient = new EsiClient(Config.ConfigOutput());
 			Save();
 		}
-
 		public void GetConfigDataFromUser()
 		{
 			ConfigDataConsoleEntry();
 		}
-
 		private void ConfigDataConsoleEntry()
 		{
 			Config = new ConfigClass();
@@ -122,7 +120,6 @@ namespace EvEESITool
 			Console.WriteLine("");
 			Config.CCUserAgent = Console.ReadLine();
 		}
-
 		public void Save()
 		{
 			using (StreamWriter file = File.CreateText(SaveFile))
@@ -144,7 +141,6 @@ namespace EvEESITool
 		}
 		public class ConfigClass
 		{
-			// todo hide this!!!
 			public string CCEsiUrl;
 			public DataSource CCDataSource;
 			public string CCClientId;
@@ -170,6 +166,10 @@ namespace EvEESITool
 			{
 
 			}
+		}
+		public void CheckInternetAccess()
+		{
+			InternetAccessAvailable = false;
 		}
 	}
 }

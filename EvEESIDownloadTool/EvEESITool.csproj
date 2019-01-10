@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E0649EF4-055A-40B5-BCF7-28C62601C593}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>EvEESIDownloadTool</RootNamespace>
-    <AssemblyName>EvEESIDownloadTool</AssemblyName>
+    <RootNamespace>EvEESITool</RootNamespace>
+    <AssemblyName>EvEESITool</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>0.1.1.%2a</ApplicationVersion>
+    <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -143,17 +143,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scopes.cs" />
-    <Compile Include="SDEClasses.cs" />
-    <Compile Include="SDEData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="scopes.dat" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="config.txt" />
-    <Content Include="ScopesVSEndpoints.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

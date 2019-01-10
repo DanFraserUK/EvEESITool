@@ -30,24 +30,16 @@ namespace EvEESITool
 		internal AppSettings Settings = new AppSettings();
 		[JsonIgnore]
 		internal readonly string SaveDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-		[JsonIgnore]
-		internal EsiClient ImportedEsiClient;
-		[JsonIgnore]
-		internal SDEData SDE;
-
 		internal DataClassesBase()
 		{
-
+			Settings = new AppSettings();
 		}
-		public DataClassesBase(ref EsiClient input, ref AppSettings settings)
+		public DataClassesBase(ref AppSettings settings)
 		{
-			ImportedEsiClient = input;
 			Settings = settings;
 		}
-		public DataClassesBase(ref EsiClient input, ref SDEData sde, ref AppSettings settings)
+		public DataClassesBase(ref AppSettings settings, bool isATempItem)
 		{
-			SDE = sde;
-			ImportedEsiClient = input;
 			Settings = settings;
 		}
 		internal T DownloadData<T>(string objectName, Task<ESI.NET.EsiResponse<T>> func)
@@ -169,13 +161,74 @@ namespace EvEESITool
 		{
 			get
 			{
-				string test = SaveDirectory + "\\Data\\" + this.GetType().Name + ".json";
-				return test;
+				return Settings.DataDirectory + this.GetType().Name + ".json";
 			}
 			private set
 			{
 				throw new NotImplementedException("How did you get in here!?");
 			}
+		}
+		internal void GetData()
+		{
+			if (File.Exists(SaveFile))
+			{
+				if (FileAge(SaveFile) < 60)
+				{
+					if (LoadFromFile())
+					{
+						// loading from file successful
+					}
+					else
+					{
+						// some kind of failure loading from file, so 
+						Download();
+					}
+				}
+				else
+				{
+					// current data is more than 1 hour old
+					Download();
+				}
+			}
+			else
+			{
+				// download data
+				Download();
+			}
+		}
+		public virtual void Download()
+		{
+			throw new NotImplementedException();
+		}
+		internal virtual bool LoadFromFile()
+		{
+			bool result = false;
+			try
+			{
+				result = ReadInData();
+			}
+			catch (Exception ex)
+			{
+				Console.SetCursorPosition(0, Console.CursorTop);
+				Console.WriteLine(("Loading from file failed.").PadRight(SaveFile.Length + 13));
+				Console.WriteLine($"Error message : {ex.Message}");
+				if(!Settings.InternetAccessAvailable)
+				{
+					Console.WriteLine();
+					Console.WriteLine("Well this is a problem isn't it?");
+					Console.WriteLine();
+				}
+				result = false;
+			}
+			return result;
+		}
+		public int FileAge(string filePath)
+		{
+			return DateTime.Now.Subtract(new FileInfo(filePath).CreationTime).Minutes;
+		}
+		public virtual bool ReadInData()
+		{
+			return false;
 		}
 	}
 }

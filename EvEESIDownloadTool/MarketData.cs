@@ -22,7 +22,14 @@ namespace EvEESITool
 {
 	public class MarketData : DataClassesBase
 	{
-		public MarketData(ref EsiClient _client, ref AppSettings settings)
+		/// <summary>
+		/// Do not remove this constructor.  Even though it might say 0 references, it does get referenced!
+		/// </summary>
+		[JsonConstructor]
+		internal MarketData() : base()
+		{
+		}
+		public MarketData(ref AppSettings settings) : base(ref settings)
 		{
 
 		}

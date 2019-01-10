@@ -46,120 +46,46 @@ namespace EvEESITool
 		public List<Fitting> Fittings { get; private set; } = new List<Fitting>();
 		public int CharacterID { get; set; } = 0;
 		public decimal Wallet { get; set; } = 0;
-
-
-		internal CharacterData()
+		/// <summary>
+		/// Do not remove this constructor.  Even though it might say 0 references, it does get referenced!
+		/// </summary>
+		[JsonConstructor]
+		internal CharacterData() : base()
 		{
-
 		}
-		public CharacterData(ref EsiClient esiClient, ref SDEData sde, ref AppSettings settings) : base(ref esiClient, ref sde, ref settings)
-		{
-			CharacterID = Settings.AuthorisationData.CharacterID;
-			MakeChoice();
-		}
-
-		internal CharacterData(ref EsiClient esiClient, ref AppSettings settings) : base(ref esiClient, ref settings)
+		internal CharacterData(ref AppSettings settings) : base(ref settings)
 		{
 			CharacterID = Settings.AuthorisationData.CharacterID;
-			MakeChoice();
+			GetData();
 		}
-
-		private CharacterData(ref EsiClient esiClient, ref AppSettings settings, bool isATempItem) : base(ref esiClient, ref settings)
-		{
-			if (isATempItem)
-			{
-				CharacterID = Settings.AuthorisationData.CharacterID;
-			}
-			else
-			{
-				CharacterID = Settings.AuthorisationData.CharacterID;
-				MakeChoice();
-			}
-		}
-
-		public void MakeChoice()
-		{
-			// todo - this should become a timed check as well, once an hour max?
-			Console.Write("Download new character data? (Y/N) : ");
-			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
-			{
-				Console.WriteLine();
-				Console.WriteLine();
-				Download();
-			}
-			else
-			{
-				Console.WriteLine();
-				Console.WriteLine();
-				if (File.Exists(SaveFile))
-				{
-					if (LoadFromFile())
-					{
-
-					}
-					else
-					{
-						Download();
-					}
-				}
-				else
-				{
-					Console.WriteLine("Unable to load from file, downloading.");
-					Download();
-				}
-			}
-		}
-
 		public override string ToString()
 		{
 			return $"{Information.Name}, {Wallet.ToString("N2")} ISK";
 		}
-		public void Download()
+		public override void Download()
 		{
-			Wallet = DownloadData<decimal>("Wallet Balance", ImportedEsiClient.Wallet.CharacterWallet());
-			Information = DownloadData<Information>("Information", ImportedEsiClient.Character.Information(CharacterID));
-			// wallet is bloody awkward!
-			//GetWalletData();
-			Skills = DownloadData<SkillDetails>("Skills", ImportedEsiClient.Skills.List());
-			Attributes = DownloadData<Attributes>("Attributes", ImportedEsiClient.Skills.Attributes());
-			Stats = DownloadData<List<Stats>>("Stats", ImportedEsiClient.Character.Stats());
-			SkillQueue = DownloadData<List<SkillQueueItem>>("Skill Queue", ImportedEsiClient.Skills.Queue());
-			Location = DownloadData<Location>("Location", ImportedEsiClient.Location.Location());
-			Activity = DownloadData<Activity>("Activity", ImportedEsiClient.Location.Online());
-			Ship = DownloadData<Ship>("Ship", ImportedEsiClient.Location.Ship());
-			Assets = DownloadData<List<AssetsItem>>("Assets", ImportedEsiClient.Assets.ForCharacter());
-			Journal = DownloadData<List<JournalEntry>>("Journal", ImportedEsiClient.Wallet.CharacterJournal());
-			Transactions = DownloadData<List<Transaction>>("Transactions", ImportedEsiClient.Wallet.CharacterTransactions());
-			Notifications = DownloadData<List<Notification>>("Notifications", ImportedEsiClient.Character.Notifications());
-			IndustryJobs = DownloadData<List<Job>>("Industry jobs", ImportedEsiClient.Industry.JobsForCharacter());
-			Clones = DownloadData<Clones>("Clones", ImportedEsiClient.Clones.List());
-			Implants.AddRange(DownloadData<int[]>("Implants", ImportedEsiClient.Clones.Implants()));
+			Wallet = DownloadData<decimal>("Wallet Balance", Settings.EsiClient.Wallet.CharacterWallet());
+			Information = DownloadData<Information>("Information", Settings.EsiClient.Character.Information(CharacterID));
+			Skills = DownloadData<SkillDetails>("Skills", Settings.EsiClient.Skills.List());
+			Attributes = DownloadData<Attributes>("Attributes", Settings.EsiClient.Skills.Attributes());
+			Stats = DownloadData<List<Stats>>("Stats", Settings.EsiClient.Character.Stats());
+			SkillQueue = DownloadData<List<SkillQueueItem>>("Skill Queue", Settings.EsiClient.Skills.Queue());
+			Location = DownloadData<Location>("Location", Settings.EsiClient.Location.Location());
+			Activity = DownloadData<Activity>("Activity", Settings.EsiClient.Location.Online());
+			Ship = DownloadData<Ship>("Ship", Settings.EsiClient.Location.Ship());
+			Assets = DownloadData<List<AssetsItem>>("Assets", Settings.EsiClient.Assets.ForCharacter());
+			Journal = DownloadData<List<JournalEntry>>("Journal", Settings.EsiClient.Wallet.CharacterJournal());
+			Transactions = DownloadData<List<Transaction>>("Transactions", Settings.EsiClient.Wallet.CharacterTransactions());
+			Notifications = DownloadData<List<Notification>>("Notifications", Settings.EsiClient.Character.Notifications());
+			IndustryJobs = DownloadData<List<Job>>("Industry jobs", Settings.EsiClient.Industry.JobsForCharacter());
+			Clones = DownloadData<Clones>("Clones", Settings.EsiClient.Clones.List());
+			Implants.AddRange(DownloadData<int[]>("Implants", Settings.EsiClient.Clones.Implants()));
 			GetAssetsLocations();
 			GetAssetsNames();
-			Fittings = DownloadData<List<Fitting>>("Fittings", ImportedEsiClient.Fittings.List());
+			Fittings = DownloadData<List<Fitting>>("Fittings", Settings.EsiClient.Fittings.List());
 			Console.WriteLine();
 			SaveToFile();
 		}
-
-		//public void GetSkills()
-		//{
-		//	ESI.NET.Models.Skills.SkillDetails details = ImportedEsiClient.Skills.List().Result.Data;
-
-		//	Skills = new SkillDetails(ref SDE);
-		//	foreach (ESI.NET.Models.Skills.Skill s in details.Skills)
-		//	{
-		//		Skill newSkill = new Skill(ref SDE)
-		//		{
-		//			ActiveSkillLevel = s.ActiveSkillLevel,
-		//			SkillId = s.SkillId,
-		//			SkillpointsInSkill = s.SkillpointsInSkill,
-		//			TrainedSkillLevel = s.TrainedSkillLevel
-		//		};
-		//		Skills.Skills.Add(newSkill);
-		//	}
-		//	Skills.TotalSp = details.TotalSp;
-		//	Skills.UnallocatedSp = details.UnallocatedSp;
-		//}
 		public void GetAssetsLocations()
 		{
 			List<long> assetsItemIDs = new List<long>();
@@ -167,7 +93,7 @@ namespace EvEESITool
 			{
 				assetsItemIDs.Add(long.Parse(i.Id));
 			}
-			AssetsLocations = ImportedEsiClient.Assets.LocationsForCharacter(assetsItemIDs).Result.Data;
+			AssetsLocations = Settings.EsiClient.Assets.LocationsForCharacter(assetsItemIDs).Result.Data;
 		}
 		public void GetAssetsNames()
 		{
@@ -176,118 +102,38 @@ namespace EvEESITool
 			{
 				assetsItemIDs.Add(long.Parse(i.Id));
 			}
-			AssetsNames = ImportedEsiClient.Assets.NamesForCharacter(assetsItemIDs).Result.Data;
+			AssetsNames = Settings.EsiClient.Assets.NamesForCharacter(assetsItemIDs).Result.Data;
 		}
-		//public void SaveToFile()
-		//{
-		//	using (StreamWriter file = File.CreateText(SaveFile))
-		//	{
-		//		JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-		//		//serialize object directly into file stream
-		//		serializer.Serialize(file, this);
-		//	}
-		//}
-		public bool LoadFromFile()
+		public override bool ReadInData()
 		{
-			bool result = false;
-			try
+			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				CharacterData temp = new CharacterData(ref ImportedEsiClient, ref Settings, true);
-				using (StreamReader myReader = new StreamReader(SaveFile))
-				{
-					JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-					JsonTextReader reader = new JsonTextReader(myReader);
-					temp = serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
-
-					Information = temp.Information;
-					Skills = temp.Skills;
-					Attributes = temp.Attributes;
-					SkillQueue = temp.SkillQueue;
-					Stats = temp.Stats;
-					Location = temp.Location;
-					Activity = temp.Activity;
-					Ship = temp.Ship;
-					Assets = temp.Assets;
-					AssetsLocations = temp.AssetsLocations;
-					AssetsNames = temp.AssetsNames;
-					Journal = temp.Journal;
-					Transactions = temp.Transactions;
-					Notifications = temp.Notifications;
-					IndustryJobs = temp.IndustryJobs;
-					CharacterID = Settings.AuthorisationData.CharacterID;
-					Wallet = temp.Wallet;
-					Clones = temp.Clones;
-					Implants = temp.Implants;
-					Fittings = temp.Fittings;
-					result = true;
-				}
+				CharacterData temp = Settings.serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
+				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
+				Information = temp.Information;
+				Skills = temp.Skills;
+				Attributes = temp.Attributes;
+				SkillQueue = temp.SkillQueue;
+				Stats = temp.Stats;
+				Location = temp.Location;
+				Activity = temp.Activity;
+				Ship = temp.Ship;
+				Assets = temp.Assets;
+				AssetsLocations = temp.AssetsLocations;
+				AssetsNames = temp.AssetsNames;
+				Journal = temp.Journal;
+				Transactions = temp.Transactions;
+				Notifications = temp.Notifications;
+				IndustryJobs = temp.IndustryJobs;
+				CharacterID = Settings.AuthorisationData.CharacterID;
+				Wallet = temp.Wallet;
+				Clones = temp.Clones;
+				Implants = temp.Implants;
+				Fittings = temp.Fittings;
+				Console.Write(" - successful");
+				Console.WriteLine();
+				return true;
 			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("Loading from file failed.");
-				Console.WriteLine($"Error message : {ex.Message}");
-				result = false;
-			}
-			return result;
 		}
-		//public class SkillDetails
-		//{
-		//	public SkillDetails()
-		//	{
-		//	}
-		//	public SkillDetails(ref SDEData sde)
-		//	{
-		//		SDE = sde;
-		//	}
-		//	[JsonProperty("skills")]
-		//	public List<Skill> Skills { get; set; } = new List<Skill>();
-
-		//	[JsonProperty("total_sp")]
-		//	public long TotalSp { get; set; }
-
-		//	[JsonProperty("unallocated_sp")]
-		//	public int UnallocatedSp { get; set; }
-		//	public override string ToString()
-		//	{
-		//		return TotalSp.ToString("N0") + $" skill points{(UnallocatedSp > 0 ? $", {UnallocatedSp} unallocated" : "")}.";
-		//	}
-		//	[JsonIgnore]
-		//	private SDEData SDE { get; set; }
-		//}
-		//public class Skill
-		//{
-		//	public Skill()
-		//	{
-		//	}
-		//	public Skill(ref SDEData sde)
-		//	{
-		//		SDE = sde;
-		//	}
-		//	[JsonProperty("skill_id")]
-		//	public int SkillId { get; set; }
-
-		//	[JsonProperty("skillpoints_in_skill")]
-		//	public long SkillpointsInSkill { get; set; }
-
-		//	[JsonProperty("trained_skill_level")]
-		//	public int TrainedSkillLevel { get; set; }
-
-		//	[JsonProperty("active_skill_level")]
-		//	public int ActiveSkillLevel { get; set; }
-		//	[JsonIgnore]
-		//	public string SkillName
-		//	{
-		//		get
-		//		{
-		//			return SDE.InvTypes[(long)SkillId].TypeName;
-		//		}
-		//	}
-		//	public override string ToString()
-		//	{
-		//		return SkillName + " " + TrainedSkillLevel;
-		//	}
-		//	[JsonIgnore]
-		//	private SDEData SDE { get; set; }
-		//}
 	}
 }

@@ -41,10 +41,8 @@ namespace EvEESITool
 		{
 
 		}
-		public Authenticator(ref EsiClient input, ref AppSettings settings)
+		public Authenticator(ref AppSettings settings)
 		{
-			
-			_client = input;
 			Settings = settings;
 		}
 		public EsiClient StartAuthenticating()
@@ -56,11 +54,17 @@ namespace EvEESITool
 				Console.WriteLine("Authorization data file exists, loading data.");
 				Console.WriteLine();
 				Console.WriteLine("Obtaining refresh token.");
-				//LoadAuthorisationFile();
-				GetRefreshToken(Settings.AuthorisationData.RefreshToken);
-				while (Settings.AuthorisationData.RefreshToken == null)
+				if (Settings.InternetAccessAvailable)
 				{
-					Task.Delay(50).Wait();
+					GetRefreshToken(Settings.AuthorisationData.RefreshToken);
+					while (Settings.AuthorisationData.RefreshToken == null)
+					{
+						Task.Delay(50).Wait();
+					}
+				}
+				else
+				{
+					Console.WriteLine("No internet access available.  Attempting to load from any files present.");
 				}
 			}
 			else

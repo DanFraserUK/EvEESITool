@@ -43,32 +43,6 @@ namespace EvEESITool
 			this.VolumeTotal = newOrder.VolumeTotal;
 			this.WalletDivision = newOrder.WalletDivision;
 		}
-		public MyOrder(Order newOrder, ref SDEData sde)
-		{
-			this.AccountId = newOrder.AccountId;
-			this.Duration = newOrder.AccountId;
-			this.Escrow = newOrder.AccountId;
-			this.IsBuyOrder = newOrder.IsBuyOrder;
-			this.IsCorp = newOrder.IsCorp;
-			this.IsCorporation = newOrder.IsCorporation;
-			this.Issued = newOrder.Issued;
-			this.LocationId = newOrder.LocationId;
-			this.MinVolume = newOrder.MinVolume;
-			this.OrderId = newOrder.OrderId;
-			this.Price = newOrder.Price;
-			this.Range = newOrder.Range;
-			this.RegionId = newOrder.RegionId;
-			this.State = newOrder.State;
-			this.TypeId = newOrder.TypeId;
-			this.VolumeRemain = newOrder.VolumeRemain;
-			this.VolumeTotal = newOrder.VolumeTotal;
-			this.WalletDivision = newOrder.WalletDivision;
-			//SDE = sde;
-
-			//StationName = SDE.StaStations.ContainsKey(LocationId) ? SDE.StaStations[LocationId].StationName : "Unknown Type";
-			//ItemName = SDE.InvTypes.ContainsKey(TypeId) ? SDE.InvTypes[TypeId].TypeName : "Unknown Type";
-		}
-
 		[JsonIgnore]
 		public string StationName { get; set; }
 		[JsonIgnore]
@@ -77,7 +51,5 @@ namespace EvEESITool
 		{
 			return $"{ItemName}, Price : {Price.ToString("N2")}, Station : {StationName}, Qty : {VolumeRemain}";
 		}
-		//[JsonIgnore]
-		//private SDEData SDE { get; set; }
 	}
 }

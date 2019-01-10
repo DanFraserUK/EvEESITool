@@ -22,8 +22,6 @@ namespace EvEESITool
 {
 	public class Data
 	{
-		//[JsonIgnore]
-		//SDEData SDE;// = new SDEData();
 		[JsonIgnore]
 		public AppSettings Settings;
 		public CharacterData Character;
@@ -31,18 +29,16 @@ namespace EvEESITool
 		public AllianceData Alliance;
 		public MarketData Market;
 		public Authenticator Authenticator;
-		public EsiClient _client;
 		public Data()
 		{
 			// load everything
-			Settings = new AppSettings(ref _client);
-			//SDE = new SDEData(ref Settings);
-			Authenticator = new Authenticator(ref _client, ref Settings);
-			_client = Authenticator.StartAuthenticating();
-			Character = new CharacterData(ref _client, ref Settings);
-			Corporation = new CorporationData(ref _client, ref Settings);
-			Alliance = new AllianceData(ref _client, ref Settings);
-			Market = new MarketData(ref _client, ref Settings);
+			Settings = new AppSettings();
+			Authenticator = new Authenticator(ref Settings);
+			Settings.EsiClient = Authenticator.StartAuthenticating();
+			Character = new CharacterData(ref Settings);
+			Corporation = new CorporationData(ref Settings);
+			Alliance = new AllianceData(ref Settings);
+			Market = new MarketData(ref Settings);
 		}
 	}
 }
