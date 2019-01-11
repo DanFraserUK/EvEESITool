@@ -107,13 +107,9 @@ namespace EvEESITool
 		}
 		private CorporationData(ref AppSettings settings, bool isATempItem) : base(ref settings)
 		{
-			if (isATempItem)
+			CorporationID = Settings.AuthorisationData.CorporationID;
+			if (!isATempItem)
 			{
-				CorporationID = Settings.AuthorisationData.CorporationID;
-			}
-			else
-			{
-				CorporationID = Settings.AuthorisationData.CorporationID;
 				GetData();
 			}
 		}
