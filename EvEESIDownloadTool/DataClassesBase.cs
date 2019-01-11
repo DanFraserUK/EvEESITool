@@ -198,7 +198,7 @@ namespace EvEESITool
 		}
 		public virtual void Download()
 		{
-			throw new NotImplementedException();
+			//	throw new NotImplementedException();
 		}
 		internal virtual bool LoadFromFile()
 		{
@@ -212,7 +212,7 @@ namespace EvEESITool
 				Console.SetCursorPosition(0, Console.CursorTop);
 				Console.WriteLine(("Loading from file failed.").PadRight(SaveFile.Length + 13));
 				Console.WriteLine($"Error message : {ex.Message}");
-				if(!Settings.InternetAccessAvailable)
+				if (!Settings.InternetAccessAvailable)
 				{
 					Console.WriteLine();
 					Console.WriteLine("Well this is a problem isn't it?");

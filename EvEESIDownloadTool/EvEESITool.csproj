@@ -135,6 +135,9 @@
     <Compile Include="CorporationData.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DataClassesBase.cs" />
+    <Compile Include="FleetData.cs" />
+    <Compile Include="FactionWarfareData.cs" />
+    <Compile Include="DogmaData.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="MarketData.cs" />
     <Compile Include="MarketDetailsClass.cs" />

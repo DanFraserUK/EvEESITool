@@ -24,10 +24,15 @@ namespace EvEESITool
 	{
 		[JsonIgnore]
 		public AppSettings Settings;
+
 		public CharacterData Character;
 		public CorporationData Corporation;
 		public AllianceData Alliance;
 		public MarketData Market;
+		public DogmaData Dogma;
+		public FactionWarfareData FactionWarfare;
+		public FleetData Fleets;
+
 		public Authenticator Authenticator;
 		public Data()
 		{
@@ -39,6 +44,9 @@ namespace EvEESITool
 			Corporation = new CorporationData(ref Settings);
 			Alliance = new AllianceData(ref Settings);
 			Market = new MarketData(ref Settings);
+			Dogma = new DogmaData(ref Settings);
+			FactionWarfare = new FactionWarfareData(ref Settings);
+			Fleets = new FleetData(ref Settings);
 		}
 	}
 }

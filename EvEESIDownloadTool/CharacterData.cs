@@ -21,12 +21,20 @@ using ESI.NET.Models.Clones;
 using ESI.NET.Models.Fittings;
 using ESI.NET.Models;
 using AssetsItem = ESI.NET.Models.Assets.Item;
+using ESI.NET.Models.Bookmarks;
+using ESI.NET.Models.Calendar;
+using ESI.NET.Models.FactionWarfare;
+using ESI.NET.Models.Fleets;
 
 namespace EvEESITool
 {
 	public class CharacterData : DataClassesBase
 	{
 		public Information Information { get; private set; } = new Information();
+		public Information GetInformation(int characterID)
+		{
+			return DownloadData<Information>("Information", Settings.EsiClient.Character.Information(characterID));
+		}
 		public SkillDetails Skills { get; private set; } = new SkillDetails();
 		public Attributes Attributes { get; private set; } = new Attributes();
 		public List<SkillQueueItem> SkillQueue { get; set; } = new List<SkillQueueItem>();
@@ -44,11 +52,56 @@ namespace EvEESITool
 		public Clones Clones { get; private set; } = new Clones();
 		public List<int> Implants { get; private set; } = new List<int>();
 		public List<Fitting> Fittings { get; private set; } = new List<Fitting>();
+		public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
+		public List<Folder> BookmarkFolders { get; private set; } = new List<Folder>();
+		public List<Event> CalendarEvents { get; private set; } = new List<Event>();
+		public Event CalendarEvent { get; private set; } = new Event();
+		public List<Character> GetCharacter(int[] characterIDs)
+		{
+			return DownloadData<List<Character>>($"Character{(characterIDs.Length > 1 ? "s" : "")}", Settings.EsiClient.Character.Names(characterIDs));
+		}
+		public List<Character> GetCharacter(List<int> characterIDs)
+		{
+			return DownloadData<List<Character>>($"Character{(characterIDs.Count > 1 ? "s" : "")}", Settings.EsiClient.Character.Names(characterIDs.ToArray()));
+		}
+		public Images Portrait { get; private set; } = new Images();
+		public Images GetPortrait(int characterID)
+		{
+			return DownloadData<Images>("Portrait", Settings.EsiClient.Character.Portrait(characterID));
+		}
+		public List<ESI.NET.Models.Character.Corporation> CorporationHistory { get; private set; } = new List<ESI.NET.Models.Character.Corporation>();
+		public List<ESI.NET.Models.Character.Corporation> GetCorporationHistory(int characterID)
+		{
+			return DownloadData<List<ESI.NET.Models.Character.Corporation>>("Corporation history", Settings.EsiClient.Character.CorporationHistory(characterID)); // /characters/{character_id}/corporationhistory/:public
+		}
+		public List<ChatChannel> ChatChannels { get; private set; } = new List<ChatChannel>();
+		public List<ESI.NET.Models.Character.Medal> Medals { get; private set; } = new List<ESI.NET.Models.Character.Medal>();
+		public List<Standing> Standings { get; private set; } = new List<Standing>();
+		public List<Agent> ResearchAgents { get; private set; } = new List<Agent>();
+		public List<ESI.NET.Models.Character.Blueprint> Blueprints { get; private set; } = new List<ESI.NET.Models.Character.Blueprint>();
+		public Fatigue Fatigue { get; private set; } = new Fatigue();
+		public List<ContactNotification> ContactNotifications { get; private set; } = new List<ContactNotification>();
+		public List<string> Roles { get; private set; } = new List<string>();
+		public List<ESI.NET.Models.Character.Title> Titles { get; private set; } = new List<ESI.NET.Models.Character.Title>();
+		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
+		public List<ESI.NET.Models.Contacts.Label> Labels { get; private set; } = new List<ESI.NET.Models.Contacts.Label>();
+		public List<ESI.NET.Models.Contracts.Contract> Contracts { get; private set; } = new List<ESI.NET.Models.Contracts.Contract>();
+		public List<ESI.NET.Models.Contracts.ContractItem> ContractItems(int contractID)
+		{
+			return DownloadData<List<ESI.NET.Models.Contracts.ContractItem>>("Contract items", Settings.EsiClient.Contracts.CharacterContractItems(contractID, 1));
+		}
+		public List<ESI.NET.Models.Contracts.Bid> ContractBids(int contractID)
+		{
+			return DownloadData<List<ESI.NET.Models.Contracts.Bid>>("Contract bids", Settings.EsiClient.Contracts.CharacterContractBids(contractID, 1));
+		}
+		public Stat FactionWarfareStats { get; private set; } = new Stat();
+		public FleetInfo Fleet { get; private set; } = new FleetInfo();
+
+
+
 		public int CharacterID { get; set; } = 0;
 		public decimal Wallet { get; set; } = 0;
-		/// <summary>
-		/// Do not remove this constructor.  Even though it might say 0 references, it does get referenced!
-		/// </summary>
+
 		[JsonConstructor]
 		internal CharacterData() : base()
 		{
@@ -83,6 +136,31 @@ namespace EvEESITool
 			GetAssetsLocations();
 			GetAssetsNames();
 			Fittings = DownloadData<List<Fitting>>("Fittings", Settings.EsiClient.Fittings.List());
+			Bookmarks = DownloadData<List<Bookmark>>("Bookmarks", Settings.EsiClient.Bookmarks.ForCharacter());
+			BookmarkFolders = DownloadData<List<Folder>>("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCharacter());
+			CalendarEvents = DownloadData<List<Event>>("Calendar events", Settings.EsiClient.Calendar.Events());
+			//Event = DownloadData<Event>("Event", Settings.EsiClient.Calendar.Event());
+			Portrait = DownloadData<Images>("Portrait", Settings.EsiClient.Character.Portrait(CharacterID));
+			CorporationHistory = DownloadData<List<ESI.NET.Models.Character.Corporation>>("Corporation history", Settings.EsiClient.Character.CorporationHistory(CharacterID));
+			ChatChannels = DownloadData<List<ChatChannel>>("Chat channels", Settings.EsiClient.Character.ChatChannels());
+			Medals = DownloadData<List<ESI.NET.Models.Character.Medal>>("Medals", Settings.EsiClient.Character.Medals());
+			Standings = DownloadData<List<Standing>>("Standings", Settings.EsiClient.Character.Standings());
+			ResearchAgents = DownloadData<List<Agent>>("Research agents", Settings.EsiClient.Character.AgentsResearch());
+			Blueprints = DownloadData<List<ESI.NET.Models.Character.Blueprint>>("Blueprints", Settings.EsiClient.Character.Blueprints(1));
+			Fatigue = DownloadData<Fatigue>("Fatigue", Settings.EsiClient.Character.Fatigue());
+			ContactNotifications = DownloadData<List<ContactNotification>>("Contact notifications", Settings.EsiClient.Character.ContactNotifications());
+			Roles = DownloadData<List<string>>("Roles", Settings.EsiClient.Character.Roles());
+			Titles = DownloadData<List<ESI.NET.Models.Character.Title>>("Titles", Settings.EsiClient.Character.Titles());
+			Contacts = DownloadData<List<ESI.NET.Models.Contacts.Contact>>("Contacts", Settings.EsiClient.Contacts.ListForCharacter(1));
+			Labels = DownloadData<List<ESI.NET.Models.Contacts.Label>>("Labels", Settings.EsiClient.Contacts.LabelsForCharacter());
+			Contracts = DownloadData<List<ESI.NET.Models.Contracts.Contract>>("Contracts", Settings.EsiClient.Contracts.CharacterContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
+			FactionWarfareStats = DownloadData<Stat>("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCharacter());
+			Fleet = DownloadData<FleetInfo>("Fleet", Settings.EsiClient.Fleets.FleetInfo());
+
+
+
+
+
 			Console.WriteLine();
 			SaveToFile();
 		}

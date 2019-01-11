@@ -28,6 +28,11 @@ namespace EvEESITool
 	public class AllianceData : DataClassesBase
 	{
 		public Alliance Information { get; private set; } = new Alliance();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="allianceID">ID of the alliance to get information about</param>
+		/// <returns>Information in an Alliance Class</returns>
 		public Alliance GetAlliance(int allianceID)
 		{
 			return DownloadData<Alliance>("Alliance Information", Settings.EsiClient.Alliance.Information(allianceID));
@@ -47,6 +52,10 @@ namespace EvEESITool
 			return DownloadData<List<int>>("Alliance IDs", Settings.EsiClient.Alliance.All()); // /alliances/:public
 
 		}
+		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
+
+
+
 		public int AllianceID { get; set; } = 0;
 		/// <summary>
 		/// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
@@ -65,6 +74,12 @@ namespace EvEESITool
 			Information = DownloadData<Alliance>("Information", Settings.EsiClient.Alliance.Information(AllianceID)); // /alliances/{alliance_id}/:public
 			Corporations = DownloadData<List<int>>("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID)); // /alliances/{alliance_id}/corporations/:public
 			Icons = DownloadData<Images>("Images", Settings.EsiClient.Alliance.Icons(AllianceID)); // /alliances/{alliance_id}/icons/:public
+			Contacts = DownloadData<List<ESI.NET.Models.Contacts.Contact>>("Contacts", Settings.EsiClient.Contacts.ListForAlliance(1));
+
+
+
+
+
 
 			Console.WriteLine();
 			SaveToFile();
