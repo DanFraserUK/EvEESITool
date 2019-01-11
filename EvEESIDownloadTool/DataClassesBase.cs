@@ -63,19 +63,26 @@ namespace EvEESITool
 				if (workingObject.Status == TaskStatus.RanToCompletion)
 				{
 					var data = workingObject.Result;
-					if (data.Data.GetType() == typeof(int))
+					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
 					{
-						result = int.Parse(data.Message);
-					}
-					else if (data.Data.GetType() == typeof(decimal))
-					{
-						result = decimal.Parse(data.Message);
+						if (data.Data.GetType() == typeof(int))
+						{
+							result = int.Parse(data.Message);
+						}
+						else if (data.Data.GetType() == typeof(decimal))
+						{
+							result = decimal.Parse(data.Message);
+						}
+						else
+						{
+							result = data.Data;
+						}
+						Console.WriteLine($"Downloaded {objectName}");
 					}
 					else
 					{
-						result = data.Data;
+						Console.WriteLine($"No data found for {objectName}");
 					}
-					Console.WriteLine($"Downloaded {objectName}");
 				}
 				else
 				{

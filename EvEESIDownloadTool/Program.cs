@@ -28,9 +28,13 @@ namespace EvEESITool
 	{
 		static void Main(string[] args)
 		{
-			//Data esiData = new Data();
+			Data esiData = new Data();
+
+			// example
+			ESI.NET.Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
 
 			Console.WriteLine("Press a key to end");
+
 			Console.ReadKey();
 		}
 	}

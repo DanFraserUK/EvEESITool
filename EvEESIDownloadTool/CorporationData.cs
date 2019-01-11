@@ -186,9 +186,20 @@ namespace EvEESITool
 				Titles = temp.Titles;
 				NPCCorps = temp.NPCCorps;
 				CorporationID = temp.CorporationID;
+				Bookmarks = temp.Bookmarks;
+				BookmarkFolders = temp.BookmarkFolders;
+				Contacts = temp.Contacts;
+				Labels = temp.Labels;
+				Contracts = temp.Contracts;
+				Standings = temp.Standings;
+				FactionWarfareStats = temp.FactionWarfareStats;
+
+
+
+
 				Console.Write(" - successful");
 				Console.WriteLine();
-				Console.Write(".");
+				Console.WriteLine();
 
 				return true;
 			}

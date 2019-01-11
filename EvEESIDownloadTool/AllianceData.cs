@@ -66,8 +66,11 @@ namespace EvEESITool
 		}
 		internal AllianceData(ref AppSettings settings) : base(ref settings)
 		{
-			AllianceID = Settings.AuthorisationData.CharacterID;
-			GetData();
+			AllianceID = Settings.AuthorisationData.AllianceID;
+			if (AllianceID > 0)
+			{
+				GetData();
+			}
 		}
 		public override void Download()
 		{

@@ -208,8 +208,32 @@ namespace EvEESITool
 				Clones = temp.Clones;
 				Implants = temp.Implants;
 				Fittings = temp.Fittings;
+				Bookmarks = temp.Bookmarks;
+				BookmarkFolders = temp.BookmarkFolders;
+				CalendarEvents = temp.CalendarEvents;
+				Portrait = temp.Portrait;
+				CorporationHistory = temp.CorporationHistory;
+				ChatChannels = temp.ChatChannels;
+				Medals = temp.Medals;
+				Standings = temp.Standings;
+				ResearchAgents = temp.ResearchAgents;
+				Blueprints = temp.Blueprints;
+				Fatigue = temp.Fatigue;
+				ContactNotifications = temp.ContactNotifications;
+				Roles = temp.Roles;
+				Titles = temp.Titles;
+				Contacts = temp.Contacts;
+				Labels = temp.Labels;
+				Contracts = temp.Contracts;
+				FactionWarfareStats = temp.FactionWarfareStats;
+				Fleet = temp.Fleet;
+
+
+
 				Console.Write(" - successful");
 				Console.WriteLine();
+				Console.WriteLine();
+
 				return true;
 			}
 		}

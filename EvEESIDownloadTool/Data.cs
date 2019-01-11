@@ -37,7 +37,7 @@ namespace EvEESITool
 		public Data()
 		{
 			// load everything
-			Settings = new AppSettings();
+			Settings = new AppSettings(true);
 			Authenticator = new Authenticator(ref Settings);
 			Settings.EsiClient = Authenticator.StartAuthenticating();
 			Character = new CharacterData(ref Settings);
