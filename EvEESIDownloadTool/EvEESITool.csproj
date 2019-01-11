@@ -329,6 +329,7 @@
     <Compile Include="FactionWarfareData.cs" />
     <Compile Include="DogmaData.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="IncursionsData.cs" />
     <Compile Include="MarketData.cs" />
     <Compile Include="MarketDetailsClass.cs" />
     <Compile Include="MarketDetailsContainer.cs" />

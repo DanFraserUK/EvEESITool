@@ -1,26 +1,6 @@
-﻿using EvEESITool;
-using EvEESITool.Enumerations;
-using EvEESITool.Models.Assets;
-using EvEESITool.Models.Character;
-using EvEESITool.Models.Corporation;
-using EvEESITool.Models.Industry;
-using EvEESITool.Models.Location;
-using EvEESITool.Models.Market;
-using EvEESITool.Models.SSO;
-using EvEESITool.Models.Wallet;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using System.Linq;
+﻿using System;
+
 using EvEESITool.Models.Skills;
-using EvEESITool.Models.Clones;
-using EvEESITool.Models.Fittings;
-using EvEESITool.Models;
-using System.Reflection;
 
 namespace EvEESITool
 {
@@ -30,8 +10,15 @@ namespace EvEESITool
 		{
 			Data esiData = new Data();
 
-			// example
+			// examples
+			int characterID = esiData.Character.CharacterID;
+
+			SkillDetails skills = esiData.Character.Skills;
+
 			Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
+
+
+			// place a breakpoint below to hold the program to have a good look through the local items.
 
 			Console.WriteLine("Press a key to end");
 
