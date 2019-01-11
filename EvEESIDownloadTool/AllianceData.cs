@@ -1,13 +1,13 @@
-﻿using ESI.NET;
-using ESI.NET.Enumerations;
-using ESI.NET.Models.Assets;
-using ESI.NET.Models.Character;
-using ESI.NET.Models.Corporation;
-using ESI.NET.Models.Industry;
-using ESI.NET.Models.Location;
-using ESI.NET.Models.Market;
-using ESI.NET.Models.SSO;
-using ESI.NET.Models.Wallet;
+﻿using EvEESITool;
+using EvEESITool.Enumerations;
+using EvEESITool.Models.Assets;
+using EvEESITool.Models.Character;
+using EvEESITool.Models.Corporation;
+using EvEESITool.Models.Industry;
+using EvEESITool.Models.Location;
+using EvEESITool.Models.Market;
+using EvEESITool.Models.SSO;
+using EvEESITool.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,12 +16,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using ESI.NET.Models.Skills;
-using ESI.NET.Models.Clones;
-using ESI.NET.Models.Fittings;
-using ESI.NET.Models;
+using EvEESITool.Models.Skills;
+using EvEESITool.Models.Clones;
+using EvEESITool.Models.Fittings;
+using EvEESITool.Models;
 using System.Reflection;
-using ESI.NET.Models.Alliance;
+using EvEESITool.Models.Alliance;
 
 namespace EvEESITool
 {
@@ -35,24 +35,24 @@ namespace EvEESITool
 		/// <returns>Information in an Alliance Class</returns>
 		public Alliance GetAlliance(int allianceID)
 		{
-			return DownloadData<Alliance>("Alliance Information", Settings.EsiClient.Alliance.Information(allianceID));
+			return DownloadData("Alliance Information", Settings.EsiClient.Alliance.Information(allianceID));
 		}
 		public List<int> Corporations { get; private set; } = new List<int>();
 		public List<int> GetCorporations(int allianceID)
 		{
-			return DownloadData<List<int>>("Alliance Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID));
+			return DownloadData("Alliance Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID));
 		}
 		public Images Icons { get; private set; } = new Images();
 		public Images GetIcons(int allianceID)
 		{
-			return DownloadData<Images>("Images", Settings.EsiClient.Alliance.Icons(AllianceID));
+			return DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID));
 		}
 		public List<int> GetAllianceIDs()
 		{
-			return DownloadData<List<int>>("Alliance IDs", Settings.EsiClient.Alliance.All()); // /alliances/:public
+			return DownloadData("Alliance IDs", Settings.EsiClient.Alliance.All()); // /alliances/:public
 
 		}
-		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
+		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
 
 
 
@@ -74,10 +74,10 @@ namespace EvEESITool
 		}
 		public override void Download()
 		{
-			Information = DownloadData<Alliance>("Information", Settings.EsiClient.Alliance.Information(AllianceID)); // /alliances/{alliance_id}/:public
-			Corporations = DownloadData<List<int>>("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID)); // /alliances/{alliance_id}/corporations/:public
-			Icons = DownloadData<Images>("Images", Settings.EsiClient.Alliance.Icons(AllianceID)); // /alliances/{alliance_id}/icons/:public
-			Contacts = DownloadData<List<ESI.NET.Models.Contacts.Contact>>("Contacts", Settings.EsiClient.Contacts.ListForAlliance(1));
+			Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(AllianceID)); // /alliances/{alliance_id}/:public
+			Corporations = DownloadData("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID)); // /alliances/{alliance_id}/corporations/:public
+			Icons = DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID)); // /alliances/{alliance_id}/icons/:public
+			Contacts = DownloadData("Contacts", Settings.EsiClient.Contacts.ListForAlliance(1));
 
 
 

@@ -1,13 +1,13 @@
-﻿using ESI.NET;
-using ESI.NET.Enumerations;
-using ESI.NET.Models.Assets;
-using ESI.NET.Models.Character;
-using ESI.NET.Models.Corporation;
-using ESI.NET.Models.Industry;
-using ESI.NET.Models.Location;
-using ESI.NET.Models.Market;
-using ESI.NET.Models.SSO;
-using ESI.NET.Models.Wallet;
+﻿using EvEESITool;
+using EvEESITool.Enumerations;
+using EvEESITool.Models.Assets;
+using EvEESITool.Models.Character;
+using EvEESITool.Models.Corporation;
+using EvEESITool.Models.Industry;
+using EvEESITool.Models.Location;
+using EvEESITool.Models.Market;
+using EvEESITool.Models.SSO;
+using EvEESITool.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,10 +16,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using ESI.NET.Models.Skills;
-using ESI.NET.Models.Clones;
-using ESI.NET.Models.Fittings;
-using ESI.NET.Models;
+using EvEESITool.Models.Skills;
+using EvEESITool.Models.Clones;
+using EvEESITool.Models.Fittings;
+using EvEESITool.Models;
 using System.Reflection;
 
 namespace EvEESITool
@@ -42,7 +42,7 @@ namespace EvEESITool
 		{
 			Settings = settings;
 		}
-		internal T DownloadData<T>(string objectName, Task<ESI.NET.EsiResponse<T>> func)
+		internal T DownloadData<T>(string objectName, Task<EsiResponse<T>> func)
 		{
 			var workingObject = func;
 			dynamic result = default(T);
@@ -65,11 +65,11 @@ namespace EvEESITool
 					var data = workingObject.Result;
 					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
 					{
-						if (data.Data.GetType() == typeof(int))
+						if (data.Data!=null&&data.Data.GetType() == typeof(int))
 						{
 							result = int.Parse(data.Message);
 						}
-						else if (data.Data.GetType() == typeof(decimal))
+						else if (data.Data != null && data.Data.GetType() == typeof(decimal))
 						{
 							result = decimal.Parse(data.Message);
 						}
@@ -99,7 +99,7 @@ namespace EvEESITool
 		/// </summary>
 		/// <param name="objectName"></param>
 		/// <param name="func"></param>
-		internal T DownloadDataWithPages<T>(string objectName, Task<ESI.NET.EsiResponse<T>> func)
+		internal T DownloadDataWithPages<T>(string objectName, Task<EsiResponse<T>> func)
 		{
 			var workingObject = func;
 			dynamic result;
@@ -231,7 +231,10 @@ namespace EvEESITool
 		}
 		public int FileAge(string filePath)
 		{
-			return DateTime.Now.Subtract(new FileInfo(filePath).CreationTime).Minutes;
+			// Got this working correctly now.
+			int result = DateTime.Now.Subtract(new FileInfo(filePath).LastWriteTime).Minutes;
+			result += DateTime.Now.Subtract(new FileInfo(filePath).LastWriteTime).Hours * 60;
+			return result;
 		}
 		public virtual bool ReadInData()
 		{

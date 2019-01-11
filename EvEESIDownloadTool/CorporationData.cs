@@ -1,13 +1,13 @@
-﻿using ESI.NET;
-using ESI.NET.Enumerations;
-using ESI.NET.Models.Assets;
-//using ESI.NET.Models.Character;
-using ESI.NET.Models.Corporation;
-using ESI.NET.Models.Industry;
-using ESI.NET.Models.Location;
-using ESI.NET.Models.Market;
-using ESI.NET.Models.SSO;
-using ESI.NET.Models.Wallet;
+﻿using EvEESITool;
+using EvEESITool.Enumerations;
+using EvEESITool.Models.Assets;
+//using EvEESITool.Models.Character;
+using EvEESITool.Models.Corporation;
+using EvEESITool.Models.Industry;
+using EvEESITool.Models.Location;
+using EvEESITool.Models.Market;
+using EvEESITool.Models.SSO;
+using EvEESITool.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,14 +16,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using ESI.NET.Models.Skills;
-using ESI.NET.Models.Clones;
-using ESI.NET.Models.Fittings;
-using ESI.NET.Models;
-using AssetsItem = ESI.NET.Models.Assets.Item;
-using ESI.NET.Models.Bookmarks;
-using ESI.NET.Models.Calendar;
-using ESI.NET.Models.FactionWarfare;
+using EvEESITool.Models.Skills;
+using EvEESITool.Models.Clones;
+using EvEESITool.Models.Fittings;
+using EvEESITool.Models;
+using AssetsItem = EvEESITool.Models.Assets.Item;
+using EvEESITool.Models.Bookmarks;
+using EvEESITool.Models.Calendar;
+using EvEESITool.Models.FactionWarfare;
 
 namespace EvEESITool
 {
@@ -32,21 +32,21 @@ namespace EvEESITool
 		public Corporation Information { get; private set; } = new Corporation();
 		public Corporation GetInformation(int corporationID)
 		{
-			return DownloadData<Corporation>("Information", Settings.EsiClient.Corporation.Information(corporationID));
+			return DownloadData("Information", Settings.EsiClient.Corporation.Information(corporationID));
 		}
 		public List<AllianceHistory> AllianceHistory { get; private set; } = new List<AllianceHistory>();
 		public List<AllianceHistory> GetAllianceHistory(int corporationID)
 		{
-			return DownloadData<List<AllianceHistory>>("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(corporationID)); // /corporations/{corporation_id}/alliancehistory/:public
+			return DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(corporationID)); // /corporations/{corporation_id}/alliancehistory/:public
 		}
 		public List<Blueprint> Blueprints { get; private set; } = new List<Blueprint>();
 		public List<ContainerLog> ContainerLogs { get; private set; } = new List<ContainerLog>();
 		public Divisions Divisions { get; private set; } = new Divisions();
-		public List<ESI.NET.Models.Corporation.Facility> Facilities { get; private set; } = new List<ESI.NET.Models.Corporation.Facility>();
+		public List<Models.Corporation.Facility> Facilities { get; private set; } = new List<Models.Corporation.Facility>();
 		public Images Icons { get; private set; } = new Images();
 		public Images GetIcons(int corporationID)
 		{
-			return DownloadData<Images>("Icons", Settings.EsiClient.Corporation.Icons(corporationID)); // /corporations/{corporation_id}/icons/:public
+			return DownloadData("Icons", Settings.EsiClient.Corporation.Icons(corporationID)); // /corporations/{corporation_id}/icons/:public
 		}
 		public List<Medal> Medals { get; private set; } = new List<Medal>();
 		public List<IssuedMedal> IssuedMedals { get; private set; } = new List<IssuedMedal>();
@@ -61,27 +61,27 @@ namespace EvEESITool
 		public List<Starbase> Starbases { get; private set; } = new List<Starbase>();
 		public StarbaseInfo StarbaseInfo(int starbaseID, int systemID)// { get; private set; } = new List<StarbaseInfo>();
 		{
-			return DownloadData<StarbaseInfo>("Starbase information", Settings.EsiClient.Corporation.Starbase(starbaseID, systemID));
+			return DownloadData("Starbase information", Settings.EsiClient.Corporation.Starbase(starbaseID, systemID));
 		}
 		public List<Structure> Structures { get; private set; } = new List<Structure>();
 		public List<Title> Titles { get; private set; } = new List<Title>();
 		public List<int> NPCCorps { get; private set; } = new List<int>();
 		public List<int> GetNPCCorps()
 		{
-			return DownloadData<List<int>>("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps()); // /corporations/npccorps/:public
+			return DownloadData("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps()); // /corporations/npccorps/:public
 		}
 		public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
 		public List<Folder> BookmarkFolders { get; private set; } = new List<Folder>();
-		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
-		public List<ESI.NET.Models.Contacts.Label> Labels { get; private set; } = new List<ESI.NET.Models.Contacts.Label>();
-		public List<ESI.NET.Models.Contracts.Contract> Contracts { get; private set; } = new List<ESI.NET.Models.Contracts.Contract>();
-		public List<ESI.NET.Models.Contracts.ContractItem> ContractItems(int contractID)
+		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
+		public List<Models.Contacts.Label> Labels { get; private set; } = new List<Models.Contacts.Label>();
+		public List<Models.Contracts.Contract> Contracts { get; private set; } = new List<Models.Contracts.Contract>();
+		public List<Models.Contracts.ContractItem> ContractItems(int contractID)
 		{
-			return DownloadData<List<ESI.NET.Models.Contracts.ContractItem>>("Contract items", Settings.EsiClient.Contracts.CorporationContractItems(contractID, 1));
+			return DownloadData("Contract items", Settings.EsiClient.Contracts.CorporationContractItems(contractID, 1));
 		}
-		public List<ESI.NET.Models.Contracts.Bid> ContractBids(int contractID)
+		public List<Models.Contracts.Bid> ContractBids(int contractID)
 		{
-			return DownloadData<List<ESI.NET.Models.Contracts.Bid>>("Contract bids", Settings.EsiClient.Contracts.CorporationContractBids(contractID, 1));
+			return DownloadData("Contract bids", Settings.EsiClient.Contracts.CorporationContractBids(contractID, 1));
 		}
 		public Stat FactionWarfareStats { get; private set; } = new Stat();
 
@@ -119,39 +119,39 @@ namespace EvEESITool
 		}
 		public override void Download()
 		{
-			Information = DownloadData<Corporation>("Information", Settings.EsiClient.Corporation.Information(CorporationID));
-			AllianceHistory = DownloadData<List<AllianceHistory>>("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(CorporationID));
-			Blueprints = DownloadData<List<Blueprint>>("Blueprints", Settings.EsiClient.Corporation.Blueprints(1));
-			ContainerLogs = DownloadData<List<ContainerLog>>("Container logs", Settings.EsiClient.Corporation.ContainerLogs(1));
-			Divisions = DownloadData<Divisions>("Divisions", Settings.EsiClient.Corporation.Divisions());
-			Facilities = DownloadData<List<ESI.NET.Models.Corporation.Facility>>("Facilities", Settings.EsiClient.Corporation.Facilities());
-			Icons = DownloadData<Images>("Images", Settings.EsiClient.Corporation.Icons(CorporationID));
-			Medals = DownloadData<List<Medal>>("Medals", Settings.EsiClient.Corporation.Medals(1));
-			IssuedMedals = DownloadData<List<IssuedMedal>>("Issued medals", Settings.EsiClient.Corporation.MedalsIssued(1));
+			Information = DownloadData("Information", Settings.EsiClient.Corporation.Information(CorporationID));
+			AllianceHistory = DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(CorporationID));
+			Blueprints = DownloadData("Blueprints", Settings.EsiClient.Corporation.Blueprints(1));
+			ContainerLogs = DownloadData("Container logs", Settings.EsiClient.Corporation.ContainerLogs(1));
+			Divisions = DownloadData("Divisions", Settings.EsiClient.Corporation.Divisions());
+			Facilities = DownloadData("Facilities", Settings.EsiClient.Corporation.Facilities());
+			Icons = DownloadData("Images", Settings.EsiClient.Corporation.Icons(CorporationID));
+			Medals = DownloadData("Medals", Settings.EsiClient.Corporation.Medals(1));
+			IssuedMedals = DownloadData("Issued medals", Settings.EsiClient.Corporation.MedalsIssued(1));
 
 			// todo figure this call out - there's an array not being deserialized properly
 			//Members = DownloadData<List<Member>>("Members", Settings.EsiClient.Corporation.Members());
 
-			MemberLimit = DownloadData<int>("Member Limit", Settings.EsiClient.Corporation.MemberLimit());
-			MemberTitles = DownloadData<List<MemberTitles>>("Member titles", Settings.EsiClient.Corporation.MemberTitles());
-			MemberTracking = DownloadData<List<MemberInfo>>("Member tracking", Settings.EsiClient.Corporation.MemberTracking());
-			Roles = DownloadData<List<CharacterRoles>>("Roles", Settings.EsiClient.Corporation.Roles());
-			RolesHistory = DownloadData<List<CharacterRolesHistory>>("Roles history", Settings.EsiClient.Corporation.RolesHistory());
-			Shareholders = DownloadData<List<Shareholder>>("Shareholders", Settings.EsiClient.Corporation.Shareholders(1));
+			MemberLimit = DownloadData("Member Limit", Settings.EsiClient.Corporation.MemberLimit());
+			MemberTitles = DownloadData("Member titles", Settings.EsiClient.Corporation.MemberTitles());
+			MemberTracking = DownloadData("Member tracking", Settings.EsiClient.Corporation.MemberTracking());
+			Roles = DownloadData("Roles", Settings.EsiClient.Corporation.Roles());
+			RolesHistory = DownloadData("Roles history", Settings.EsiClient.Corporation.RolesHistory());
+			Shareholders = DownloadData("Shareholders", Settings.EsiClient.Corporation.Shareholders(1));
 			// todo - yeah, this is one of those paginated items
 			//Standings = DownloadData<List<Standing>>("Standings", Settings.EsiClient.Corporation.Standings(1));
-			Starbases = DownloadData<List<Starbase>>("Starbases", Settings.EsiClient.Corporation.Starbases());
+			Starbases = DownloadData("Starbases", Settings.EsiClient.Corporation.Starbases());
 			// todo paginated
-			Structures = DownloadData<List<Structure>>("Structures", Settings.EsiClient.Corporation.Structures(1));
-			Titles = DownloadData<List<Title>>("Titles", Settings.EsiClient.Corporation.Titles());
-			NPCCorps = DownloadData<List<int>>("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps());
-			Bookmarks = DownloadData<List<Bookmark>>("Bookmarks", Settings.EsiClient.Bookmarks.ForCorporation()); // /characters/{character_id}/bookmarks/:esi-bookmarks.read_character_bookmarks.v1
-			BookmarkFolders = DownloadData<List<Folder>>("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCorporation());
-			Contacts = DownloadData<List<ESI.NET.Models.Contacts.Contact>>("Contacts", Settings.EsiClient.Contacts.ListForCorporation(1));
-			Labels = DownloadData<List<ESI.NET.Models.Contacts.Label>>("Labels", Settings.EsiClient.Contacts.LabelsForCorporation());
-			Contracts = DownloadData<List<ESI.NET.Models.Contracts.Contract>>("Contracts", Settings.EsiClient.Contracts.CorporationContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
-			Standings = DownloadData<Standing>("Standings", Settings.EsiClient.Corporation.Standings(1));
-			FactionWarfareStats = DownloadData<Stat>("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCorporation());
+			Structures = DownloadData("Structures", Settings.EsiClient.Corporation.Structures(1));
+			Titles = DownloadData("Titles", Settings.EsiClient.Corporation.Titles());
+			NPCCorps = DownloadData("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps());
+			Bookmarks = DownloadData("Bookmarks", Settings.EsiClient.Bookmarks.ForCorporation()); // /characters/{character_id}/bookmarks/:esi-bookmarks.read_character_bookmarks.v1
+			BookmarkFolders = DownloadData("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCorporation());
+			Contacts = DownloadData("Contacts", Settings.EsiClient.Contacts.ListForCorporation(1));
+			Labels = DownloadData("Labels", Settings.EsiClient.Contacts.LabelsForCorporation());
+			Contracts = DownloadData("Contracts", Settings.EsiClient.Contracts.CorporationContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
+			Standings = DownloadData("Standings", Settings.EsiClient.Corporation.Standings(1));
+			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCorporation());
 
 
 

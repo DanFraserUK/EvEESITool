@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ESI.NET.Models.Fleets;
+using EvEESITool.Models.Fleets;
 using Newtonsoft.Json;
 
 namespace EvEESITool
@@ -12,15 +12,15 @@ namespace EvEESITool
 	{
 		public Settings FleetSettings(int fleetID)// { get; private set; } = new Settings();
 		{
-			return DownloadData<Settings>("Fleet settings", Settings.EsiClient.Fleets.Settings(fleetID));
+			return DownloadData("Fleet settings", Settings.EsiClient.Fleets.Settings(fleetID));
 		}
 		public List<Member> Members(int fleetID)// { get; private set; } = new List<Member>();
 		{
-			return DownloadData<List<Member>>("Members", Settings.EsiClient.Fleets.Members(fleetID)); // /fleets/{fleet_id}/members/:esi-fleets.read_fleet.v1
+			return DownloadData("Members", Settings.EsiClient.Fleets.Members(fleetID)); // /fleets/{fleet_id}/members/:esi-fleets.read_fleet.v1
 		}
 		public List<Wing> Wings(int fleetID)// { get; private set; } = new List<Member>();
 		{
-			return DownloadData<List<Wing>>("Wings", Settings.EsiClient.Fleets.Wings(fleetID)); // /fleets/{fleet_id}/members/:esi-fleets.read_fleet.v1
+			return DownloadData("Wings", Settings.EsiClient.Fleets.Wings(fleetID)); // /fleets/{fleet_id}/members/:esi-fleets.read_fleet.v1
 		}
 
 		/// <summary>

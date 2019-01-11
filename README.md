@@ -4,7 +4,7 @@
 
 This tool will do all of the work for you in downloading data from the EvE Swagger Interface.
 
-[ESI.NET](https://github.com/seraphx2/ESI.NET) by [https://github.com/seraphx2](seraphx2) is used to assist with accessing the EvE Swagger Interface.
+[EvEESITool](https://github.com/seraphx2/EvEESITool) by [https://github.com/seraphx2](seraphx2) is used to assist with accessing the EvE Swagger Interface.
 
 ## Setting up for first use
 

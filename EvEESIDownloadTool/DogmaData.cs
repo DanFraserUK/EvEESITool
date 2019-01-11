@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ESI.NET.Models.Dogma;
+using EvEESITool.Models.Dogma;
 using Newtonsoft.Json;
 
 namespace EvEESITool
@@ -12,19 +12,19 @@ namespace EvEESITool
 	{
 		public List<int> GetAttributes()
 		{
-			return DownloadData<List<int>>("Attributes", Settings.EsiClient.Dogma.Attributes()); // /dogma/attributes/:public
+			return DownloadData("Attributes", Settings.EsiClient.Dogma.Attributes()); // /dogma/attributes/:public
 		}
-		public ESI.NET.Models.Dogma.Attribute GetAttribute(int attributeID)
+		public Models.Dogma.Attribute GetAttribute(int attributeID)
 		{
-			return DownloadData<ESI.NET.Models.Dogma.Attribute>("Attribute", Settings.EsiClient.Dogma.Attribute(attributeID)); // /dogma/attributes/{attribute_id}/:public
+			return DownloadData("Attribute", Settings.EsiClient.Dogma.Attribute(attributeID)); // /dogma/attributes/{attribute_id}/:public
 		}
 		public List<int> GetEffects()
 		{
-			return DownloadData<List<int>>("NAME", Settings.EsiClient.Dogma.Effects()); // /dogma/effects/:public
+			return DownloadData("NAME", Settings.EsiClient.Dogma.Effects()); // /dogma/effects/:public
 		}
 		public Effect GetEffect(int effectID)
 		{
-			return DownloadData<Effect>("NAME", Settings.EsiClient.Dogma.Effect(effectID)); // /dogma/effects/{effect_id}/:public
+			return DownloadData("NAME", Settings.EsiClient.Dogma.Effect(effectID)); // /dogma/effects/{effect_id}/:public
 		}
 
 		/// <summary>

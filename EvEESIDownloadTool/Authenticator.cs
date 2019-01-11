@@ -1,13 +1,13 @@
-﻿using ESI.NET;
-using ESI.NET.Enumerations;
-using ESI.NET.Models.Assets;
-using ESI.NET.Models.Character;
-using ESI.NET.Models.Corporation;
-using ESI.NET.Models.Industry;
-using ESI.NET.Models.Location;
-using ESI.NET.Models.Market;
-using ESI.NET.Models.SSO;
-using ESI.NET.Models.Wallet;
+﻿using EvEESITool;
+using EvEESITool.Enumerations;
+using EvEESITool.Models.Assets;
+using EvEESITool.Models.Character;
+using EvEESITool.Models.Corporation;
+using EvEESITool.Models.Industry;
+using EvEESITool.Models.Location;
+using EvEESITool.Models.Market;
+using EvEESITool.Models.SSO;
+using EvEESITool.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using ESI.NET.Models.Skills;
+using EvEESITool.Models.Skills;
 
 namespace EvEESITool
 {
@@ -49,32 +49,33 @@ namespace EvEESITool
 		{
 			Setup();
 			Console.WriteLine();
-			if (Settings.LoadedFromFile)
+			if (!Settings.SkipAuthenticating)
 			{
-				Console.WriteLine("Authorization data file exists, loading data.");
-				Console.WriteLine();
-				Console.WriteLine("Obtaining refresh token.");
-				if (Settings.InternetAccessAvailable)
+				if (Settings.LoadedFromFile)
 				{
-					GetRefreshToken(Settings.AuthorisationData.RefreshToken);
-					while (Settings.AuthorisationData.RefreshToken == null)
+					Console.WriteLine("Authorization data file exists, loading data.");
+					Console.WriteLine();
+					Console.WriteLine("Obtaining refresh token.");
+					if (Settings.InternetAccessAvailable)
 					{
-						Task.Delay(50).Wait();
+						GetRefreshToken(Settings.AuthorisationData.RefreshToken);
+						while (Settings.AuthorisationData.RefreshToken == null)
+						{
+							Task.Delay(50).Wait();
+						}
+					}
+					else
+					{
+						Console.WriteLine("No internet access available.  Attempting to load from any files present.");
 					}
 				}
 				else
 				{
-					Console.WriteLine("No internet access available.  Attempting to load from any files present.");
+					CreateUrl();
+					GetCode();
+					InitialSSOTokenRequest();
 				}
 			}
-			else
-			{
-				CreateUrl();
-				GetCode();
-				InitialSSOTokenRequest();
-			}
-
-			url += " ";
 			AuthenticationStepsComplete = true;
 			return _client;
 		}
@@ -119,6 +120,7 @@ namespace EvEESITool
 
 			_client = new EsiClient(config);
 			Console.WriteLine("Created EsiClient object.");
+			Console.WriteLine();
 		}
 
 		public void CreateUrl()
