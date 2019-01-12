@@ -70,7 +70,8 @@ namespace EvEESITool
 		{
 			return DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(characterID)); // /characters/{character_id}/corporationhistory/:public
 		}
-		public List<ChatChannel> ChatChannels { get; private set; } = new List<ChatChannel>();
+		// disabled
+		//public List<ChatChannel> ChatChannels { get; private set; } = new List<ChatChannel>();
 		public List<Medal> Medals { get; private set; } = new List<Medal>();
 		public List<Standing> Standings { get; private set; } = new List<Standing>();
 		public List<Agent> ResearchAgents { get; private set; } = new List<Agent>();
@@ -144,7 +145,8 @@ namespace EvEESITool
 			CalendarEvents = DownloadData("Calendar events", Settings.EsiClient.Calendar.Events());
 			Portrait = DownloadData("Portrait", Settings.EsiClient.Character.Portrait(CharacterID));
 			CorporationHistory = DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(CharacterID));
-			ChatChannels = DownloadData("Chat channels", Settings.EsiClient.Character.ChatChannels());
+			// disabled because of chat servers being borked i guess
+			//ChatChannels = DownloadData("Chat channels", Settings.EsiClient.Character.ChatChannels());
 			Medals = DownloadData("Medals", Settings.EsiClient.Character.Medals());
 			Standings = DownloadData("Standings", Settings.EsiClient.Character.Standings());
 			ResearchAgents = DownloadData("Research agents", Settings.EsiClient.Character.AgentsResearch());
@@ -218,7 +220,6 @@ namespace EvEESITool
 				CalendarEvents = temp.CalendarEvents;
 				Portrait = temp.Portrait;
 				CorporationHistory = temp.CorporationHistory;
-				ChatChannels = temp.ChatChannels;
 				Medals = temp.Medals;
 				Standings = temp.Standings;
 				ResearchAgents = temp.ResearchAgents;
