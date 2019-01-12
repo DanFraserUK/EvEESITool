@@ -22,10 +22,6 @@ namespace EvEESITool
 {
 	public class Enums
 	{
-		public enum By
-		{
-			Downloading,
-			Reading
-		}
+		
 	}
 }

@@ -27,6 +27,7 @@ using ESI.NET.Models.Fleets;
 using ESI.NET.Models.Killmails;
 using ESI.NET.Models.Loyalty;
 using ESI.NET.Models.Mail;
+using ESI.NET.Models.PlanetaryInteraction;
 
 namespace EvEESITool
 {
@@ -45,8 +46,14 @@ namespace EvEESITool
 		public Activity Activity { get; private set; } = new Activity();
 		public Ship Ship { get; private set; } = new Ship();
 		public List<AssetsItem> Assets { get; private set; } = new List<AssetsItem>();
-		public List<ItemLocation> AssetsLocations { get; private set; } = new List<ItemLocation>();
-		public List<ItemName> AssetsNames { get; private set; } = new List<ItemName>();
+		public List<ItemLocation> AssetsLocations(List<long> assetsItemID)// { get; private set; } = new List<ItemLocation>();
+		{
+			return DownloadData("Asset location", Settings.EsiClient.Assets.LocationsForCharacter(assetsItemID));
+		}
+		public List<ItemName> AssetsNames(List<long> assetsItemID)// { get; private set; } = new List<ItemName>();
+		{
+			return DownloadData("Asset name", Settings.EsiClient.Assets.NamesForCharacter(assetsItemID));
+		}
 		public List<JournalEntry> Journal { get; private set; } = new List<JournalEntry>();
 		public List<Transaction> Transactions { get; private set; } = new List<Transaction>();
 		public List<Notification> Notifications { get; private set; } = new List<Notification>();
@@ -100,6 +107,17 @@ namespace EvEESITool
 		//private MailData Mail { get; set; } = new MailData();
 		//public List<Message> Mails { get; private set; } = new List<Message>();
 		public List<Order> MarketOrders { get; private set; } = new List<Order>();
+		public List<Planet> Planets { get; private set; } = new List<Planet>();
+		public ColonyLayout ColonyLayout(int planetID)// { get; private set; } = new ColonyLayout();
+		{
+			return DownloadData("Colony layout", Settings.EsiClient.PlanetaryInteraction.ColonyLayout(planetID));
+		}
+		public Schematic SchematicInformation { get; private set; } = new Schematic();
+		public Schematic GetSchematicInformation(int schematicID)
+		{
+			return DownloadData("Schematic information", Settings.EsiClient.PlanetaryInteraction.SchematicInformation(schematicID));
+		}
+
 
 
 
@@ -139,8 +157,6 @@ namespace EvEESITool
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCharacter());
 			Clones = DownloadData("Clones", Settings.EsiClient.Clones.List());
 			Implants.AddRange(DownloadData("Implants", Settings.EsiClient.Clones.Implants()));
-			GetAssetsLocations();
-			GetAssetsNames();
 			Fittings = DownloadData("Fittings", Settings.EsiClient.Fittings.List());
 			Bookmarks = DownloadData("Bookmarks", Settings.EsiClient.Bookmarks.ForCharacter());
 			BookmarkFolders = DownloadData("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCharacter());
@@ -167,7 +183,9 @@ namespace EvEESITool
 			//Mail = new MailData(ref Settings);
 			//Mails = GetMails();
 			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CharacterOrders());
-			Fleet = DownloadData("NAME", Settings.EsiClient.Fleets.FleetInfo());
+			Fleet = DownloadData("Fleet", Settings.EsiClient.Fleets.FleetInfo());
+			Planets = DownloadData("Planets", Settings.EsiClient.PlanetaryInteraction.Colonies());
+
 
 
 
@@ -212,24 +230,6 @@ namespace EvEESITool
 
 		//	return result;
 		//}
-		public void GetAssetsLocations()
-		{
-			List<long> assetsItemIDs = new List<long>();
-			foreach (AssetsItem i in Assets)
-			{
-				assetsItemIDs.Add(long.Parse(i.Id));
-			}
-			AssetsLocations = Settings.EsiClient.Assets.LocationsForCharacter(assetsItemIDs).Result.Data;
-		}
-		public void GetAssetsNames()
-		{
-			List<long> assetsItemIDs = new List<long>();
-			foreach (AssetsItem i in Assets)
-			{
-				assetsItemIDs.Add(long.Parse(i.Id));
-			}
-			AssetsNames = Settings.EsiClient.Assets.NamesForCharacter(assetsItemIDs).Result.Data;
-		}
 		protected override bool ReadInData()
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
@@ -245,8 +245,6 @@ namespace EvEESITool
 				Activity = temp.Activity;
 				Ship = temp.Ship;
 				Assets = temp.Assets;
-				AssetsLocations = temp.AssetsLocations;
-				AssetsNames = temp.AssetsNames;
 				Journal = temp.Journal;
 				Transactions = temp.Transactions;
 				Notifications = temp.Notifications;

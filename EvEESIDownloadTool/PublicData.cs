@@ -16,6 +16,7 @@ using ESI.NET.Models.Fittings;
 using ESI.NET.Models;
 using System.Reflection;
 using ESI.NET.Models.Corporation;
+using ESI.NET.Enumerations;
 
 namespace EvEESITool
 {
@@ -26,6 +27,9 @@ namespace EvEESITool
 		public IncursionsData Incursions { get; private set; } = new IncursionsData();
 		public FactionWarfareData FactionWarfare { get; private set; } = new FactionWarfareData();
 		public MarketData Market { get; private set; } = new MarketData();
+		public SovereigntyData Sovereignty { get; private set; } = new SovereigntyData();
+		public OpportunitiesData Opportunities { get; private set; } = new OpportunitiesData();
+
 		public List<Character> GetCharacter(int[] characterIDs)
 		{
 			return DownloadData($"Character{(characterIDs.Length > 1 ? "s" : "")}", Settings.EsiClient.Character.Names(characterIDs));
@@ -48,11 +52,11 @@ namespace EvEESITool
 		}
 		public List<Offer> GetLoyaltyOffers(int corporationID)
 		{
-			return DownloadData("Loyalty offers", Settings.EsiClient.Loyalty.Offers(corporationID)); 
+			return DownloadData("Loyalty offers", Settings.EsiClient.Loyalty.Offers(corporationID));
 		}
 		public List<int> GetAllianceIDs()
 		{
-			return DownloadData("Alliance IDs", Settings.EsiClient.Alliance.All()); 
+			return DownloadData("Alliance IDs", Settings.EsiClient.Alliance.All());
 
 		}
 		public List<ESI.NET.Models.Character.Corporation> GetCorporationHistory(int characterID)
@@ -70,10 +74,26 @@ namespace EvEESITool
 		private void PublicMethods()
 		{
 			int ID = 0;
-			var Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(ID)); 
+			var Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(ID));
 			var Corporations = DownloadData("Corporations", Settings.EsiClient.Alliance.Corporations(ID));
-			var Icons = DownloadData("Images", Settings.EsiClient.Alliance.Icons(ID)); 
+			var Icons = DownloadData("Images", Settings.EsiClient.Alliance.Icons(ID));
 		}
+		//public int[] Route { get; private set; } = new int[]();
+		public int[] GetRoute(int origin, int destination, RoutesFlag flag)
+		{
+			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+		}
+		public int[] GetRoute(int origin, int destination, RoutesFlag flag, int[] avoid)
+		{
+			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+		}
+		public int[] GetRoute(int origin, int destination, RoutesFlag flag, int avoid, int connection)
+		{
+			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+		}
+
+
+
 
 
 		/// <summary>
@@ -94,6 +114,8 @@ namespace EvEESITool
 			Incursions = new IncursionsData(ref settings);
 			FactionWarfare = new FactionWarfareData(ref settings);
 			Market = new MarketData(ref settings);
+			Sovereignty = new SovereigntyData(ref settings);
+			Opportunities = new OpportunitiesData(ref settings);
 		}
 		protected override bool ReadInData()
 		{

@@ -25,6 +25,7 @@ using ESI.NET.Models.Bookmarks;
 using ESI.NET.Models.Calendar;
 using ESI.NET.Models.FactionWarfare;
 using ESI.NET.Models.Killmails;
+using ESI.NET.Models.PlanetaryInteraction;
 
 namespace EvEESITool
 {
@@ -89,6 +90,7 @@ namespace EvEESITool
 		public List<Extraction> Extractions { get; private set; } = new List<Extraction>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
 		public List<Order> MarketOrders { get; private set; } = new List<Order>();
+		public List<CustomsOffice> CustomsOffices { get; private set; } = new List<CustomsOffice>();
 
 
 
@@ -159,6 +161,9 @@ namespace EvEESITool
 			Extractions = DownloadData<List<Extraction>>("Extractions", Settings.EsiClient.Industry.Extractions());
 			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCorporation());
 			MarketOrders = DownloadData<List<Order>>("Market orders", Settings.EsiClient.Market.CorporationOrders(1));
+			CustomsOffices = DownloadData<List<CustomsOffice>>("Customs offices", Settings.EsiClient.PlanetaryInteraction.CorporationCustomsOffices());
+
+
 
 
 

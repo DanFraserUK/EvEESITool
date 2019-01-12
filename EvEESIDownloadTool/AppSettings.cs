@@ -47,7 +47,7 @@ namespace EvEESITool
 		[JsonIgnore]
 		public readonly string AppDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
 		[JsonIgnore]
-		public bool InternetAccessAvailable { get; private set; }
+		public bool InternetAccessAvailable { get; private set; } = false;
 		public bool SkipAuthenticating { get; private set; } = false;
 		public bool SaveDataWhenDownloaded { get; private set; } = true;
 		[JsonIgnore]
