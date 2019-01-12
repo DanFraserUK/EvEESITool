@@ -25,7 +25,7 @@ using System.Timers;
 
 namespace EvEESITool
 {
-	public class DataClassesBase
+	public class DataClassesBase:IDisposable
 	{
 		[JsonIgnore]
 		protected AppSettings Settings = new AppSettings();
@@ -261,6 +261,24 @@ namespace EvEESITool
 		protected virtual bool ReadInData()
 		{
 			return false;
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// dispose managed resources
+				if (Settings != null)
+				{
+					Settings.Dispose();// or client.Close();
+					Settings = null;
+				}
+				// Dispose remaining objects,
+			}
 		}
 	}
 }

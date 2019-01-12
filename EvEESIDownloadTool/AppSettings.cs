@@ -26,7 +26,7 @@ using System.Timers;
 
 namespace EvEESITool
 {
-	public class AppSettings
+	public class AppSettings:IDisposable
 	{
 		public AuthorizedCharacterData AuthorisationData { get; set; } = new AuthorizedCharacterData();
 		public int MarketHistoryDays { get; private set; } = 10;
@@ -231,6 +231,24 @@ namespace EvEESITool
 			catch
 			{
 				InternetAccessAvailable = false;
+			}
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// dispose managed resources
+				if (EsiClient != null)
+				{
+					EsiClient.Dispose();// or client.Close();
+					EsiClient = null;
+				}
+				// Dispose remaining objects,
 			}
 		}
 	}

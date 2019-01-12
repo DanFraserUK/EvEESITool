@@ -23,7 +23,7 @@ namespace EvEESITool
 	/// <summary>
 	/// This class should be used to interact with the ESI authorisation steps ONLY
 	/// </summary>
-	public class Authenticator
+	public class Authenticator : IDisposable
 	{
 		[JsonIgnore]
 		private readonly string SaveFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\auth.txt";
@@ -182,6 +182,30 @@ namespace EvEESITool
 		{
 			AuthorizedCharacterData result = await _client.SSO.Verify(token);
 			return result;
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// dispose managed resources
+				if (_client != null)
+				{
+					_client.Dispose();// or client.Close();
+					_client = null;
+				}
+				// Dispose remaining objects,
+				if (Settings != null)
+				{
+					Settings.Dispose();// or client.Close();
+					Settings = null;
+				}
+				// Dispose remaining objects,
+			}
 		}
 	}
 }

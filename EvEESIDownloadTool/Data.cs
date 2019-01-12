@@ -20,7 +20,7 @@ using EvEESITool.Models.Skills;
 
 namespace EvEESITool
 {
-	public class Data
+	public class Data:IDisposable
 	{
 		[JsonIgnore]
 		public AppSettings Settings;
@@ -51,6 +51,60 @@ namespace EvEESITool
 			Alliance = new AllianceData(ref Settings);
 			Market = new MarketData(ref Settings);
 			Public = new PublicData(ref Settings);
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// dispose managed resources
+				if (Settings != null)
+				{
+					Settings.Dispose();// or client.Close();
+					Settings = null;
+				}
+				// Dispose remaining objects,
+				if (Authenticator != null)
+				{
+					Authenticator.Dispose();// or client.Close();
+					Authenticator = null;
+				}
+				// Dispose remaining objects,
+				if (Alliance != null)
+				{
+					Alliance.Dispose();// or client.Close();
+					Alliance = null;
+				}
+				// Dispose remaining objects,
+				if (Character != null)
+				{
+					Character.Dispose();// or client.Close();
+					Character = null;
+				}
+				// Dispose remaining objects,
+				if (Corporation != null)
+				{
+					Corporation.Dispose();// or client.Close();
+					Corporation = null;
+				}
+				// Dispose remaining objects,
+				if (Market != null)
+				{
+					Market.Dispose();// or client.Close();
+					Market = null;
+				}
+				// Dispose remaining objects,
+				if (Public != null)
+				{
+					Public.Dispose();// or client.Close();
+					Public = null;
+				}
+				// Dispose remaining objects,
+			}
 		}
 	}
 }
