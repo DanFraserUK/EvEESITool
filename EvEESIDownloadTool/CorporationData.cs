@@ -88,6 +88,7 @@ namespace EvEESITool
 		public List<Job> IndustryJobs { get; private set; } = new List<Job>();
 		public List<Extraction> Extractions { get; private set; } = new List<Extraction>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
+		public List<Order> MarketOrders { get; private set; } = new List<Order>();
 
 
 
@@ -157,6 +158,10 @@ namespace EvEESITool
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCorporation(false, 1));
 			Extractions = DownloadData<List<Extraction>>("Extractions", Settings.EsiClient.Industry.Extractions());
 			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCorporation());
+			MarketOrders = DownloadData<List<Order>>("Market orders", Settings.EsiClient.Market.CorporationOrders(1));
+
+
+
 
 
 			SaveToFile();

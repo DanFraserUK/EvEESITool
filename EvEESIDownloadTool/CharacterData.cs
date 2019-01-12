@@ -99,6 +99,7 @@ namespace EvEESITool
 		public List<Points> LoyaltyPoints { get; private set; } = new List<Points>();
 		//private MailData Mail { get; set; } = new MailData();
 		//public List<Message> Mails { get; private set; } = new List<Message>();
+		public List<Order> MarketOrders { get; private set; } = new List<Order>();
 
 
 
@@ -166,6 +167,7 @@ namespace EvEESITool
 			LoyaltyPoints = DownloadData("Loyalty points", Settings.EsiClient.Loyalty.Points());
 			//Mail = new MailData(ref Settings);
 			//Mails = GetMails();
+			MarketOrders = DownloadData<List<Order>>("Market orders", Settings.EsiClient.Market.CharacterOrders());
 
 
 
@@ -174,43 +176,43 @@ namespace EvEESITool
 			Console.WriteLine();
 			SaveToFile();
 		}
-		public List<Message> GetMails()
-		{
-			List<Message> result = new List<Message>();
-			var labels = Mail.Labels.Labels;
-			List<long> mailboxIDs = new List<long>();
-			foreach(Label l in labels)
-			{
-				if(l.Name=="Inbox")
-				{
-					mailboxIDs.Add(l.LabelId);
-				}
-			}
-			List<Header> headers = new List<Header>();
+		//public List<Message> GetMails()
+		//{
+		//	List<Message> result = new List<Message>();
+		//	var labels = Mail.Labels.Labels;
+		//	List<long> mailboxIDs = new List<long>();
+		//	foreach(Label l in labels)
+		//	{
+		//		if(l.Name=="Inbox")
+		//		{
+		//			mailboxIDs.Add(l.LabelId);
+		//		}
+		//	}
+		//	List<Header> headers = new List<Header>();
 
-			bool reachedEnd = false;
-			do
-			{
-				int headerID = 0;
-				if(headers.Count>0)
-				{
-					headerID = (int)headers[headers.Count - 1].MailId;
-				}
-				List<Header> mailPage = new List<Header>();
-				mailPage.AddRange(Mail.Headers(mailboxIDs.ToArray(), headerID));
-				if(mailPage.Count<50)
-				{
-					reachedEnd = true;
-				}
-				headers.AddRange(mailPage);
-			}
-			while (!reachedEnd);
+		//	bool reachedEnd = false;
+		//	do
+		//	{
+		//		int headerID = 0;
+		//		if(headers.Count>0)
+		//		{
+		//			headerID = (int)headers[headers.Count - 1].MailId;
+		//		}
+		//		List<Header> mailPage = new List<Header>();
+		//		mailPage.AddRange(Mail.Headers(mailboxIDs.ToArray(), headerID));
+		//		if(mailPage.Count<50)
+		//		{
+		//			reachedEnd = true;
+		//		}
+		//		headers.AddRange(mailPage);
+		//	}
+		//	while (!reachedEnd);
 
 
-			//var headers = Mail.Headers(mailboxIDs.ToArray(),0);
+		//	//var headers = Mail.Headers(mailboxIDs.ToArray(),0);
 
-			return result;
-		}
+		//	return result;
+		//}
 		public void GetAssetsLocations()
 		{
 			List<long> assetsItemIDs = new List<long>();
