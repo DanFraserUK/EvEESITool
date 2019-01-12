@@ -1,13 +1,13 @@
-﻿using EvEESITool;
-using EvEESITool.Enumerations;
-using EvEESITool.Models.Assets;
-using EvEESITool.Models.Character;
-using EvEESITool.Models.Corporation;
-using EvEESITool.Models.Industry;
-using EvEESITool.Models.Location;
-using EvEESITool.Models.Market;
-using EvEESITool.Models.SSO;
-using EvEESITool.Models.Wallet;
+﻿using ESI.NET;
+using ESI.NET.Enumerations;
+using ESI.NET.Models.Assets;
+using ESI.NET.Models.Character;
+using ESI.NET.Models.Corporation;
+using ESI.NET.Models.Industry;
+using ESI.NET.Models.Location;
+using ESI.NET.Models.Market;
+using ESI.NET.Models.SSO;
+using ESI.NET.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,12 +16,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using EvEESITool.Models.Skills;
-using EvEESITool.Models.Clones;
-using EvEESITool.Models.Fittings;
-using EvEESITool.Models;
+using ESI.NET.Models.Skills;
+using ESI.NET.Models.Clones;
+using ESI.NET.Models.Fittings;
+using ESI.NET.Models;
 using System.Reflection;
-using EvEESITool.Models.Alliance;
+using ESI.NET.Models.Alliance;
 
 namespace EvEESITool
 {
@@ -47,7 +47,7 @@ namespace EvEESITool
 		{
 			return DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID));
 		}
-		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
+		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
 
 
 

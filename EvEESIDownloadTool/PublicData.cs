@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using EvEESITool.Models.Character;
-using EvEESITool.Models.Insurance;
-using EvEESITool.Models.Loyalty;
-using EvEESITool.Models.Alliance;
+using ESI.NET.Models.Character;
+using ESI.NET.Models.Insurance;
+using ESI.NET.Models.Loyalty;
+using ESI.NET.Models.Alliance;
 using System.Diagnostics;
 using System.IO;
-using EvEESITool.Models.Skills;
-using EvEESITool.Models.Clones;
-using EvEESITool.Models.Fittings;
-using EvEESITool.Models;
+using ESI.NET.Models.Skills;
+using ESI.NET.Models.Clones;
+using ESI.NET.Models.Fittings;
+using ESI.NET.Models;
 using System.Reflection;
-using EvEESITool.Models.Corporation;
+using ESI.NET.Models.Corporation;
 
 namespace EvEESITool
 {
@@ -38,9 +38,9 @@ namespace EvEESITool
 		{
 			return DownloadData<List<Insurance>>("Insurance levels", Settings.EsiClient.Insurance.Levels());
 		}
-		public Models.Killmails.Information GetKillmail(string killmailHash, int killmailID)
+		public ESI.NET.Models.Killmails.Information GetKillmail(string killmailHash, int killmailID)
 		{
-			return DownloadData<Models.Killmails.Information>("Killmail", Settings.EsiClient.Killmails.Information(killmailHash, killmailID));
+			return DownloadData<ESI.NET.Models.Killmails.Information>("Killmail", Settings.EsiClient.Killmails.Information(killmailHash, killmailID));
 		}
 		public List<int> GetNPCCorps()
 		{
@@ -55,7 +55,7 @@ namespace EvEESITool
 			return DownloadData("Alliance IDs", Settings.EsiClient.Alliance.All()); 
 
 		}
-		public List<EvEESITool.Models.Character.Corporation> GetCorporationHistory(int characterID)
+		public List<ESI.NET.Models.Character.Corporation> GetCorporationHistory(int characterID)
 		{
 			return DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(characterID));
 		}

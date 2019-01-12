@@ -1,13 +1,13 @@
-﻿using EvEESITool;
-using EvEESITool.Enumerations;
-using EvEESITool.Models.Assets;
-//using EvEESITool.Models.Character;
-using EvEESITool.Models.Corporation;
-using EvEESITool.Models.Industry;
-using EvEESITool.Models.Location;
-using EvEESITool.Models.Market;
-using EvEESITool.Models.SSO;
-using EvEESITool.Models.Wallet;
+﻿using ESI.NET;
+using ESI.NET.Enumerations;
+using ESI.NET.Models.Assets;
+//using ESI.NET.Models.Character;
+using ESI.NET.Models.Corporation;
+using ESI.NET.Models.Industry;
+using ESI.NET.Models.Location;
+using ESI.NET.Models.Market;
+using ESI.NET.Models.SSO;
+using ESI.NET.Models.Wallet;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -16,15 +16,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
-using EvEESITool.Models.Skills;
-using EvEESITool.Models.Clones;
-using EvEESITool.Models.Fittings;
-using EvEESITool.Models;
-using AssetsItem = EvEESITool.Models.Assets.Item;
-using EvEESITool.Models.Bookmarks;
-using EvEESITool.Models.Calendar;
-using EvEESITool.Models.FactionWarfare;
-using EvEESITool.Models.Killmails;
+using ESI.NET.Models.Skills;
+using ESI.NET.Models.Clones;
+using ESI.NET.Models.Fittings;
+using ESI.NET.Models;
+using AssetsItem = ESI.NET.Models.Assets.Item;
+using ESI.NET.Models.Bookmarks;
+using ESI.NET.Models.Calendar;
+using ESI.NET.Models.FactionWarfare;
+using ESI.NET.Models.Killmails;
 
 namespace EvEESITool
 {
@@ -43,7 +43,7 @@ namespace EvEESITool
 		public List<Blueprint> Blueprints { get; private set; } = new List<Blueprint>();
 		public List<ContainerLog> ContainerLogs { get; private set; } = new List<ContainerLog>();
 		public Divisions Divisions { get; private set; } = new Divisions();
-		public List<Models.Corporation.Facility> Facilities { get; private set; } = new List<Models.Corporation.Facility>();
+		public List<ESI.NET.Models.Corporation.Facility> Facilities { get; private set; } = new List<ESI.NET.Models.Corporation.Facility>();
 		public Images Icons { get; private set; } = new Images();
 		public Images GetIcons(int corporationID)
 		{
@@ -68,14 +68,14 @@ namespace EvEESITool
 		public List<Title> Titles { get; private set; } = new List<Title>();
 		public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
 		public List<Folder> BookmarkFolders { get; private set; } = new List<Folder>();
-		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
-		public List<Models.Contacts.Label> Labels { get; private set; } = new List<Models.Contacts.Label>();
-		public List<Models.Contracts.Contract> Contracts { get; private set; } = new List<Models.Contracts.Contract>();
-		public List<Models.Contracts.ContractItem> ContractItems(int contractID)
+		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
+		public List<ESI.NET.Models.Contacts.Label> Labels { get; private set; } = new List<ESI.NET.Models.Contacts.Label>();
+		public List<ESI.NET.Models.Contracts.Contract> Contracts { get; private set; } = new List<ESI.NET.Models.Contracts.Contract>();
+		public List<ESI.NET.Models.Contracts.ContractItem> ContractItems(int contractID)
 		{
 			return DownloadData("Contract items", Settings.EsiClient.Contracts.CorporationContractItems(contractID, 1));
 		}
-		public List<Models.Contracts.Bid> ContractBids(int contractID)
+		public List<ESI.NET.Models.Contracts.Bid> ContractBids(int contractID)
 		{
 			return DownloadData("Contract bids", Settings.EsiClient.Contracts.CorporationContractBids(contractID, 1));
 		}

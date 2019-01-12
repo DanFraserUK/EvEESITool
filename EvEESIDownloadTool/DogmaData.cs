@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EvEESITool.Models.Dogma;
+using ESI.NET.Models.Dogma;
 using Newtonsoft.Json;
 
 namespace EvEESITool
@@ -14,7 +14,7 @@ namespace EvEESITool
 		{
 			return DownloadData("Attributes", Settings.EsiClient.Dogma.Attributes());
 		}
-		public Models.Dogma.Attribute GetAttribute(int attributeID)
+		public ESI.NET.Models.Dogma.Attribute GetAttribute(int attributeID)
 		{
 			return DownloadData("Attribute", Settings.EsiClient.Dogma.Attribute(attributeID));
 		}

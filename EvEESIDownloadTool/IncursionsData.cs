@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EvEESITool.Models.Incursions;
+using ESI.NET.Models.Incursions;
 using Newtonsoft.Json;
 
 namespace EvEESITool
