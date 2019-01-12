@@ -38,7 +38,7 @@ namespace EvEESITool
 		public List<AllianceHistory> AllianceHistory { get; private set; } = new List<AllianceHistory>();
 		public List<AllianceHistory> GetAllianceHistory(int corporationID)
 		{
-			return DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(corporationID)); // /corporations/{corporation_id}/alliancehistory/:public
+			return DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(corporationID));
 		}
 		public List<Blueprint> Blueprints { get; private set; } = new List<Blueprint>();
 		public List<ContainerLog> ContainerLogs { get; private set; } = new List<ContainerLog>();
@@ -47,7 +47,7 @@ namespace EvEESITool
 		public Images Icons { get; private set; } = new Images();
 		public Images GetIcons(int corporationID)
 		{
-			return DownloadData("Icons", Settings.EsiClient.Corporation.Icons(corporationID)); // /corporations/{corporation_id}/icons/:public
+			return DownloadData("Icons", Settings.EsiClient.Corporation.Icons(corporationID));
 		}
 		public List<Medal> Medals { get; private set; } = new List<Medal>();
 		public List<IssuedMedal> IssuedMedals { get; private set; } = new List<IssuedMedal>();

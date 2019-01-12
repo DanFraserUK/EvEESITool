@@ -48,7 +48,7 @@ namespace EvEESITool
 		[JsonIgnore]
 		public bool InternetAccessAvailable { get; private set; }
 		public bool SkipAuthenticating { get; private set; } = false;
-		public bool SaveDataWhenDownloaded { get; private set; } = false;
+		public bool SaveDataWhenDownloaded { get; private set; } = true;
 
 		public AppSettings()
 		{

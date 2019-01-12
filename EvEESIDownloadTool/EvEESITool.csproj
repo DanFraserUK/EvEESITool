@@ -297,8 +297,9 @@
     <Compile Include="FactionWarfareData.cs" />
     <Compile Include="DogmaData.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Industry.cs" />
+    <Compile Include="IndustryData.cs" />
     <Compile Include="IncursionsData.cs" />
+    <Compile Include="MailData.cs" />
     <Compile Include="MarketData.cs" />
     <Compile Include="MarketDetailsClass.cs" />
     <Compile Include="MarketDetailsContainer.cs" />

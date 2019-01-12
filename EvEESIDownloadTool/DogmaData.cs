@@ -12,19 +12,19 @@ namespace EvEESITool
 	{
 		public List<int> GetAttributes()
 		{
-			return DownloadData("Attributes", Settings.EsiClient.Dogma.Attributes()); // /dogma/attributes/:public
+			return DownloadData("Attributes", Settings.EsiClient.Dogma.Attributes());
 		}
 		public Models.Dogma.Attribute GetAttribute(int attributeID)
 		{
-			return DownloadData("Attribute", Settings.EsiClient.Dogma.Attribute(attributeID)); // /dogma/attributes/{attribute_id}/:public
+			return DownloadData("Attribute", Settings.EsiClient.Dogma.Attribute(attributeID));
 		}
 		public List<int> GetEffects()
 		{
-			return DownloadData("Effects", Settings.EsiClient.Dogma.Effects()); // /dogma/effects/:public
+			return DownloadData("Effects", Settings.EsiClient.Dogma.Effects());
 		}
 		public Effect GetEffect(int effectID)
 		{
-			return DownloadData("Effect", Settings.EsiClient.Dogma.Effect(effectID)); // /dogma/effects/{effect_id}/:public
+			return DownloadData("Effect", Settings.EsiClient.Dogma.Effect(effectID));
 		}
 
 		/// <summary>

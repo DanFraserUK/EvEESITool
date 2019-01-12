@@ -12,23 +12,23 @@ namespace EvEESITool
 	{
 		public List<War> GetWars()
 		{
-			return DownloadData("Faction warfare wars", Settings.EsiClient.FactionWarfare.List()); // /fw/wars/:public
+			return DownloadData("Faction warfare wars", Settings.EsiClient.FactionWarfare.List());
 		}
 		public List<Stat> GetStats()
 		{
-			return DownloadData("Faction warfare stats", Settings.EsiClient.FactionWarfare.Stats()); // /fw/stats/:public
+			return DownloadData("Faction warfare stats", Settings.EsiClient.FactionWarfare.Stats());
 		}
 		public List<FactionWarfareSystem> GetSystems()
 		{
-			return DownloadData("Faction warfare systems", Settings.EsiClient.FactionWarfare.Systems()); // /fw/systems/:public
+			return DownloadData("Faction warfare systems", Settings.EsiClient.FactionWarfare.Systems());
 		}
 		public Leaderboards<CharacterTotal> GetCharacterLeaderboards()
 		{
-			return DownloadData("Faction warfare character leaderboards", Settings.EsiClient.FactionWarfare.LeaderboardsForCharacters()); // /fw/leaderboards/characters/:public
+			return DownloadData("Faction warfare character leaderboards", Settings.EsiClient.FactionWarfare.LeaderboardsForCharacters());
 		}
 		public Leaderboards<CorporationTotal> GetCorporationLeaderboards()
 		{
-			return DownloadData("Faction warfare corporation leaderboards", Settings.EsiClient.FactionWarfare.LeaderboardsForCorporations()); // /fw/leaderboards/corporations/:public
+			return DownloadData("Faction warfare corporation leaderboards", Settings.EsiClient.FactionWarfare.LeaderboardsForCorporations());
 		}
 
 

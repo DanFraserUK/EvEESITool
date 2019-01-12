@@ -26,6 +26,7 @@ using EvEESITool.Models.FactionWarfare;
 using EvEESITool.Models.Fleets;
 using EvEESITool.Models.Killmails;
 using EvEESITool.Models.Loyalty;
+using EvEESITool.Models.Mail;
 
 namespace EvEESITool
 {
@@ -68,7 +69,7 @@ namespace EvEESITool
 		public List<Corporation> CorporationHistory { get; private set; } = new List<Corporation>();
 		public List<Corporation> GetCorporationHistory(int characterID)
 		{
-			return DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(characterID)); // /characters/{character_id}/corporationhistory/:public
+			return DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(characterID));
 		}
 		// disabled
 		//public List<ChatChannel> ChatChannels { get; private set; } = new List<ChatChannel>();
@@ -96,7 +97,8 @@ namespace EvEESITool
 		public List<Entry> MiningLedger { get; private set; } = new List<Entry>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
 		public List<Points> LoyaltyPoints { get; private set; } = new List<Points>();
-
+		//private MailData Mail { get; set; } = new MailData();
+		//public List<Message> Mails { get; private set; } = new List<Message>();
 
 
 
@@ -162,7 +164,8 @@ namespace EvEESITool
 			MiningLedger = DownloadData("Mining ledger", Settings.EsiClient.Industry.MiningLedger(1));
 			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCharacter());
 			LoyaltyPoints = DownloadData("Loyalty points", Settings.EsiClient.Loyalty.Points());
-
+			//Mail = new MailData(ref Settings);
+			//Mails = GetMails();
 
 
 
@@ -170,6 +173,43 @@ namespace EvEESITool
 
 			Console.WriteLine();
 			SaveToFile();
+		}
+		public List<Message> GetMails()
+		{
+			List<Message> result = new List<Message>();
+			var labels = Mail.Labels.Labels;
+			List<long> mailboxIDs = new List<long>();
+			foreach(Label l in labels)
+			{
+				if(l.Name=="Inbox")
+				{
+					mailboxIDs.Add(l.LabelId);
+				}
+			}
+			List<Header> headers = new List<Header>();
+
+			bool reachedEnd = false;
+			do
+			{
+				int headerID = 0;
+				if(headers.Count>0)
+				{
+					headerID = (int)headers[headers.Count - 1].MailId;
+				}
+				List<Header> mailPage = new List<Header>();
+				mailPage.AddRange(Mail.Headers(mailboxIDs.ToArray(), headerID));
+				if(mailPage.Count<50)
+				{
+					reachedEnd = true;
+				}
+				headers.AddRange(mailPage);
+			}
+			while (!reachedEnd);
+
+
+			//var headers = Mail.Headers(mailboxIDs.ToArray(),0);
+
+			return result;
 		}
 		public void GetAssetsLocations()
 		{

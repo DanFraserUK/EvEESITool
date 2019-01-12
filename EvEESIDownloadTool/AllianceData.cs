@@ -47,11 +47,6 @@ namespace EvEESITool
 		{
 			return DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID));
 		}
-		public List<int> GetAllianceIDs()
-		{
-			return DownloadData("Alliance IDs", Settings.EsiClient.Alliance.All()); // /alliances/:public
-
-		}
 		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
 
 
@@ -74,9 +69,9 @@ namespace EvEESITool
 		}
 		protected override void Download()
 		{
-			Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(AllianceID)); // /alliances/{alliance_id}/:public
-			Corporations = DownloadData("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID)); // /alliances/{alliance_id}/corporations/:public
-			Icons = DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID)); // /alliances/{alliance_id}/icons/:public
+			Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(AllianceID));
+			Corporations = DownloadData("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID));
+			Icons = DownloadData("Images", Settings.EsiClient.Alliance.Icons(AllianceID));
 			Contacts = DownloadData("Contacts", Settings.EsiClient.Contacts.ListForAlliance(1));
 
 

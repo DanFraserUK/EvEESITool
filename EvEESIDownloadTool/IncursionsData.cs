@@ -12,7 +12,7 @@ namespace EvEESITool
 	{
 		public List<Incursion> GetIncursions()
 		{
-			return DownloadData<List<Incursion>>("Incursions", Settings.EsiClient.Incursions.All()); // /incursions/:public
+			return DownloadData<List<Incursion>>("Incursions", Settings.EsiClient.Incursions.All());
 		}
 
 		/// <summary>

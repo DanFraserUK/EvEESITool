@@ -12,11 +12,11 @@ namespace EvEESITool
 	{
 		public List<Facility> GetFacilities()
 		{
-			return DownloadData<List<Facility>>("Facilities", Settings.EsiClient.Industry.Facilities()); // /incursions/:public
+			return DownloadData<List<Facility>>("Facilities", Settings.EsiClient.Industry.Facilities());
 		}
 		public List<SolarSystem> GetSolarSystemCostIndices()
 		{
-			return DownloadData<List<SolarSystem>>("Solar system cost indices", Settings.EsiClient.Industry.SolarSystemCostIndices()); // /industry/systems/:public
+			return DownloadData<List<SolarSystem>>("Solar system cost indices", Settings.EsiClient.Industry.SolarSystemCostIndices());
 		}
 
 		/// <summary>

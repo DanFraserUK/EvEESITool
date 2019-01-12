@@ -18,8 +18,7 @@ namespace EvEESITool
 			var i = esiData.Public.Industry.GetFacilities();
 
 			Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
-
-
+			
 			// place a breakpoint below to hold the program to have a good look through the local items.
 
 			Console.WriteLine("Press a key to end");
