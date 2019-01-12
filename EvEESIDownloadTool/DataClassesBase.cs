@@ -170,6 +170,7 @@ namespace EvEESITool
 			else
 			{
 				Console.WriteLine($"Automatic saving of downloaded data to {Path.GetFileName(SaveFile)} disabled.");
+				Console.WriteLine();
 			}
 		}
 		protected string SaveFile
