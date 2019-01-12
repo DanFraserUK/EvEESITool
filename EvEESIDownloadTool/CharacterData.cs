@@ -95,6 +95,9 @@ namespace EvEESITool
 		}
 		public Stat FactionWarfareStats { get; private set; } = new Stat();
 		public FleetInfo Fleet { get; private set; } = new FleetInfo();
+		public List<Entry> MiningLedger { get; private set; } = new List<Entry>();
+
+
 
 
 
@@ -114,7 +117,7 @@ namespace EvEESITool
 		{
 			return $"{Information.Name}, {Wallet.ToString("N2")} ISK";
 		}
-		public override void Download()
+		protected override void Download()
 		{
 			Wallet = DownloadData("Wallet Balance", Settings.EsiClient.Wallet.CharacterWallet());
 			Information = DownloadData("Information", Settings.EsiClient.Character.Information(CharacterID));
@@ -156,6 +159,8 @@ namespace EvEESITool
 			Contracts = DownloadData("Contracts", Settings.EsiClient.Contracts.CharacterContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
 			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCharacter());
 			Fleet = DownloadData("Fleet", Settings.EsiClient.Fleets.FleetInfo());
+			MiningLedger = DownloadData("Mining ledger", Settings.EsiClient.Industry.MiningLedger(1));
+
 
 
 
@@ -182,7 +187,7 @@ namespace EvEESITool
 			}
 			AssetsNames = Settings.EsiClient.Assets.NamesForCharacter(assetsItemIDs).Result.Data;
 		}
-		public override bool ReadInData()
+		protected override bool ReadInData()
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{

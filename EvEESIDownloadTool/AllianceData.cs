@@ -72,7 +72,7 @@ namespace EvEESITool
 				GetData();
 			}
 		}
-		public override void Download()
+		protected override void Download()
 		{
 			Information = DownloadData("Information", Settings.EsiClient.Alliance.Information(AllianceID)); // /alliances/{alliance_id}/:public
 			Corporations = DownloadData("Corporations", Settings.EsiClient.Alliance.Corporations(AllianceID)); // /alliances/{alliance_id}/corporations/:public
@@ -87,7 +87,7 @@ namespace EvEESITool
 			Console.WriteLine();
 			SaveToFile();
 		}
-		public override bool ReadInData()
+		protected override bool ReadInData()
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{

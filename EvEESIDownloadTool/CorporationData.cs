@@ -65,11 +65,6 @@ namespace EvEESITool
 		}
 		public List<Structure> Structures { get; private set; } = new List<Structure>();
 		public List<Title> Titles { get; private set; } = new List<Title>();
-		public List<int> NPCCorps { get; private set; } = new List<int>();
-		public List<int> GetNPCCorps()
-		{
-			return DownloadData("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps()); // /corporations/npccorps/:public
-		}
 		public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
 		public List<Folder> BookmarkFolders { get; private set; } = new List<Folder>();
 		public List<Models.Contacts.Contact> Contacts { get; private set; } = new List<Models.Contacts.Contact>();
@@ -84,6 +79,13 @@ namespace EvEESITool
 			return DownloadData("Contract bids", Settings.EsiClient.Contracts.CorporationContractBids(contractID, 1));
 		}
 		public Stat FactionWarfareStats { get; private set; } = new Stat();
+		public List<Observer> Observers { get; private set; } = new List<Observer>();
+		public List<ObserverInfo> ObservedMining(int observerID, int page)
+		{
+			return DownloadData("Observed mining", Settings.EsiClient.Industry.ObservedMining(observerID, page));
+		}
+		public List<Job> IndustryJobs { get; private set; } = new List<Job>();
+
 
 
 
@@ -117,7 +119,7 @@ namespace EvEESITool
 		{
 			return $"{Information.Name}, Ticker : {Information.Ticker}";
 		}
-		public override void Download()
+		protected override void Download()
 		{
 			Information = DownloadData("Information", Settings.EsiClient.Corporation.Information(CorporationID));
 			AllianceHistory = DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(CorporationID));
@@ -138,13 +140,9 @@ namespace EvEESITool
 			Roles = DownloadData("Roles", Settings.EsiClient.Corporation.Roles());
 			RolesHistory = DownloadData("Roles history", Settings.EsiClient.Corporation.RolesHistory());
 			Shareholders = DownloadData("Shareholders", Settings.EsiClient.Corporation.Shareholders(1));
-			// todo - yeah, this is one of those paginated items
-			//Standings = DownloadData<List<Standing>>("Standings", Settings.EsiClient.Corporation.Standings(1));
 			Starbases = DownloadData("Starbases", Settings.EsiClient.Corporation.Starbases());
-			// todo paginated
 			Structures = DownloadData("Structures", Settings.EsiClient.Corporation.Structures(1));
 			Titles = DownloadData("Titles", Settings.EsiClient.Corporation.Titles());
-			NPCCorps = DownloadData("NPC Corporations", Settings.EsiClient.Corporation.NpcCorps());
 			Bookmarks = DownloadData("Bookmarks", Settings.EsiClient.Bookmarks.ForCorporation()); // /characters/{character_id}/bookmarks/:esi-bookmarks.read_character_bookmarks.v1
 			BookmarkFolders = DownloadData("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCorporation());
 			Contacts = DownloadData("Contacts", Settings.EsiClient.Contacts.ListForCorporation(1));
@@ -152,13 +150,14 @@ namespace EvEESITool
 			Contracts = DownloadData("Contracts", Settings.EsiClient.Contracts.CorporationContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
 			Standings = DownloadData("Standings", Settings.EsiClient.Corporation.Standings(1));
 			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCorporation());
-
+			Observers = DownloadData("Observers", Settings.EsiClient.Industry.Observers(1));
+			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCorporation(false, 1));
 
 
 
 			SaveToFile();
 		}
-		public override bool ReadInData()
+		protected override bool ReadInData()
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
@@ -184,7 +183,6 @@ namespace EvEESITool
 				Starbases = temp.Starbases;
 				Structures = temp.Structures;
 				Titles = temp.Titles;
-				NPCCorps = temp.NPCCorps;
 				CorporationID = temp.CorporationID;
 				Bookmarks = temp.Bookmarks;
 				BookmarkFolders = temp.BookmarkFolders;

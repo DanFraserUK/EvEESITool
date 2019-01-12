@@ -27,22 +27,22 @@ namespace EvEESITool
 	public class DataClassesBase
 	{
 		[JsonIgnore]
-		internal AppSettings Settings = new AppSettings();
+		public AppSettings Settings = new AppSettings();
 		[JsonIgnore]
-		internal readonly string SaveDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-		internal DataClassesBase()
+		protected readonly string SaveDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+		protected DataClassesBase()
 		{
 			Settings = new AppSettings();
 		}
-		public DataClassesBase(ref AppSettings settings)
+		protected DataClassesBase(ref AppSettings settings)
 		{
 			Settings = settings;
 		}
-		public DataClassesBase(ref AppSettings settings, bool isATempItem)
+		protected DataClassesBase(ref AppSettings settings, bool isATempItem)
 		{
 			Settings = settings;
 		}
-		internal T DownloadData<T>(string objectName, Task<EsiResponse<T>> func)
+		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> func)
 		{
 			var workingObject = func;
 			dynamic result = default(T);
@@ -65,7 +65,7 @@ namespace EvEESITool
 					var data = workingObject.Result;
 					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
 					{
-						if (data.Data!=null&&data.Data.GetType() == typeof(int))
+						if (data.Data != null && data.Data.GetType() == typeof(int))
 						{
 							result = int.Parse(data.Message);
 						}
@@ -99,7 +99,7 @@ namespace EvEESITool
 		/// </summary>
 		/// <param name="objectName"></param>
 		/// <param name="func"></param>
-		internal T DownloadDataWithPages<T>(string objectName, Task<EsiResponse<T>> func)
+		protected T DownloadDataWithPages<T>(string objectName, Task<EsiResponse<T>> func)
 		{
 			var workingObject = func;
 			dynamic result;
@@ -155,16 +155,24 @@ namespace EvEESITool
 		/// Saves the data to a file of type .json
 		/// </summary>
 		/// <param name="fileName">Name of the file without extension</param>
-		internal void SaveToFile()
+		protected void SaveToFile()
 		{
-			using (StreamWriter file = File.CreateText(SaveFile))
+			if (Settings.SaveDataWhenDownloaded)
 			{
-				JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-				//serialize object directly into file stream
-				serializer.Serialize(file, this);
+				Console.WriteLine($"Saving {Path.GetFileNameWithoutExtension(SaveFile)} to {Path.GetFileName(SaveFile)} .");
+				using (StreamWriter file = File.CreateText(SaveFile))
+				{
+					JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
+					//serialize object directly into file stream
+					serializer.Serialize(file, this);
+				}
+			}
+			else
+			{
+				Console.WriteLine($"Automatic saving of downloaded data to {Path.GetFileName(SaveFile)} disabled.");
 			}
 		}
-		internal string SaveFile
+		protected string SaveFile
 		{
 			get
 			{
@@ -175,7 +183,7 @@ namespace EvEESITool
 				throw new NotImplementedException("How did you get in here!?");
 			}
 		}
-		internal void GetData()
+		protected void GetData()
 		{
 			if (File.Exists(SaveFile))
 			{
@@ -203,11 +211,11 @@ namespace EvEESITool
 				Download();
 			}
 		}
-		public virtual void Download()
+		protected virtual void Download()
 		{
 			//	throw new NotImplementedException();
 		}
-		internal virtual bool LoadFromFile()
+		protected virtual bool LoadFromFile()
 		{
 			bool result = false;
 			try
@@ -229,14 +237,14 @@ namespace EvEESITool
 			}
 			return result;
 		}
-		public int FileAge(string filePath)
+		private int FileAge(string filePath)
 		{
 			// Got this working correctly now.
 			int result = DateTime.Now.Subtract(new FileInfo(filePath).LastWriteTime).Minutes;
 			result += DateTime.Now.Subtract(new FileInfo(filePath).LastWriteTime).Hours * 60;
 			return result;
 		}
-		public virtual bool ReadInData()
+		protected virtual bool ReadInData()
 		{
 			return false;
 		}

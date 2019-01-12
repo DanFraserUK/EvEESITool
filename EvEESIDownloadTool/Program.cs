@@ -15,6 +15,8 @@ namespace EvEESITool
 
 			SkillDetails skills = esiData.Character.Skills;
 
+			var i = esiData.Public.Industry.GetFacilities();
+
 			Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
 
 

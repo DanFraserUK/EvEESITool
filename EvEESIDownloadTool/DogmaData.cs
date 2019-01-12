@@ -20,11 +20,11 @@ namespace EvEESITool
 		}
 		public List<int> GetEffects()
 		{
-			return DownloadData("NAME", Settings.EsiClient.Dogma.Effects()); // /dogma/effects/:public
+			return DownloadData("Effects", Settings.EsiClient.Dogma.Effects()); // /dogma/effects/:public
 		}
 		public Effect GetEffect(int effectID)
 		{
-			return DownloadData("NAME", Settings.EsiClient.Dogma.Effect(effectID)); // /dogma/effects/{effect_id}/:public
+			return DownloadData("Effect", Settings.EsiClient.Dogma.Effect(effectID)); // /dogma/effects/{effect_id}/:public
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace EvEESITool
 		}
 
 
-		public override bool ReadInData()
+		protected override bool ReadInData()
 		{
 			throw new NotImplementedException();
 		}

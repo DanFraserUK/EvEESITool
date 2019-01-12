@@ -337,6 +337,7 @@
     <Compile Include="MyOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicData.cs" />
     <Compile Include="Scopes.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -29,10 +29,7 @@ namespace EvEESITool
 		public CorporationData Corporation;
 		public AllianceData Alliance;
 		public MarketData Market;
-		public DogmaData Dogma;
-		public FactionWarfareData FactionWarfare;
-		public FleetData Fleets;
-		public IncursionsData Incursions;
+		public PublicData Public;
 
 		public Authenticator Authenticator;
 		public Data()
@@ -53,10 +50,7 @@ namespace EvEESITool
 			Corporation = new CorporationData(ref Settings);
 			Alliance = new AllianceData(ref Settings);
 			Market = new MarketData(ref Settings);
-			Dogma = new DogmaData(ref Settings);
-			FactionWarfare = new FactionWarfareData(ref Settings);
-			Fleets = new FleetData(ref Settings);
-			Incursions = new IncursionsData(ref Settings);
+			Public = new PublicData(ref Settings);
 		}
 	}
 }

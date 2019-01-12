@@ -35,7 +35,7 @@ namespace EvEESITool
 			GetData();
 		}
 
-		public override bool ReadInData()
+		protected override bool ReadInData()
 		{
 			throw new NotImplementedException();
 		}
