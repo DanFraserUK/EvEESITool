@@ -93,7 +93,7 @@ namespace EvEESITool
 			return DownloadData("Contract bids", Settings.EsiClient.Contracts.CharacterContractBids(contractID, 1));
 		}
 		public Stat FactionWarfareStats { get; private set; } = new Stat();
-		public FleetData Fleet { get; private set; } = new FleetData();
+		public FleetInfo Fleet { get; private set; } = new FleetInfo();
 		public List<Entry> MiningLedger { get; private set; } = new List<Entry>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
 		public List<Points> LoyaltyPoints { get; private set; } = new List<Points>();
@@ -115,7 +115,6 @@ namespace EvEESITool
 		internal CharacterData(ref AppSettings settings) : base(ref settings)
 		{
 			CharacterID = Settings.AuthorisationData.CharacterID;
-			Fleet = new FleetData(ref settings);
 			GetData();
 		}
 		public override string ToString()
@@ -167,8 +166,8 @@ namespace EvEESITool
 			LoyaltyPoints = DownloadData("Loyalty points", Settings.EsiClient.Loyalty.Points());
 			//Mail = new MailData(ref Settings);
 			//Mails = GetMails();
-			MarketOrders = DownloadData<List<Order>>("Market orders", Settings.EsiClient.Market.CharacterOrders());
-
+			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CharacterOrders());
+			Fleet = DownloadData("NAME", Settings.EsiClient.Fleets.FleetInfo());
 
 
 
