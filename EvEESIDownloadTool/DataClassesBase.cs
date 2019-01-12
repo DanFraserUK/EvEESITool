@@ -21,6 +21,7 @@ using EvEESITool.Models.Clones;
 using EvEESITool.Models.Fittings;
 using EvEESITool.Models;
 using System.Reflection;
+using System.Timers;
 
 namespace EvEESITool
 {
@@ -30,6 +31,14 @@ namespace EvEESITool
 		protected AppSettings Settings = new AppSettings();
 		[JsonIgnore]
 		protected readonly string SaveDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+		private Timer Timer { get; set; }
+		private void TimerEvent(object source, ElapsedEventArgs e)
+		{
+			Console.WriteLine($"{this.GetType().Name} checking in!");
+			Timer.Interval = Settings.TimerMinutes * Settings.TimerSeconds * Settings.TimerMilliseconds;
+			Download();
+		}
 		protected DataClassesBase()
 		{
 			Settings = new AppSettings();
@@ -37,10 +46,13 @@ namespace EvEESITool
 		protected DataClassesBase(ref AppSettings settings)
 		{
 			Settings = settings;
+			SetupTimer();
 		}
-		protected DataClassesBase(ref AppSettings settings, bool isATempItem)
+		private void SetupTimer()
 		{
-			Settings = settings;
+			Timer = new Timer((Settings.TimerMinutes + Settings.TimerEventCounters++) * Settings.TimerSeconds * Settings.TimerMilliseconds); // minutes * seconds * milliseconds
+			Timer.Elapsed += TimerEvent;
+			Timer.Enabled = true;
 		}
 		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> func)
 		{

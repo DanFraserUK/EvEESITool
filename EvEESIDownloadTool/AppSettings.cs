@@ -22,6 +22,7 @@ using EvEESITool.Models.Fittings;
 using EvEESITool.Models;
 using System.Web;
 using System.Net;
+using System.Timers;
 
 namespace EvEESITool
 {
@@ -49,6 +50,17 @@ namespace EvEESITool
 		public bool InternetAccessAvailable { get; private set; }
 		public bool SkipAuthenticating { get; private set; } = false;
 		public bool SaveDataWhenDownloaded { get; private set; } = true;
+		[JsonIgnore]
+		public int DefaultTimerTimeSpan { get; private set; } = 60 * 1000;//60 * 60 * 1000;
+		[JsonIgnore]
+		public int TimerEventCounters { get; set; } = 0;
+		public int TimerMinutes { get; private set; } = 60;
+		[JsonIgnore]
+		public int TimerSeconds { get; private set; } = 60;
+		[JsonIgnore]
+		public  int TimerMilliseconds { get; private set; } = 1000;
+
+
 
 		public AppSettings()
 		{
