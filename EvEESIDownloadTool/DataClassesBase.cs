@@ -27,7 +27,7 @@ namespace EvEESITool
 	public class DataClassesBase
 	{
 		[JsonIgnore]
-		public AppSettings Settings = new AppSettings();
+		protected AppSettings Settings = new AppSettings();
 		[JsonIgnore]
 		protected readonly string SaveDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 		protected DataClassesBase()

@@ -24,6 +24,7 @@ using AssetsItem = EvEESITool.Models.Assets.Item;
 using EvEESITool.Models.Bookmarks;
 using EvEESITool.Models.Calendar;
 using EvEESITool.Models.FactionWarfare;
+using EvEESITool.Models.Killmails;
 
 namespace EvEESITool
 {
@@ -85,6 +86,8 @@ namespace EvEESITool
 			return DownloadData("Observed mining", Settings.EsiClient.Industry.ObservedMining(observerID, page));
 		}
 		public List<Job> IndustryJobs { get; private set; } = new List<Job>();
+		public List<Extraction> Extractions { get; private set; } = new List<Extraction>();
+		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
 
 
 
@@ -152,7 +155,8 @@ namespace EvEESITool
 			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCorporation());
 			Observers = DownloadData("Observers", Settings.EsiClient.Industry.Observers(1));
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCorporation(false, 1));
-
+			Extractions = DownloadData<List<Extraction>>("Extractions", Settings.EsiClient.Industry.Extractions());
+			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCorporation());
 
 
 			SaveToFile();

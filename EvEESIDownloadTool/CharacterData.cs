@@ -24,13 +24,15 @@ using EvEESITool.Models.Bookmarks;
 using EvEESITool.Models.Calendar;
 using EvEESITool.Models.FactionWarfare;
 using EvEESITool.Models.Fleets;
+using EvEESITool.Models.Killmails;
+using EvEESITool.Models.Loyalty;
 
 namespace EvEESITool
 {
 	public class CharacterData : DataClassesBase
 	{
-		public Information Information { get; private set; } = new Information();
-		public Information GetInformation(int characterID)
+		public Models.Character.Information Information { get; private set; } = new Models.Character.Information();
+		public Models.Character.Information GetInformation(int characterID)
 		{
 			return DownloadData("Information", Settings.EsiClient.Character.Information(characterID));
 		}
@@ -54,14 +56,9 @@ namespace EvEESITool
 		public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
 		public List<Folder> BookmarkFolders { get; private set; } = new List<Folder>();
 		public List<Event> CalendarEvents { get; private set; } = new List<Event>();
-		public Event CalendarEvent { get; private set; } = new Event();
-		public List<Character> GetCharacter(int[] characterIDs)
+		public Event CalendarEvent(int eventID)// { get; private set; } = new Event();
 		{
-			return DownloadData($"Character{(characterIDs.Length > 1 ? "s" : "")}", Settings.EsiClient.Character.Names(characterIDs));
-		}
-		public List<Character> GetCharacter(List<int> characterIDs)
-		{
-			return DownloadData($"Character{(characterIDs.Count > 1 ? "s" : "")}", Settings.EsiClient.Character.Names(characterIDs.ToArray()));
+			return DownloadData("", Settings.EsiClient.Calendar.Event(eventID));
 		}
 		public Images Portrait { get; private set; } = new Images();
 		public Images GetPortrait(int characterID)
@@ -94,8 +91,11 @@ namespace EvEESITool
 			return DownloadData("Contract bids", Settings.EsiClient.Contracts.CharacterContractBids(contractID, 1));
 		}
 		public Stat FactionWarfareStats { get; private set; } = new Stat();
-		public FleetInfo Fleet { get; private set; } = new FleetInfo();
+		public FleetData Fleet { get; private set; } = new FleetData();
 		public List<Entry> MiningLedger { get; private set; } = new List<Entry>();
+		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
+		public List<Points> LoyaltyPoints { get; private set; } = new List<Points>();
+
 
 
 
@@ -111,6 +111,7 @@ namespace EvEESITool
 		internal CharacterData(ref AppSettings settings) : base(ref settings)
 		{
 			CharacterID = Settings.AuthorisationData.CharacterID;
+			Fleet = new FleetData(ref settings);
 			GetData();
 		}
 		public override string ToString()
@@ -141,7 +142,6 @@ namespace EvEESITool
 			Bookmarks = DownloadData("Bookmarks", Settings.EsiClient.Bookmarks.ForCharacter());
 			BookmarkFolders = DownloadData("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCharacter());
 			CalendarEvents = DownloadData("Calendar events", Settings.EsiClient.Calendar.Events());
-			//Event = DownloadData<Event>("Event", Settings.EsiClient.Calendar.Event());
 			Portrait = DownloadData("Portrait", Settings.EsiClient.Character.Portrait(CharacterID));
 			CorporationHistory = DownloadData("Corporation history", Settings.EsiClient.Character.CorporationHistory(CharacterID));
 			ChatChannels = DownloadData("Chat channels", Settings.EsiClient.Character.ChatChannels());
@@ -151,15 +151,15 @@ namespace EvEESITool
 			Blueprints = DownloadData("Blueprints", Settings.EsiClient.Character.Blueprints(1));
 			Fatigue = DownloadData("Fatigue", Settings.EsiClient.Character.Fatigue());
 			ContactNotifications = DownloadData("Contact notifications", Settings.EsiClient.Character.ContactNotifications());
-			// Broken, need to fix the function called
 			Roles = DownloadData("Roles", Settings.EsiClient.Character.Roles());
 			Titles = DownloadData("Titles", Settings.EsiClient.Character.Titles());
 			Contacts = DownloadData("Contacts", Settings.EsiClient.Contacts.ListForCharacter(1));
 			Labels = DownloadData("Labels", Settings.EsiClient.Contacts.LabelsForCharacter());
-			Contracts = DownloadData("Contracts", Settings.EsiClient.Contracts.CharacterContracts(1)); // /characters/{character_id}/contracts/:esi-contracts.read_character_contracts.v1
+			Contracts = DownloadData("Contracts", Settings.EsiClient.Contracts.CharacterContracts(1));
 			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCharacter());
-			Fleet = DownloadData("Fleet", Settings.EsiClient.Fleets.FleetInfo());
 			MiningLedger = DownloadData("Mining ledger", Settings.EsiClient.Industry.MiningLedger(1));
+			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCharacter());
+			LoyaltyPoints = DownloadData("Loyalty points", Settings.EsiClient.Loyalty.Points());
 
 
 
