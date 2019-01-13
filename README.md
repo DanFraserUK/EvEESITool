@@ -4,7 +4,7 @@
 
 This tool will do all of the work for you in downloading data from the EvE Swagger Interface.
 
-[EvEESITool](https://github.com/seraphx2/EvEESITool) by [https://github.com/seraphx2](seraphx2) is used to assist with accessing the EvE Swagger Interface.
+[EvEESITool](https://github.com/seraphx2/EvEESITool) by [https://github.com/seraphx2](seraphx2) is used to assist with accessing the EvE Swagger Interface which has been integrated into the solution because of changes required.
 
 ## Setting up for first use
 
@@ -34,7 +34,7 @@ If you have concerns about the data being entered `ConfigDataConsoleEntry` in `A
 
 ## Usage in your application
 
-Either play in the program.cs itself or in your application add `using EvEESITool;` and instantiate `Data esiData = new Data()`.
+Either play in the program.cs in the example project or in your application add `using EvEESITool;` and instantiate `Data esiData = new Data()` (of course name esiData whatever you wish).
 
     Data esiData = new Data();
     
@@ -55,6 +55,8 @@ Either play in the program.cs itself or in your application add `using EvEESIToo
     }
 
 The ESI data is grouped under common sense, so anything relating to the character is under `Data.CharacterData` etc.
+
+Because the dll downloads data and saves to disk, do not use subfolders in your application called Data and SDE to prevent the accidental overwiting of necessary files.
 
 ## Future changes
 
