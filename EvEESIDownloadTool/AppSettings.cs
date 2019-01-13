@@ -255,16 +255,16 @@ namespace EvEESITool
 		}
 		protected virtual void Dispose(bool disposing)
 		{
-			if (disposing)
-			{
-				// dispose managed resources
-				if (EsiClient != null)
-				{
-					EsiClient.Dispose();
-					EsiClient = null;
-				}
-				// Dispose remaining objects,
-			}
+			//if (disposing)
+			//{
+			//	// dispose managed resources
+			//	if (EsiClient != null)
+			//	{
+			//		EsiClient.Dispose();
+			//		EsiClient = null;
+			//	}
+			//	// Dispose remaining objects,
+			//}
 		}
 	}
 }

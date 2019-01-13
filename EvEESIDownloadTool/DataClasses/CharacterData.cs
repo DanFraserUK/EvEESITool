@@ -86,7 +86,7 @@ namespace EvEESITool
 		public List<Blueprint> Blueprints { get; private set; } = new List<Blueprint>();
 		public Fatigue Fatigue { get; private set; } = new Fatigue();
 		public List<ContactNotification> ContactNotifications { get; private set; } = new List<ContactNotification>();
-		public CharacterRoles Roles { get; private set; } = new CharacterRoles();
+		public Roles Roles { get; private set; } = new Roles();
 		public List<Title> Titles { get; private set; } = new List<Title>();
 		public List<ESI.NET.Models.Contacts.Contact> Contacts { get; private set; } = new List<ESI.NET.Models.Contacts.Contact>();
 		public List<ESI.NET.Models.Contacts.Label> Labels { get; private set; } = new List<ESI.NET.Models.Contacts.Label>();

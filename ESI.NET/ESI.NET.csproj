@@ -1,276 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{25101339-40B3-407D-A271-BE0F33C76EED}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ESI.NETFork</RootNamespace>
-    <AssemblyName>ESI.NETFork</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net472</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.5.5</Version>
+    <Authors>Psianna Archeia</Authors>
+    <Company>Sukebe Corporation</Company>
+    <Description>.NET Wrapper for the Eve Online API</Description>
+    <RepositoryUrl>https://github.com/seraphx2/ESI.NET</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseUrl>https://github.com/seraphx2/ESI.NET/blob/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/seraphx2/ESI.NET</PackageProjectUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Enumerations\ContractType.cs" />
-    <Compile Include="Enumerations\DataSource.cs" />
-    <Compile Include="Enumerations\EventResponse.cs" />
-    <Compile Include="Enumerations\FleetRole.cs" />
-    <Compile Include="Enumerations\GrantType.cs" />
-    <Compile Include="Enumerations\MarketOrderType.cs" />
-    <Compile Include="Enumerations\RoutesFlag.cs" />
-    <Compile Include="Enumerations\SearchCategory.cs" />
-    <Compile Include="Enumerations\SearchType.cs" />
-    <Compile Include="EsiClient.cs" />
-    <Compile Include="EsiConfig.cs" />
-    <Compile Include="EsiRequest.cs" />
-    <Compile Include="EsiResponse.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Logic\AllianceLogic.cs" />
-    <Compile Include="Logic\AssetsLogic.cs" />
-    <Compile Include="Logic\BookmarksLogic.cs" />
-    <Compile Include="Logic\CalendarLogic.cs" />
-    <Compile Include="Logic\CharacterLogic.cs" />
-    <Compile Include="Logic\ClonesLogic.cs" />
-    <Compile Include="Logic\ContactsLogic.cs" />
-    <Compile Include="Logic\ContractsLogic.cs" />
-    <Compile Include="Logic\CorporationLogic.cs" />
-    <Compile Include="Logic\DogmaLogic.cs" />
-    <Compile Include="Logic\FactionWarfareLogic.cs" />
-    <Compile Include="Logic\FittingsLogic.cs" />
-    <Compile Include="Logic\FleetsLogic.cs" />
-    <Compile Include="Logic\IncursionsLogic.cs" />
-    <Compile Include="Logic\IndustryLogic.cs" />
-    <Compile Include="Logic\InsuranceLogic.cs" />
-    <Compile Include="Logic\KillmailsLogic.cs" />
-    <Compile Include="Logic\LocationLogic.cs" />
-    <Compile Include="Logic\LoyaltyLogic.cs" />
-    <Compile Include="Logic\MailLogic.cs" />
-    <Compile Include="Logic\MarketLogic.cs" />
-    <Compile Include="Logic\OpportunitiesLogic.cs" />
-    <Compile Include="Logic\PlanetaryInteractionLogic.cs" />
-    <Compile Include="Logic\RoutesLogic.cs" />
-    <Compile Include="Logic\SearchLogic.cs" />
-    <Compile Include="Logic\SkillsLogic.cs" />
-    <Compile Include="Logic\SovereigntyLogic.cs" />
-    <Compile Include="Logic\StatusLogic.cs" />
-    <Compile Include="Logic\UniverseLogic.cs" />
-    <Compile Include="Logic\UserInterfaceLogic.cs" />
-    <Compile Include="Logic\WalletLogic.cs" />
-    <Compile Include="Logic\WarsLogic.cs" />
-    <Compile Include="Logic\_SSOLogic.cs" />
-    <Compile Include="Models\Alliance\Alliance.cs" />
-    <Compile Include="Models\Assets\Item.cs" />
-    <Compile Include="Models\Assets\ItemLocation.cs" />
-    <Compile Include="Models\Assets\ItemName.cs" />
-    <Compile Include="Models\Bookmarks\Bookmark.cs" />
-    <Compile Include="Models\Bookmarks\Folder.cs" />
-    <Compile Include="Models\Calendar\Event.cs" />
-    <Compile Include="Models\Calendar\Response.cs" />
-    <Compile Include="Models\Character\Affiliation.cs" />
-    <Compile Include="Models\Character\Agent.cs" />
-    <Compile Include="Models\Character\Blueprint.cs" />
-    <Compile Include="Models\Character\Character.cs" />
-    <Compile Include="Models\Character\CharacterInfo.cs" />
-    <Compile Include="Models\Character\ChatChannel.cs" />
-    <Compile Include="Models\Character\Combat.cs" />
-    <Compile Include="Models\Character\ContactNotification.cs" />
-    <Compile Include="Models\Character\Corporation.cs" />
-    <Compile Include="Models\Character\CSPA.cs" />
-    <Compile Include="Models\Character\Fatigue.cs" />
-    <Compile Include="Models\Character\Industry.cs" />
-    <Compile Include="Models\Character\Information.cs" />
-    <Compile Include="Models\Character\Inventory.cs" />
-    <Compile Include="Models\Character\Isk.cs" />
-    <Compile Include="Models\Character\Market.cs" />
-    <Compile Include="Models\Character\Medal.cs" />
-    <Compile Include="Models\Character\Mining.cs" />
-    <Compile Include="Models\Character\Module.cs" />
-    <Compile Include="Models\Character\Notification.cs" />
-    <Compile Include="Models\Character\Orbital.cs" />
-    <Compile Include="Models\Character\Pve.cs" />
-    <Compile Include="Models\Character\Roles.cs" />
-    <Compile Include="Models\Character\Social.cs" />
-    <Compile Include="Models\Character\Stats.cs" />
-    <Compile Include="Models\Character\Title.cs" />
-    <Compile Include="Models\Character\Travel.cs" />
-    <Compile Include="Models\Clones\Clones.cs" />
-    <Compile Include="Models\Contacts\Contact.cs" />
-    <Compile Include="Models\Contacts\Label.cs" />
-    <Compile Include="Models\Contracts\Bid.cs" />
-    <Compile Include="Models\Contracts\Contract.cs" />
-    <Compile Include="Models\Contracts\ContractItem.cs" />
-    <Compile Include="Models\Corporation\AllianceHistory.cs" />
-    <Compile Include="Models\Corporation\Blueprint.cs" />
-    <Compile Include="Models\Corporation\CharacterRoles.cs" />
-    <Compile Include="Models\Corporation\CharacterRolesHistory.cs" />
-    <Compile Include="Models\Corporation\ContainerLog.cs" />
-    <Compile Include="Models\Corporation\Corporation.cs" />
-    <Compile Include="Models\Corporation\Facility.cs" />
-    <Compile Include="Models\Corporation\IssuedMedal.cs" />
-    <Compile Include="Models\Corporation\Medal.cs" />
-    <Compile Include="Models\Corporation\Member.cs" />
-    <Compile Include="Models\Corporation\MemberInfo.cs" />
-    <Compile Include="Models\Corporation\MemberTitles.cs" />
-    <Compile Include="Models\Corporation\Outpost.cs" />
-    <Compile Include="Models\Corporation\Shareholder.cs" />
-    <Compile Include="Models\Corporation\Starbase.cs" />
-    <Compile Include="Models\Corporation\StarbaseInfo.cs" />
-    <Compile Include="Models\Corporation\Structure.cs" />
-    <Compile Include="Models\Corporation\Title.cs" />
-    <Compile Include="Models\Corporation\WalletDivision.cs" />
-    <Compile Include="Models\Dogma\Attribute.cs" />
-    <Compile Include="Models\Dogma\DynamicItem.cs" />
-    <Compile Include="Models\Dogma\Effect.cs" />
-    <Compile Include="Models\FactionWarfare\FactionWarfareSystem.cs" />
-    <Compile Include="Models\FactionWarfare\Leaderboards.cs" />
-    <Compile Include="Models\FactionWarfare\Stat.cs" />
-    <Compile Include="Models\FactionWarfare\War.cs" />
-    <Compile Include="Models\Fittings\Fitting.cs" />
-    <Compile Include="Models\Fittings\NewFitting.cs" />
-    <Compile Include="Models\Fleets\FleetInfo.cs" />
-    <Compile Include="Models\Fleets\Member.cs" />
-    <Compile Include="Models\Fleets\NewSquad.cs" />
-    <Compile Include="Models\Fleets\NewWing.cs" />
-    <Compile Include="Models\Fleets\Settings.cs" />
-    <Compile Include="Models\Fleets\Wing.cs" />
-    <Compile Include="Models\Images.cs" />
-    <Compile Include="Models\Incursions\Incursion.cs" />
-    <Compile Include="Models\Industry\Entry.cs" />
-    <Compile Include="Models\Industry\Extraction.cs" />
-    <Compile Include="Models\Industry\Facility.cs" />
-    <Compile Include="Models\Industry\Job.cs" />
-    <Compile Include="Models\Industry\Observer.cs" />
-    <Compile Include="Models\Industry\ObserverInfo.cs" />
-    <Compile Include="Models\Industry\SolarSystem.cs" />
-    <Compile Include="Models\Insurance\Insurance.cs" />
-    <Compile Include="Models\Killmails\Information.cs" />
-    <Compile Include="Models\Killmails\Killmail.cs" />
-    <Compile Include="Models\Location\Activity.cs" />
-    <Compile Include="Models\Location\Location.cs" />
-    <Compile Include="Models\Location\Ship.cs" />
-    <Compile Include="Models\Loyalty\Offer.cs" />
-    <Compile Include="Models\Loyalty\Points.cs" />
-    <Compile Include="Models\Mail\Header.cs" />
-    <Compile Include="Models\Mail\LabelCounts.cs" />
-    <Compile Include="Models\Mail\MailingList.cs" />
-    <Compile Include="Models\Mail\Message.cs" />
-    <Compile Include="Models\Market\Group.cs" />
-    <Compile Include="Models\Market\Order.cs" />
-    <Compile Include="Models\Market\Price.cs" />
-    <Compile Include="Models\Market\Statistic.cs" />
-    <Compile Include="Models\Opportunities\CompletedTask.cs" />
-    <Compile Include="Models\Opportunities\Group.cs" />
-    <Compile Include="Models\Opportunities\Task.cs" />
-    <Compile Include="Models\PlanetaryInteraction\ColonyLayout.cs" />
-    <Compile Include="Models\PlanetaryInteraction\CustomsOffice.cs" />
-    <Compile Include="Models\PlanetaryInteraction\Planet.cs" />
-    <Compile Include="Models\PlanetaryInteraction\Schematic.cs" />
-    <Compile Include="Models\Position.cs" />
-    <Compile Include="Models\Search\SearchResults.cs" />
-    <Compile Include="Models\Skills\Attributes.cs" />
-    <Compile Include="Models\Skills\SkillDetails.cs" />
-    <Compile Include="Models\Skills\SkillQueueItem.cs" />
-    <Compile Include="Models\Sovereignty\Campaign.cs" />
-    <Compile Include="Models\Sovereignty\Structure.cs" />
-    <Compile Include="Models\Sovereignty\SystemSovereignty.cs" />
-    <Compile Include="Models\Standing.cs" />
-    <Compile Include="Models\Status\Status.cs" />
-    <Compile Include="Models\Universe\Ancestry.cs" />
-    <Compile Include="Models\Universe\AsteroidBelt.cs" />
-    <Compile Include="Models\Universe\Bloodline.cs" />
-    <Compile Include="Models\Universe\Category.cs" />
-    <Compile Include="Models\Universe\Constellation.cs" />
-    <Compile Include="Models\Universe\Faction.cs" />
-    <Compile Include="Models\Universe\Graphic.cs" />
-    <Compile Include="Models\Universe\Group.cs" />
-    <Compile Include="Models\Universe\IDLookup.cs" />
-    <Compile Include="Models\Universe\Jumps.cs" />
-    <Compile Include="Models\Universe\Kills.cs" />
-    <Compile Include="Models\Universe\Moon.cs" />
-    <Compile Include="Models\Universe\Planet.cs" />
-    <Compile Include="Models\Universe\Race.cs" />
-    <Compile Include="Models\Universe\Region.cs" />
-    <Compile Include="Models\Universe\ResolvedInfo.cs" />
-    <Compile Include="Models\Universe\SolarSystem.cs" />
-    <Compile Include="Models\Universe\Star.cs" />
-    <Compile Include="Models\Universe\Stargate.cs" />
-    <Compile Include="Models\Universe\Station.cs" />
-    <Compile Include="Models\Universe\Structure.cs" />
-    <Compile Include="Models\Universe\Type.cs" />
-    <Compile Include="Models\Wallet\JournalEntry.cs" />
-    <Compile Include="Models\Wallet\Transaction.cs" />
-    <Compile Include="Models\Wallet\Wallet.cs" />
-    <Compile Include="Models\Wars\Information.cs" />
-    <Compile Include="Models\_SSO\AuthorizedCharacterData.cs" />
-    <Compile Include="Models\_SSO\SSOToken.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

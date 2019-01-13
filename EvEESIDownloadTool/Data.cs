@@ -107,6 +107,18 @@ namespace EvEESITool
 					Public = null;
 				}
 				// Dispose remaining objects,
+				if (SDE != null)
+				{
+					SDE.Dispose();
+					SDE = null;
+				}
+				// Dispose remaining objects,
+				if (Universe != null)
+				{
+					Universe.Dispose();
+					Universe = null;
+				}
+				// Dispose remaining objects,
 			}
 		}
 	}

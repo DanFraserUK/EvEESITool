@@ -22,6 +22,8 @@ namespace EvEESIToolExample
 
 			var i = esiData.Public.Industry.GetFacilities();
 
+            
+
 			ESI.NET.Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
 
 			if (esiData.Corporation.Facilities.Count > 0)

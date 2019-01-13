@@ -54,16 +54,20 @@ namespace EvEESITool
 			Timer.Elapsed += TimerEvent;
 			Timer.Enabled = true;
 		}
-		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> func)
+		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> myTask)
 		{
-			var workingObject = func;
+			var workingObject = myTask;
 			dynamic result = default(T);
 			if (workingObject.Status == TaskStatus.WaitingForActivation)
 			{
 				while (workingObject.Status == TaskStatus.WaitingForActivation)
 				{
-					Task.Delay(50).Wait();
+					Task.Delay(100).Wait();
 				}
+			}
+			if(objectName=="Facilities")
+			{
+				objectName += "";
 			}
 			if (workingObject.IsFaulted)
 			{

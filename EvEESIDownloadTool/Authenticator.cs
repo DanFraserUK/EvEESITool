@@ -192,19 +192,12 @@ namespace EvEESITool
 		{
 			if (disposing)
 			{
-				// dispose managed resources
-				if (_client != null)
-				{
-					_client.Dispose();
-					_client = null;
-				}
-				// Dispose remaining objects,
+				
 				if (Settings != null)
 				{
 					Settings.Dispose();
 					Settings = null;
 				}
-				// Dispose remaining objects,
 			}
 		}
 	}
