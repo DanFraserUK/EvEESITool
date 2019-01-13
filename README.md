@@ -11,7 +11,24 @@ This tool will do all of the work for you in downloading data from the EvE Swagg
 Go to https://developers.eveonline.com/ - log in, create a new application, name it whatever you wish.
 Choose 'Authentication & API Access' add *ALL* the scopes (this will be variable in the future) and set the callback url to https://localhost/callback/
 
-Confirm, then view application and you'll find the items you need to copy into the console to set up the data.
+Confirm, then view application and you'll find the items you need.
+
+There are two ways to input the data to the program.
+
+Option one is to create a file called config.txt in the same directory as the EvEESITool.dll and paste the following text with the details changed to the items found previously.
+
+    {
+        "EsiUrl": "https://esi.evetech.net/",
+        "DataSource": Tranquility,
+        "ClientId": "<YOUR CLIENT ID>",
+        "SecretKey": ",YOUR SECRET KEY",
+        "CallbackUrl": "https://localhost/callback/",
+        "UserAgent": "YOUR EMAIL"
+    }
+
+Option two, if no config.txt exists the dll will ask you if you are running a console application.
+
+Once these are entered, be warned that on first run of the dll it needs to download a lot of data!  Once the static data export is downloaded the program will open your default web browser to ask for authorization.  As experienced with many other applications choose your character and scroll down then click authorize.  Copy the url (all of it) and paste into the console.  From that point onwards no further input is needed.  The tool will download any data available and save it to disk.  It will also auto-update the data once an hour.
 
 If you have concerns about the data being entered `ConfigDataConsoleEntry` in `AppSettings.cs` is where the data entry occurs.  `Authenticator.cs` is where the information gets used to authorise the connection to the EvE Swagger Interface.  This will be subject to changes in the future to appear like many other applications that access the Eve Swagger Interface.
 

@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EvEESITool;
+using ESI.NET;
 using ESI.NET.Models.Skills;
 
-namespace EvEESITool
+namespace EvEESIToolExample
 {
 	class Program
 	{

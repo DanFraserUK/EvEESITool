@@ -171,7 +171,7 @@ namespace EvEESITool
 		{
 			if (Settings.SaveDataWhenDownloaded)
 			{
-				Console.WriteLine($"Saving {Path.GetFileNameWithoutExtension(SaveFile)} to {Path.GetFileName(SaveFile)} .");
+				Console.WriteLine($"Saving {Path.GetFileNameWithoutExtension(SaveFile)} to {Path.GetFileName(SaveFile)}");
 				Console.WriteLine();
 				using (StreamWriter file = File.CreateText(SaveFile))
 				{

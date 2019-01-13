@@ -101,7 +101,23 @@ namespace EvEESITool
 				}
 				else
 				{
-					GetConfigDataFromUser();
+					if (File.Exists(AppDirectory + "config.txt"))
+					{
+						using (StreamReader myReader = new StreamReader(AppDirectory + "config.txt"))
+						{
+							//ConfigClass temp = new ConfigClass();
+							JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented};
+							JsonReader jsonReader = new JsonTextReader(myReader);
+							Config = serializer.Deserialize<ConfigClass>(jsonReader);
+							//Config.CallbackUrl = temp.CallbackUrl;
+							Console.WriteLine("Config settings imported.");
+							Console.WriteLine();
+						}
+					}
+					else
+					{
+						GetConfigDataFromUser();
+					}
 				}
 				EsiClient = new EsiClient(Config.ConfigOutput());
 				Save();
@@ -141,7 +157,6 @@ namespace EvEESITool
 			{
 				newScopes.Add(s.Split(':')[0].Replace("\"", ""));
 			}
-			contents += "";
 		}
 		public void GetConfigDataFromUser()
 		{
@@ -151,15 +166,15 @@ namespace EvEESITool
 		{
 			Config = new ConfigClass();
 			Console.WriteLine("Esi URL set to https://esi.evetech.net/");
-			Config.CCEsiUrl = "https://esi.evetech.net/";
+			Config.EsiUrl = "https://esi.evetech.net/";
 			Console.WriteLine("Data source set to Tranquility");
-			Config.CCDataSource = DataSource.Tranquility;
+			Config.DataSource = DataSource.Tranquility;
 			Console.WriteLine("Copy and paste the Client ID and press enter");
-			Config.CCClientId = Console.ReadLine();
+			Config.ClientID = Console.ReadLine();
 			Console.WriteLine("Copy and paste the Secret Key and press enter");
-			Config.CCSecretKey = Console.ReadLine();
+			Config.SecretKey = Console.ReadLine();
 			Console.WriteLine("Copy and paste the Callback Url and press enter");
-			Config.CCCallbackUrl = Console.ReadLine();
+			Config.CallbackUrl = Console.ReadLine();
 			Console.WriteLine("Type an identifier for yourself such as an email address - quoting EvEESITool :");
 			Console.WriteLine("For your protection (and mine), you are required to supply a user_agent value.");
 			Console.WriteLine("This can be your character name and/or project name. CCP will be more likely to");
@@ -167,7 +182,7 @@ namespace EvEESITool
 			Console.WriteLine("identify you within the New Eden galaxy. Without this property populated,");
 			Console.WriteLine("the wrapper will not work.");
 			Console.WriteLine("");
-			Config.CCUserAgent = Console.ReadLine();
+			Config.UserAgent = Console.ReadLine();
 		}
 		public void Save()
 		{
@@ -190,23 +205,23 @@ namespace EvEESITool
 		}
 		public class ConfigClass
 		{
-			public string CCEsiUrl;
-			public DataSource CCDataSource;
-			public string CCClientId;
-			public string CCSecretKey;
-			public string CCCallbackUrl;
-			public string CCUserAgent;
+			public string EsiUrl;
+			public DataSource DataSource;
+			public string ClientID;
+			public string SecretKey;
+			public string CallbackUrl;
+			public string UserAgent;
 
 			public IOptions<EsiConfig> ConfigOutput()
 			{
 				IOptions<EsiConfig> result = Options.Create(new EsiConfig()
 				{
-					EsiUrl = CCEsiUrl,
-					DataSource = CCDataSource,
-					ClientId = CCClientId,
-					SecretKey = CCSecretKey,
-					CallbackUrl = CCCallbackUrl,
-					UserAgent = CCUserAgent
+					EsiUrl = EsiUrl,
+					DataSource = DataSource,
+					ClientId = ClientID,
+					SecretKey = SecretKey,
+					CallbackUrl = CallbackUrl,
+					UserAgent = UserAgent
 				});
 				return result;
 			}
