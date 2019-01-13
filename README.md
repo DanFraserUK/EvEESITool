@@ -60,7 +60,11 @@ Because the dll downloads data and saves to disk, do not use subfolders in your 
 
 ## Future changes
 
-The next update is to change all of the setting up process so anyone using this code has an easier time.
+- Create an easier, quicker setup
+- Complete method ranges for accessing ESI data - if not functionality
+- Restructure to rely on Owner Hashes
+- Expand for multiple characters
+
 
 ## Comments, suggestions etc
 
