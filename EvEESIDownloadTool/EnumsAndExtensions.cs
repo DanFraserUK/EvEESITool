@@ -46,5 +46,10 @@ namespace EvEESITool
 			// list.Find(i => i.Property == value);
 			return item.Find(i => i.StationID == searchValue);
 		}
+		public static MapSolarSystems Search(this List<MapSolarSystems> item, int searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.SolarSystemID == searchValue);
+		}
 	}
 }

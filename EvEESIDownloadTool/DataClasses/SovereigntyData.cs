@@ -13,17 +13,17 @@ namespace EvEESITool
 		public List<Structure> Structures { get; private set; } = new List<Structure>();
 		public List<Structure> GetStructures()
 		{
-			return DownloadData<List<Structure>>("Structures", Settings.EsiClient.Sovereignty.Structures());
+			return DownloadData("Structures", Settings.EsiClient.Sovereignty.Structures());
 		}
 		public List<Campaign> Campaigns { get; private set; } = new List<Campaign>();
 		public List<Campaign> GetCampaigns()
 		{
-			return DownloadData<List<Campaign>>("Campaigns", Settings.EsiClient.Sovereignty.Campaigns());
+			return DownloadData("Campaigns", Settings.EsiClient.Sovereignty.Campaigns());
 		}
 		public List<SystemSovereignty> Systems { get; private set; } = new List<SystemSovereignty>();
 		public List<SystemSovereignty> GetSystems()
 		{
-			return DownloadData<List<SystemSovereignty>>("Systems", Settings.EsiClient.Sovereignty.Systems());
+			return DownloadData("Systems", Settings.EsiClient.Sovereignty.Systems());
 		}
 
 

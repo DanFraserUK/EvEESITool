@@ -19,6 +19,24 @@ If you have concerns about the data being entered `ConfigDataConsoleEntry` in `A
 
 Either play in the program.cs itself or in your application add `using EvEESITool;` and instantiate `Data esiData = new Data()`.
 
+    Data esiData = new Data();
+    
+    // examples
+    int characterID = esiData.Character.CharacterID;
+    
+    SkillDetails skills = esiData.Character.Skills;
+    
+    var i = esiData.Public.Industry.GetFacilities();
+    
+    ESI.NET.Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
+    
+    foreach (ESI.NET.Models.Corporation.Facility f in esiData.Corporation.Facilities)
+    {
+    	Console.WriteLine(esiData.Universe.GetStructure(f.FacilityId).Name + ", " 
+    	+ esiData.SDE.SolarSystems.Search(f.SystemId).SolarSystemName + ", "
+    	+ esiData.SDE.InvTypes.Search(f.TypeId).TypeName);
+    }
+
 The ESI data is grouped under common sense, so anything relating to the character is under `Data.CharacterData` etc.
 
 ## Future changes

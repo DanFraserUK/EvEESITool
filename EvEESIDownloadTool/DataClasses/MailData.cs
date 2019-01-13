@@ -34,13 +34,13 @@ namespace EvEESITool
 		/// <returns></returns>
 		public List<Header> Headers(long[] labels, int lastMailID)// { get; private set; } = new List<Header>();
 		{
-			return DownloadData<List<Header>>("Headers", Settings.EsiClient.Mail.Headers(labels, lastMailID));
+			return DownloadData("Headers", Settings.EsiClient.Mail.Headers(labels, lastMailID));
 		}
 		public LabelCounts Labels { get; private set; } = new LabelCounts();
 		public List<MailingList> MailingLists { get; private set; } = new List<MailingList>();
 		public Message Retrieve(int mailID)// { get; private set; } = new Message();
 		{
-			return DownloadData<Message>("Mail", Settings.EsiClient.Mail.Retrieve(mailID));
+			return DownloadData("Mail", Settings.EsiClient.Mail.Retrieve(mailID));
 		}
 
 		/// <summary>
@@ -56,8 +56,8 @@ namespace EvEESITool
 		}
 		protected override void Download()
 		{
-			Labels = DownloadData<LabelCounts>("Labels", Settings.EsiClient.Mail.Labels());
-			MailingLists = DownloadData<List<MailingList>>("Mailing lists", Settings.EsiClient.Mail.MailingLists());
+			Labels = DownloadData("Labels", Settings.EsiClient.Mail.Labels());
+			MailingLists = DownloadData("Mailing lists", Settings.EsiClient.Mail.MailingLists());
 		}
 		protected override bool ReadInData()
 		{

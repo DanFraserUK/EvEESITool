@@ -195,13 +195,13 @@ namespace EvEESITool
 				// dispose managed resources
 				if (_client != null)
 				{
-					_client.Dispose();// or client.Close();
+					_client.Dispose();
 					_client = null;
 				}
 				// Dispose remaining objects,
 				if (Settings != null)
 				{
-					Settings.Dispose();// or client.Close();
+					Settings.Dispose();
 					Settings = null;
 				}
 				// Dispose remaining objects,

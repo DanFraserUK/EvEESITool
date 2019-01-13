@@ -26,7 +26,7 @@ namespace EvEESITool
 	/// <summary>
 	/// I'm doing something with this, I don't know what but there's something
 	/// </summary>
-	public class SDEData
+	public class SDEData : IDisposable
 	{
 		private void CommentStore()
 		{
@@ -198,14 +198,9 @@ namespace EvEESITool
 			Settings = settings;
 			CheckForData();
 
-			if (Directory.GetFiles(Settings.SDEDirectory, "*.json", SearchOption.TopDirectoryOnly).Length == 0 &&
-				Directory.GetFiles(Settings.SDEDirectory, "*.jsonQ", SearchOption.TopDirectoryOnly).Length > 0)
-			{
-				bool test = Settings.LoadedFromFile;
-			}
-
-			InvTypes = GetSDEData<Dictionary<long, InvTypes>>("invTypes");
-			StaStations = GetSDEData<Dictionary<long, StaStations>>("staStations");
+			InvTypes = GetSDEData<List<InvTypes>>("invTypes");
+			StaStations = GetSDEData<List<StaStations>>("staStations");
+			SolarSystems = GetSDEData<List<MapSolarSystems>>("mapSolarSystems");
 		}
 
 		public void CheckForData()
@@ -238,7 +233,7 @@ namespace EvEESITool
 		public T GetSDEData<T>(string fileName)
 		{
 			List<object> Data = new List<object>();
-			if (File.Exists(Settings.SDEDirectory + "{fileName}.json"))
+			if (File.Exists(Settings.SDEDirectory + $"{fileName}.json"))
 			{
 				string input;
 				using (StreamReader myReader = new StreamReader(AppDirectory + $"\\SDE\\{fileName}.json"))
@@ -276,8 +271,9 @@ namespace EvEESITool
 			}
 		}
 
-		public Dictionary<long, InvTypes> InvTypes = new Dictionary<long, InvTypes>();
-		public Dictionary<long, StaStations> StaStations = new Dictionary<long, StaStations>();
+		public List<InvTypes> InvTypes = new List<InvTypes>();
+		public List<StaStations> StaStations = new List<StaStations>();
+		public List<MapSolarSystems> SolarSystems = new List<MapSolarSystems>();
 
 		private static class SDEJson
 		{
@@ -325,7 +321,7 @@ namespace EvEESITool
 				{
 					Directory.CreateDirectory(currentPath + @"\SDE\");
 				}
-				using (StreamWriter myWriter = new StreamWriter(currentPath + @"\SDE\" + s.Href.Substring(s.Href.LastIndexOf('/') + 1) + "Q"))
+				using (StreamWriter myWriter = new StreamWriter(currentPath + @"\SDE\" + s.Href.Substring(s.Href.LastIndexOf('/') + 1)))
 				{
 					using (JsonWriter writer = new JsonTextWriter(myWriter))
 					{
@@ -349,6 +345,25 @@ namespace EvEESITool
 			public override string ToString()
 			{
 				return Href;
+			}
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				// dispose managed resources
+				if (Settings != null)
+				{
+					Settings.Dispose();
+					Settings = null;
+				}
+				// Dispose remaining objects,
 			}
 		}
 	}

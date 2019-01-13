@@ -104,6 +104,7 @@
     <Compile Include="DataClasses\FleetData.cs" />
     <Compile Include="DataClasses\FactionWarfareData.cs" />
     <Compile Include="DataClasses\DogmaData.cs" />
+    <Compile Include="DataClasses\UniverseData.cs" />
     <Compile Include="EnumsAndExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="DataClasses\IndustryData.cs" />

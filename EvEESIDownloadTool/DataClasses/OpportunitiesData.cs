@@ -36,8 +36,9 @@ namespace EvEESITool
 		public List<int> Groups { get; private set; } = new List<int>();
 		public List<int> GetGroups()
 		{
-			return DownloadData<List<int>>("Groups", Settings.EsiClient.Opportunities.Groups()); // /opportunities/groups/:public
+			return DownloadData("Groups", Settings.EsiClient.Opportunities.Groups()); // /opportunities/groups/:public
 		}
+		[JsonIgnore]
 		public ESI.NET.Models.Opportunities.Group Group { get; private set; } = new ESI.NET.Models.Opportunities.Group();
 		public ESI.NET.Models.Opportunities.Group GetGroup(int groupID)
 		{
@@ -48,10 +49,11 @@ namespace EvEESITool
 		{
 			return DownloadData("Tasks", Settings.EsiClient.Opportunities.Tasks()); // /opportunities/tasks/:public
 		}
+		[JsonIgnore]
 		public ESI.NET.Models.Opportunities.Task Task { get; private set; } = new ESI.NET.Models.Opportunities.Task();
 		public ESI.NET.Models.Opportunities.Task GetTask(int taskID)
 		{
-			return DownloadData<ESI.NET.Models.Opportunities.Task>("Task", Settings.EsiClient.Opportunities.Task(taskID)); // /opportunities/tasks/{task_id}/:public
+			return DownloadData("Task", Settings.EsiClient.Opportunities.Task(taskID)); // /opportunities/tasks/{task_id}/:public
 		}
 		public List<CompletedTask> CompletedTasks { get; private set; } = new List<CompletedTask>();
 
@@ -81,7 +83,19 @@ namespace EvEESITool
 		}
 		protected override bool ReadInData()
 		{
-			throw new NotImplementedException();
+			using (StreamReader myReader = new StreamReader(SaveFile))
+			{
+				OpportunitiesData temp = Settings.serializer.Deserialize<OpportunitiesData>(new JsonTextReader(myReader));
+				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
+				Groups = temp.Groups;
+				Tasks = temp.Tasks;
+				
+				Console.Write(" - successful");
+				Console.WriteLine();
+				Console.WriteLine();
+
+				return true;
+			}
 		}
 	}
 }

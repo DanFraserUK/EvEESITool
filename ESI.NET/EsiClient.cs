@@ -139,7 +139,7 @@ namespace ESI.NET
 				// dispose managed resources
 				if (client != null)
 				{
-					client.Dispose();// or client.Close();
+					client.Dispose();
 					client = null;
 				}
 				// Dispose remaining objects,

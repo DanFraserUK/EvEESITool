@@ -245,7 +245,7 @@ namespace EvEESITool
 				// dispose managed resources
 				if (EsiClient != null)
 				{
-					EsiClient.Dispose();// or client.Close();
+					EsiClient.Dispose();
 					EsiClient = null;
 				}
 				// Dispose remaining objects,

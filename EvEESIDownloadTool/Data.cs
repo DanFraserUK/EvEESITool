@@ -20,16 +20,17 @@ using ESI.NET.Models.Skills;
 
 namespace EvEESITool
 {
-	public class Data:IDisposable
+	public class Data : IDisposable
 	{
 		[JsonIgnore]
 		public AppSettings Settings;
-
+		public SDEData SDE;
 		public CharacterData Character;
 		public CorporationData Corporation;
 		public AllianceData Alliance;
 		public MarketData Market;
 		public PublicData Public;
+		public UniverseData Universe;
 
 		public Authenticator Authenticator;
 		public Data()
@@ -44,6 +45,7 @@ namespace EvEESITool
 		}
 		public void CreateData()
 		{
+			SDE = new SDEData(ref Settings);
 			Authenticator = new Authenticator(ref Settings);
 			Settings.EsiClient = Authenticator.StartAuthenticating();
 			Character = new CharacterData(ref Settings);
@@ -51,6 +53,7 @@ namespace EvEESITool
 			Alliance = new AllianceData(ref Settings);
 			Market = new MarketData(ref Settings);
 			Public = new PublicData(ref Settings);
+			Universe = new UniverseData(ref Settings);
 		}
 		public void Dispose()
 		{
@@ -64,43 +67,43 @@ namespace EvEESITool
 				// dispose managed resources
 				if (Settings != null)
 				{
-					Settings.Dispose();// or client.Close();
+					Settings.Dispose();
 					Settings = null;
 				}
 				// Dispose remaining objects,
 				if (Authenticator != null)
 				{
-					Authenticator.Dispose();// or client.Close();
+					Authenticator.Dispose();
 					Authenticator = null;
 				}
 				// Dispose remaining objects,
 				if (Alliance != null)
 				{
-					Alliance.Dispose();// or client.Close();
+					Alliance.Dispose();
 					Alliance = null;
 				}
 				// Dispose remaining objects,
 				if (Character != null)
 				{
-					Character.Dispose();// or client.Close();
+					Character.Dispose();
 					Character = null;
 				}
 				// Dispose remaining objects,
 				if (Corporation != null)
 				{
-					Corporation.Dispose();// or client.Close();
+					Corporation.Dispose();
 					Corporation = null;
 				}
 				// Dispose remaining objects,
 				if (Market != null)
 				{
-					Market.Dispose();// or client.Close();
+					Market.Dispose();
 					Market = null;
 				}
 				// Dispose remaining objects,
 				if (Public != null)
 				{
-					Public.Dispose();// or client.Close();
+					Public.Dispose();
 					Public = null;
 				}
 				// Dispose remaining objects,

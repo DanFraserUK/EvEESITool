@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ESI.NET.Models.Incursions;
 using Newtonsoft.Json;
+using ESI.NET.Models.Universe;
 
 namespace EvEESITool
 {
-	public class IncursionsData : DataClassesBase
+	public class UniverseData : DataClassesBase
 	{
-		public List<Incursion> GetIncursions()
+		public Structure GetStructure(long structureID)// { get; private set; } = new Structure();
 		{
-			return DownloadData("Incursions", Settings.EsiClient.Incursions.All());
+			return DownloadData("Structure", Settings.EsiClient.Universe.Structure(structureID));
 		}
-
 		/// <summary>
 		/// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
 		/// </summary>
 		[JsonConstructor]
-		internal IncursionsData() : base()
+		internal UniverseData() : base()
 		{
 		}
-		internal IncursionsData(ref AppSettings settings) : base(ref settings)
+		internal UniverseData(ref AppSettings settings) : base(ref settings)
 		{
-			GetData();
 		}
+		protected override void Download()
+		{
 
+			Console.WriteLine();
+			SaveToFile();
+		}
 		protected override bool ReadInData()
 		{
 			throw new NotImplementedException();

@@ -158,10 +158,10 @@ namespace EvEESITool
 			FactionWarfareStats = DownloadData("Faction warfare statistics", Settings.EsiClient.FactionWarfare.StatsForCorporation());
 			Observers = DownloadData("Observers", Settings.EsiClient.Industry.Observers(1));
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCorporation(false, 1));
-			Extractions = DownloadData<List<Extraction>>("Extractions", Settings.EsiClient.Industry.Extractions());
+			Extractions = DownloadData("Extractions", Settings.EsiClient.Industry.Extractions());
 			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCorporation());
-			MarketOrders = DownloadData<List<Order>>("Market orders", Settings.EsiClient.Market.CorporationOrders(1));
-			CustomsOffices = DownloadData<List<CustomsOffice>>("Customs offices", Settings.EsiClient.PlanetaryInteraction.CorporationCustomsOffices());
+			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CorporationOrders(1));
+			CustomsOffices = DownloadData("Customs offices", Settings.EsiClient.PlanetaryInteraction.CorporationCustomsOffices());
 
 
 

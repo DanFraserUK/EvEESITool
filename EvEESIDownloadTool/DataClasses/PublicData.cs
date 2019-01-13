@@ -40,11 +40,11 @@ namespace EvEESITool
 		}
 		public List<Insurance> InsuranceLevels()
 		{
-			return DownloadData<List<Insurance>>("Insurance levels", Settings.EsiClient.Insurance.Levels());
+			return DownloadData("Insurance levels", Settings.EsiClient.Insurance.Levels());
 		}
 		public ESI.NET.Models.Killmails.Information GetKillmail(string killmailHash, int killmailID)
 		{
-			return DownloadData<ESI.NET.Models.Killmails.Information>("Killmail", Settings.EsiClient.Killmails.Information(killmailHash, killmailID));
+			return DownloadData("Killmail", Settings.EsiClient.Killmails.Information(killmailHash, killmailID));
 		}
 		public List<int> GetNPCCorps()
 		{
@@ -81,15 +81,15 @@ namespace EvEESITool
 		//public int[] Route { get; private set; } = new int[]();
 		public int[] GetRoute(int origin, int destination, RoutesFlag flag)
 		{
-			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+			return DownloadData("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
 		}
 		public int[] GetRoute(int origin, int destination, RoutesFlag flag, int[] avoid)
 		{
-			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+			return DownloadData("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
 		}
 		public int[] GetRoute(int origin, int destination, RoutesFlag flag, int avoid, int connection)
 		{
-			return DownloadData<int[]>("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
+			return DownloadData("Route", Settings.EsiClient.Routes.Map(origin, destination, flag, null, null)); // /route/{origin}/{destination}/:public
 		}
 
 

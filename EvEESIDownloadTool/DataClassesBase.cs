@@ -25,7 +25,7 @@ using System.Timers;
 
 namespace EvEESITool
 {
-	public class DataClassesBase:IDisposable
+	public class DataClassesBase : IDisposable
 	{
 		[JsonIgnore]
 		protected AppSettings Settings = new AppSettings();
@@ -274,7 +274,7 @@ namespace EvEESITool
 				// dispose managed resources
 				if (Settings != null)
 				{
-					Settings.Dispose();// or client.Close();
+					Settings.Dispose();
 					Settings = null;
 				}
 				// Dispose remaining objects,
