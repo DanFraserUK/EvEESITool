@@ -104,7 +104,7 @@
     <Compile Include="DataClasses\FleetData.cs" />
     <Compile Include="DataClasses\FactionWarfareData.cs" />
     <Compile Include="DataClasses\DogmaData.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="EnumsAndExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="DataClasses\IndustryData.cs" />
     <Compile Include="DataClasses\IncursionsData.cs" />
@@ -119,6 +119,8 @@
     <Compile Include="DataClasses\PublicData.cs" />
     <Compile Include="Scopes.cs" />
     <Compile Include="DataClasses\SovereigntyData.cs" />
+    <Compile Include="SDEClasses.cs" />
+    <Compile Include="SDEData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
