@@ -59,7 +59,7 @@ namespace EvEESITool
 		public List<CharacterRoles> Roles { get; private set; } = new List<CharacterRoles>();
 		public List<CharacterRolesHistory> RolesHistory { get; private set; } = new List<CharacterRolesHistory>();
 		public List<Shareholder> Shareholders { get; private set; } = new List<Shareholder>();
-		public Standing Standings { get; private set; } = new Standing();
+		public List<Standing> Standings { get; private set; } = new List<Standing>();
 		public List<Starbase> Starbases { get; private set; } = new List<Starbase>();
 		public StarbaseInfo StarbaseInfo(int starbaseID, int systemID)// { get; private set; } = new List<StarbaseInfo>();
 		{
@@ -175,7 +175,7 @@ namespace EvEESITool
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				CorporationData temp = Settings.serializer.Deserialize<CorporationData>(new JsonTextReader(myReader));
+				CorporationData temp = AppSettings.serializer.Deserialize<CorporationData>(new JsonTextReader(myReader));
 				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 				Information = temp.Information;
 				AllianceHistory = temp.AllianceHistory;

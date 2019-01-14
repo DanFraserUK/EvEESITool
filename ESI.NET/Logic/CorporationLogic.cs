@@ -218,8 +218,8 @@ namespace ESI.NET.Logic
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public async Task<EsiResponse<Standing>> Standings(int page = 1)
-            => await Execute<Standing>(_client, _config, RequestSecurity.Authenticated, RequestMethod.GET, "/corporations/{corporation_id}/standings/",
+        public async Task<EsiResponse<List<Standing>>> Standings(int page = 1)
+            => await Execute<List<Standing>>(_client, _config, RequestSecurity.Authenticated, RequestMethod.GET, "/corporations/{corporation_id}/standings/",
                 replacements: new Dictionary<string, string>()
                 {
                     { "corporation_id", corporation_id.ToString() }

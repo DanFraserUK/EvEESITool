@@ -85,7 +85,7 @@ namespace EvEESITool
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				OpportunitiesData temp = Settings.serializer.Deserialize<OpportunitiesData>(new JsonTextReader(myReader));
+				OpportunitiesData temp = AppSettings.serializer.Deserialize<OpportunitiesData>(new JsonTextReader(myReader));
 				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 				Groups = temp.Groups;
 				Tasks = temp.Tasks;

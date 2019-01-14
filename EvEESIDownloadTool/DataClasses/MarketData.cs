@@ -87,7 +87,7 @@ namespace EvEESITool
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				MarketData temp = Settings.serializer.Deserialize<MarketData>(new JsonTextReader(myReader));
+				MarketData temp = AppSettings.serializer.Deserialize<MarketData>(new JsonTextReader(myReader));
 				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 				Prices = temp.Prices;
 				

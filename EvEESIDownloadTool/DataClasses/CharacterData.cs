@@ -234,7 +234,7 @@ namespace EvEESITool
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				CharacterData temp = Settings.serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
+				CharacterData temp = AppSettings.serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
 				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 				Information = temp.Information;
 				Skills = temp.Skills;

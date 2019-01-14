@@ -86,7 +86,7 @@ namespace EvEESITool
 		{
 			using (StreamReader myReader = new StreamReader(SaveFile))
 			{
-				AllianceData temp = Settings.serializer.Deserialize<AllianceData>(new JsonTextReader(myReader));
+				AllianceData temp = AppSettings.serializer.Deserialize<AllianceData>(new JsonTextReader(myReader));
 				Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 
 
