@@ -32,7 +32,7 @@ namespace EvEESITool
         public PublicData Public;
         public UniverseData Universe;
 
-        public Authenticator Authenticator;
+        internal Authenticator Authenticator;
         public Data()
         {
             Settings = new AppSettings(true);

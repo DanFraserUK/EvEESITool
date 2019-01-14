@@ -167,10 +167,6 @@ namespace EvEESITool
             }
             return default(T);
         }
-        /// <summary>
-        /// Saves the data to a file of type .json
-        /// </summary>
-        /// <param name="fileName">Name of the file without extension</param>
         protected void SaveToFile()
         {
             if (Settings.SaveDataWhenDownloaded)

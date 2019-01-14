@@ -25,31 +25,31 @@ using System.Timers;
 
 namespace EvEESITool
 {
-	public class Enums
-	{
+    public class Enums
+    {
 
-	}
-	public static class Extensions
-	{
-		public static InvTypes Search(this List<InvTypes> item, int searchValue)
-		{
-			// list.Find(i => i.Property == value);
-			return item.Find(i => i.TypeID == searchValue);
-		}
-		public static InvItems Search(this List<InvItems> item, int searchValue)
-		{
-			// list.Find(i => i.Property == value);
-			return item.Find(i => i.ItemID == searchValue);
-		}
-		public static StaStations Search(this List<StaStations> item, int searchValue)
-		{
-			// list.Find(i => i.Property == value);
-			return item.Find(i => i.StationID == searchValue);
-		}
-		public static MapSolarSystems Search(this List<MapSolarSystems> item, int searchValue)
-		{
-			// list.Find(i => i.Property == value);
-			return item.Find(i => i.SolarSystemID == searchValue);
-		}
-	}
+    }
+    public static class Extensions
+    {
+        public static InvTypes Search(this List<InvTypes> item, int searchValue)
+        {
+            // list.Find(i => i.Property == value);
+            return item.Find(i => i.TypeID == searchValue);
+        }
+        public static InvItems Search(this List<InvItems> item, int searchValue)
+        {
+            // list.Find(i => i.Property == value);
+            return item.Find(i => i.ItemID == searchValue);
+        }
+        public static StaStations Search(this List<StaStations> item, int searchValue)
+        {
+            // list.Find(i => i.Property == value);
+            return item.Find(i => i.StationID == searchValue);
+        }
+        public static MapSolarSystems Search(this List<MapSolarSystems> item, int searchValue)
+        {
+            // list.Find(i => i.Property == value);
+            return item.Find(i => i.SolarSystemID == searchValue);
+        }
+    }
 }

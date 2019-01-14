@@ -39,8 +39,8 @@ namespace EvEESITool
         [JsonIgnore]
         public static JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
         [JsonIgnore]
-        private string SaveFile;// = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\settings.dat";
-       [JsonIgnore]
+        private string SaveFile;
+        [JsonIgnore]
         public readonly string DataDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\";
         [JsonIgnore]
         public readonly string SDEDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\SDE\\";
