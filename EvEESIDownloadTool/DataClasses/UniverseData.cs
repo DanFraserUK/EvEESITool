@@ -14,6 +14,11 @@ namespace EvEESITool
 		{
 			return DownloadData("Structure", Settings.EsiClient.Universe.Structure(structureID));
 		}
+
+        public IDLookup Search(List<string> names)
+        {
+            return DownloadData("Search",Settings.EsiClient.Universe.IDs(names));
+        }
 		/// <summary>
 		/// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
 		/// </summary>
@@ -26,7 +31,6 @@ namespace EvEESITool
 		}
 		protected override void Download()
 		{
-
 			Console.WriteLine();
 			SaveToFile();
 		}

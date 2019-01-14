@@ -65,10 +65,10 @@ namespace EvEESITool
 					Task.Delay(100).Wait();
 				}
 			}
-			if(objectName=="Facilities")
-			{
-				objectName += "";
-			}
+            if(objectName=="Members")
+            {
+                objectName += "";
+            }
 			if (workingObject.IsFaulted)
 			{
 				// throw an error maybe?

@@ -26,11 +26,12 @@ namespace EvEESIToolExample
 
 			ESI.NET.Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
 
-			if (esiData.Corporation.Facilities.Count > 0)
+            
+			if (esiData.Corporation.Structures.Count > 0)
 			{
-				foreach (ESI.NET.Models.Corporation.Facility f in esiData.Corporation.Facilities)
+				foreach (ESI.NET.Models.Corporation.Structure f in esiData.Corporation.Structures)
 				{
-					Console.WriteLine(esiData.Universe.GetStructure(f.FacilityId).Name + ", "
+					Console.WriteLine(esiData.Universe.GetStructure(f.StructureId).Name + ", "
 						+ esiData.SDE.SolarSystems.Search(f.SystemId).SolarSystemName + ", "
 						+ esiData.SDE.InvTypes.Search(f.TypeId).TypeName);
 				}

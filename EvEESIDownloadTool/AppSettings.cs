@@ -81,7 +81,6 @@ namespace EvEESITool
 				}
 
 				CheckForScopesFile();
-				CheckForScopesV2();
 				if (File.Exists(SaveFile))
 				{
 					Console.WriteLine();
@@ -138,26 +137,6 @@ namespace EvEESITool
 			}
 		}
 
-		private void CheckForScopesV2()
-		{
-			// https://esi.evetech.net/latest/swagger.json
-			// slightly hacky, but using the official link for ESI stuff has the scopes riiiiight at the end!
-			// and as someone else on the internet said - "This is why I love the .net libs ..." – Byron Whitlock Jul 12 '10 at 20:27
-			string contents;
-			using (var wc = new WebClient())
-			{
-				contents = wc.DownloadString("https://esi.evetech.net/latest/swagger.json");
-			}
-			string scopes = contents.Substring(contents.IndexOf("scopes"));
-			scopes = scopes.Substring(scopes.IndexOf('{'));
-			scopes = scopes.Substring(0, scopes.IndexOf('}') + 1);
-			string[] parts = scopes.Split(',');
-			List<string> newScopes = new List<string>();
-			foreach (string s in parts)
-			{
-				newScopes.Add(s.Split(':')[0].Replace("\"", ""));
-			}
-		}
 		public void GetConfigDataFromUser()
 		{
 			ConfigDataConsoleEntry();

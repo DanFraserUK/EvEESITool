@@ -52,7 +52,7 @@ namespace EvEESITool
 		}
 		public List<Medal> Medals { get; private set; } = new List<Medal>();
 		public List<IssuedMedal> IssuedMedals { get; private set; } = new List<IssuedMedal>();
-		public List<Member> Members { get; private set; } = new List<Member>();
+		public List<int> Members { get; private set; } = new List<int>();
 		public int MemberLimit { get; private set; } = new int();
 		public List<MemberTitles> MemberTitles { get; private set; } = new List<MemberTitles>();
 		public List<MemberInfo> MemberTracking { get; private set; } = new List<MemberInfo>();
@@ -138,7 +138,7 @@ namespace EvEESITool
 			IssuedMedals = DownloadData("Issued medals", Settings.EsiClient.Corporation.MedalsIssued(1));
 
 			// todo figure this call out - there's an array not being deserialized properly
-			//Members = DownloadData<List<Member>>("Members", Settings.EsiClient.Corporation.Members());
+			Members = DownloadData("Members", Settings.EsiClient.Corporation.Members());
 
 			MemberLimit = DownloadData("Member Limit", Settings.EsiClient.Corporation.MemberLimit());
 			MemberTitles = DownloadData("Member titles", Settings.EsiClient.Corporation.MemberTitles());
