@@ -64,17 +64,17 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get referenced!
         /// </summary>
         [JsonConstructor]
-        internal MarketData() : base()
+        internal MarketData()
         {
         }
-        public MarketData(ref AppSettings settings) : base(ref settings)
+        public MarketData(ref ProfileSettings settings) : base(ref settings)
         {
             GetData();
         }
         protected override void Download()
         {
             Prices = GetPrices();
-            Orders = GetOrders(Settings.DefaultRegionID, MarketOrderType.Sell, 1, null);
+            Orders = GetOrders(Settings.MainSettings.DefaultRegionID, MarketOrderType.Sell, 1, null);
             Groups = GetGroups();
 
 
@@ -87,7 +87,7 @@ namespace EvEESITool
         {
             using (StreamReader myReader = new StreamReader(SaveFile))
             {
-                MarketData temp = AppSettings.serializer.Deserialize<MarketData>(new JsonTextReader(myReader));
+                MarketData temp = Settings.MainSettings.serializer.Deserialize<MarketData>(new JsonTextReader(myReader));
                 Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
                 Prices = temp.Prices;
 

@@ -125,10 +125,10 @@ namespace EvEESITool
         public decimal Wallet { get; set; } = 0;
 
         [JsonConstructor]
-        internal CharacterData() : base()
+        internal CharacterData()
         {
         }
-        internal CharacterData(ref AppSettings settings) : base(ref settings)
+        internal CharacterData(ref ProfileSettings settings) : base(ref settings)
         {
             CharacterID = Settings.AuthorisationData.CharacterID;
             GetData();
@@ -195,7 +195,7 @@ namespace EvEESITool
         {
             using (StreamReader myReader = new StreamReader(SaveFile))
             {
-                CharacterData temp = AppSettings.serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
+                CharacterData temp = Settings.MainSettings.serializer.Deserialize<CharacterData>(new JsonTextReader(myReader));
                 Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
                 Information = temp.Information;
                 Skills = temp.Skills;

@@ -100,14 +100,14 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal PublicData() : base()
+        internal PublicData()
         {
         }
-        internal PublicData(ref AppSettings settings) : base(ref settings)
+        internal PublicData(ref ProfileSettings settings) : base(ref settings)
         {
             CreateData(ref settings);
         }
-        public void CreateData(ref AppSettings settings)
+        public void CreateData(ref ProfileSettings settings)
         {
             Dogma = new DogmaData(ref settings);
             Industry = new IndustryData(ref settings);

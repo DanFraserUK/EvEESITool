@@ -64,10 +64,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal OpportunitiesData() : base()
+        internal OpportunitiesData()
         {
         }
-        internal OpportunitiesData(ref AppSettings settings) : base(ref settings)
+        internal OpportunitiesData(ref ProfileSettings settings) : base(ref settings)
         {
             GetData();
         }
@@ -85,7 +85,7 @@ namespace EvEESITool
         {
             using (StreamReader myReader = new StreamReader(SaveFile))
             {
-                OpportunitiesData temp = AppSettings.serializer.Deserialize<OpportunitiesData>(new JsonTextReader(myReader));
+                OpportunitiesData temp = Settings.MainSettings.serializer.Deserialize<OpportunitiesData>(new JsonTextReader(myReader));
                 Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
                 Groups = temp.Groups;
                 Tasks = temp.Tasks;

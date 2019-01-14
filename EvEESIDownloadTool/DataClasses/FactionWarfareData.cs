@@ -37,10 +37,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal FactionWarfareData() : base()
+        internal FactionWarfareData()
         {
         }
-        internal FactionWarfareData(ref AppSettings settings) : base(ref settings)
+        internal FactionWarfareData(ref ProfileSettings settings) : base(ref settings)
         {
             GetData();
         }

@@ -51,10 +51,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal AllianceData() : base()
+        internal AllianceData()
         {
         }
-        internal AllianceData(ref AppSettings settings) : base(ref settings)
+        internal AllianceData(ref ProfileSettings settings) : base(ref settings)
         {
             AllianceID = Settings.AuthorisationData.AllianceID;
             if (AllianceID > 0)
@@ -81,7 +81,7 @@ namespace EvEESITool
         {
             using (StreamReader myReader = new StreamReader(SaveFile))
             {
-                AllianceData temp = AppSettings.serializer.Deserialize<AllianceData>(new JsonTextReader(myReader));
+                AllianceData temp = Settings.MainSettings.serializer.Deserialize<AllianceData>(new JsonTextReader(myReader));
                 Console.Write($"Loading data from {Path.GetFileName(SaveFile)}");
 
 

@@ -27,10 +27,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal FleetData() : base()
+        internal FleetData()
         {
         }
-        internal FleetData(ref AppSettings settings) : base(ref settings)
+        internal FleetData(ref ProfileSettings settings) : base(ref settings)
         {
             GetData();
         }

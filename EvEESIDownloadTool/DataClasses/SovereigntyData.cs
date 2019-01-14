@@ -32,10 +32,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal SovereigntyData() : base()
+        internal SovereigntyData()
         {
         }
-        internal SovereigntyData(ref AppSettings settings) : base(ref settings)
+        internal SovereigntyData(ref ProfileSettings settings) : base(ref settings)
         {
         }
         protected override void Download()

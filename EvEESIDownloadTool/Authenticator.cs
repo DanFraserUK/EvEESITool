@@ -20,167 +20,168 @@ using ESI.NET.Models.Skills;
 
 namespace EvEESITool
 {
-    internal class Authenticator : IDisposable
-    {
-        [JsonIgnore]
-        private readonly string SaveFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\auth.txt";
-        public AppSettings Settings { get; set; } = new AppSettings();
-        public EsiClient _client;
-        public SsoToken token;
-        public string code = "";
-        public IOptions<EsiConfig> config;
-        public List<string> Scopes { get; private set; } = new List<string>();
-        public string url;
-        public bool AuthenticationSuccessful = false;
-        public bool AuthenticationStepsComplete = false;
+	internal class Authenticator : IDisposable
+	{
+		[JsonIgnore]
+		private readonly string SaveFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\auth.txt";
+		public ProfileSettings Settings;
+		public EsiClient _client;
+		public SsoToken token;
+		public string code = "";
+		public IOptions<EsiConfig> config;
+		public List<string> Scopes { get; private set; } = new List<string>();
+		public string url;
+		public bool AuthenticationSuccessful = false;
+		public bool AuthenticationStepsComplete = false;
 
-        public Authenticator()
-        {
+		public Authenticator()
+		{
 
-        }
-        public Authenticator(ref AppSettings settings)
-        {
-            Settings = settings;
-        }
-        public EsiClient StartAuthenticating()
-        {
-            Setup();
-            Console.WriteLine();
-            if (!Settings.SkipAuthenticating)
-            {
-                if (Settings.LoadedFromFile)
-                {
-                    Console.WriteLine("Authorization data file exists, loading data.");
-                    Console.WriteLine();
-                    Console.WriteLine("Obtaining refresh token.");
-                    if (Settings.InternetAccessAvailable)
-                    {
-                        GetRefreshToken(Settings.AuthorisationData.RefreshToken);
-                        while (Settings.AuthorisationData.RefreshToken == null)
-                        {
-                            Task.Delay(50).Wait();
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("No internet access available.  Attempting to load from any files present.");
-                    }
-                }
-                else
-                {
-                    CreateUrl();
-                    GetCode();
-                    InitialSSOTokenRequest();
-                }
-            }
-            AuthenticationStepsComplete = true;
-            return _client;
-        }
-        private void LoadData()
-        {
-            Console.CursorVisible = false;
-            Console.WriteLine();
-            //TryReadData();
-        }
+		}
+		public Authenticator(ref ProfileSettings settings)
+		{
+			Settings = settings;
+		}
+		public EsiClient StartAuthenticating()
+		{
+			Setup();
+			Console.WriteLine();
+			if (!Settings.MainSettings.SkipAuthenticating)
+			{
+				if (Settings.LoadedFromFile)
+				{
+					Console.WriteLine("Authorization data file exists, loading data.");
+					Console.WriteLine();
+					Console.WriteLine("Obtaining refresh token.");
+					if (Settings.MainSettings.InternetAccessAvailable)
+					{
+						GetRefreshToken(Settings.AuthorisationData.RefreshToken);
+						while (Settings.AuthorisationData.RefreshToken == null)
+						{
+							Task.Delay(50).Wait();
+						}
+					}
+					else
+					{
+						Console.WriteLine("No internet access available.  Attempting to load from any files present.");
+					}
+				}
+				else
+				{
+					CreateUrl();
+					GetCode();
+					InitialSSOTokenRequest();
+				}
+			}
+			AuthenticationStepsComplete = true;
+			return _client;
+		}
+		private void LoadData()
+		{
+			Console.CursorVisible = false;
+			Console.WriteLine();
+			//TryReadData();
+		}
 
 
-        public void Setup()
-        {
-            Console.WriteLine("Setting up authentication.");
-            Console.WriteLine();
-            token = new SsoToken();
-            Console.WriteLine("SSO Token object created.");
-            Console.WriteLine();
-            config = Settings.Config.ConfigOutput();
+		public void Setup()
+		{
+			Console.WriteLine("Setting up authentication.");
+			Console.WriteLine();
+			token = new SsoToken();
+			Console.WriteLine("SSO Token object created.");
+			Console.WriteLine();
+			config = Settings.Config.ConfigOutput();
 
-            Console.WriteLine($"config created.");
-            Console.WriteLine($"EsiUrl = {config.Value.EsiUrl}");
-            Console.WriteLine($"DataSource = {config.Value.DataSource}");
-            Console.WriteLine($"ClientId = {config.Value.ClientId}");
-            Console.WriteLine($"SecretKey = {config.Value.SecretKey}");
-            Console.WriteLine($"CallbackUrl = {config.Value.CallbackUrl}");
-            Console.WriteLine($"UserAgent = {config.Value.UserAgent}");
-            Console.WriteLine();
+			Console.WriteLine($"config created.");
+			Console.WriteLine($"EsiUrl = {config.Value.EsiUrl}");
+			Console.WriteLine($"DataSource = {config.Value.DataSource}");
+			Console.WriteLine($"ClientId = {config.Value.ClientId}");
+			Console.WriteLine($"SecretKey = {config.Value.SecretKey}");
+			Console.WriteLine($"CallbackUrl = {config.Value.CallbackUrl}");
+			Console.WriteLine($"UserAgent = {config.Value.UserAgent}");
+			Console.WriteLine();
 
-            Scopes = EvEESITool.Scopes.GetScopes();
-            Console.WriteLine($"Scopes file loaded. {Scopes.Count} scopes added.");
+			Scopes = EvEESITool.Scopes.GetScopes();
+			Console.WriteLine($"Scopes file loaded. {Scopes.Count} scopes added.");
 
-            _client = new EsiClient(config);
-            Console.WriteLine("Created EsiClient object.");
-            Console.WriteLine();
-        }
+			_client = new EsiClient(config);
+			Console.WriteLine("Created EsiClient object.");
+			Console.WriteLine();
+		}
 
-        public void CreateUrl()
-        {
-            url = _client.SSO.CreateAuthenticationUrl(Scopes);
-            Console.WriteLine("Url created.");
-            Console.WriteLine();
-        }
+		public void CreateUrl()
+		{
+			url = _client.SSO.CreateAuthenticationUrl(Scopes);
+			Console.WriteLine("Url created.");
+			Console.WriteLine();
+		}
 
-        public void GetCode()
-        {
-            Process.Start(url);
-            Console.WriteLine("Paste the new url from the address textbox here.");
-            string input = Console.ReadLine();
-            code = input.Substring(input.IndexOf("?code=") + 6);
-            Console.WriteLine();
-            Console.WriteLine($"code = {code}");
-            Console.WriteLine();
-        }
+		public void GetCode()
+		{
+			Process.Start(url);
+			Console.WriteLine("Paste the new url from the address textbox here.");
+			string input = Console.ReadLine();
+			code = input.Substring(input.IndexOf("?code=") + 6);
+			Console.WriteLine();
+			Console.WriteLine($"code = {code}");
+			Console.WriteLine();
+		}
 
-        public async void GetRefreshToken(string refreshToken)
-        {
-            token = await _client.SSO.GetToken(GrantType.RefreshToken, refreshToken);
-            //Extensions.AwaitMessage(ref token.RefreshToken, "Awaiting token...", "Token downloaded.");
-            Settings.AuthorisationData = Verify().Result;
-            //Extensions.AwaitMessage(ref Settings.AuthorisationData.CharacterName, "Awaiting verification...", "Token verified successfully.");
-            _client.SetCharacterData(Settings.AuthorisationData);
-            Console.WriteLine("Character data set.");
-            Console.WriteLine();
+		public async void GetRefreshToken(string refreshToken)
+		{
+			token = await _client.SSO.GetToken(GrantType.RefreshToken, refreshToken);
+			//Extensions.AwaitMessage(ref token.RefreshToken, "Awaiting token...", "Token downloaded.");
+			Settings.AuthorisationData = Verify().Result;
+			//Extensions.AwaitMessage(ref Settings.AuthorisationData.CharacterName, "Awaiting verification...", "Token verified successfully.");
+			_client.SetCharacterData(Settings.AuthorisationData);
+			Console.WriteLine("Character data set.");
+			Console.WriteLine();
 
-            Settings.Save();
-        }
+			Settings.Save();
+		}
 
-        public async void InitialSSOTokenRequest()
-        {
-            token = await GetToken();
-            Settings.AuthorisationData = Verify().Result;
-            _client.SetCharacterData(Settings.AuthorisationData);
-            Settings.Save();
-        }
+		public async void InitialSSOTokenRequest()
+		{
+			token = await GetToken();
+			Settings.AuthorisationData = Verify().Result;
+			_client.SetCharacterData(Settings.AuthorisationData);
+			Settings.ProfileName = Settings.AuthorisationData.CharacterName.Replace(" ", "");
+			Settings.Save();
+		}
 
-        public async Task<SsoToken> GetToken()
-        {
-            SsoToken result = await _client.SSO.GetToken(GrantType.AuthorizationCode, code);
-            Console.WriteLine($"Token result obtained.");
-            Console.WriteLine($"  {result.AccessToken}");
-            Console.WriteLine($"  {result.ExpiresIn}");
-            Console.WriteLine($"  {result.RefreshToken}");
-            Console.WriteLine($"  {result.TokenType}");
-            return result;
-        }
+		public async Task<SsoToken> GetToken()
+		{
+			SsoToken result = await _client.SSO.GetToken(GrantType.AuthorizationCode, code);
+			Console.WriteLine($"Token result obtained.");
+			Console.WriteLine($"  {result.AccessToken}");
+			Console.WriteLine($"  {result.ExpiresIn}");
+			Console.WriteLine($"  {result.RefreshToken}");
+			Console.WriteLine($"  {result.TokenType}");
+			return result;
+		}
 
-        public async Task<AuthorizedCharacterData> Verify()
-        {
-            AuthorizedCharacterData result = await _client.SSO.Verify(token);
-            return result;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+		public async Task<AuthorizedCharacterData> Verify()
+		{
+			AuthorizedCharacterData result = await _client.SSO.Verify(token);
+			return result;
+		}
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+		protected virtual void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
 
-                if (Settings != null)
-                {
-                    Settings.Dispose();
-                    Settings = null;
-                }
-            }
-        }
-    }
+				if (Settings != null)
+				{
+					Settings.Dispose();
+					Settings = null;
+				}
+			}
+		}
+	}
 }

@@ -26,7 +26,7 @@ using System.Timers;
 
 namespace EvEESITool
 {
-    public class AppSettings : IDisposable
+    public class AppSettingsBerk : IDisposable
     {
         public AuthorizedCharacterData AuthorisationData { get; set; } = new AuthorizedCharacterData();
         public int MarketHistoryDays { get; private set; } = 10;
@@ -62,11 +62,11 @@ namespace EvEESITool
 
 
 
-        public AppSettings()
+        public AppSettingsBerk()
         {
 
         }
-        public AppSettings(bool fullStart)
+        public AppSettingsBerk(bool fullStart)
         {
             if (fullStart)
             {
@@ -81,22 +81,22 @@ namespace EvEESITool
                 }
                 CheckForScopesFile();
 
-                List<string> profileDirectories = new List<string>();
-                profileDirectories.AddRange(Directory.GetDirectories(DataDirectory));
+                //List<string> profileDirectories = new List<string>();
+                //profileDirectories.AddRange(Directory.GetDirectories(DataDirectory));
 
-                if (profileDirectories.Count == 0)
-                {
-                    // blank load
-                }
-                else if (profileDirectories.Count == 1)
-                {
-                    // simple easy load!
-                    SaveFile = profileDirectories[0] + $"\\settings.json";
-                }
-                else if (profileDirectories.Count > 1)
-                {
-                    // uh oh, this is the hard bit
-                }
+                //if (profileDirectories.Count == 0)
+                //{
+                //    // blank load
+                //}
+                //else if (profileDirectories.Count == 1)
+                //{
+                //    // simple easy load!
+                //    SaveFile = profileDirectories[0] + $"\\settings.json";
+                //}
+                //else if (profileDirectories.Count > 1)
+                //{
+                //    // uh oh, this is the hard bit
+                //}
 
                 if (File.Exists(SaveFile))
                 {
@@ -197,34 +197,6 @@ namespace EvEESITool
                 AppSettings newFile = new AppSettings();
                 JsonReader jsonReader = new JsonTextReader(myReader);
                 newFile = serializer.Deserialize<AppSettings>(jsonReader);
-            }
-        }
-        public class ConfigClass
-        {
-            public string EsiUrl;
-            public DataSource DataSource;
-            public string ClientID;
-            public string SecretKey;
-            public string CallbackUrl;
-            public string UserAgent;
-
-            public IOptions<EsiConfig> ConfigOutput()
-            {
-                IOptions<EsiConfig> result = Options.Create(new EsiConfig()
-                {
-                    EsiUrl = EsiUrl,
-                    DataSource = DataSource,
-                    ClientId = ClientID,
-                    SecretKey = SecretKey,
-                    CallbackUrl = CallbackUrl,
-                    UserAgent = UserAgent
-                });
-                return result;
-            }
-
-            public ConfigClass()
-            {
-
             }
         }
         public void CheckInternetAccess()

@@ -19,10 +19,10 @@ namespace EvEESITool
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
         [JsonConstructor]
-        internal IncursionsData() : base()
+        internal IncursionsData()
         {
         }
-        internal IncursionsData(ref AppSettings settings) : base(ref settings)
+        internal IncursionsData(ref ProfileSettings settings) : base(ref settings)
         {
             GetData();
         }

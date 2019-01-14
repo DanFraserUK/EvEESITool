@@ -13,23 +13,30 @@ namespace EvEESIToolExample
 	{
 		static void Main(string[] args)
 		{
-			Profile esiData = new Profile();
+			Data esiData = new Data();
+			//Profile esiData = new Profile();
+
+			// I know this is incredibly basic!
+			Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
+			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
+			{
+				esiData.CreateNewProfile();
+			}
 
 			// examples
-			int characterID = esiData.Character.CharacterID;
+			int characterID = esiData.Profiles[0].Character.CharacterID;
 
-			SkillDetails skills = esiData.Character.Skills;
+			SkillDetails skills = esiData.Profiles[0].Character.Skills;
+
+			Profile p = esiData.Profiles[0];
 
 			var i = esiData.Public.Industry.GetFacilities();
 
-            
+			ESI.NET.Models.Alliance.Alliance a = esiData.Profiles[0].Alliance.GetAlliance(esiData.Profiles[0].Corporation.AllianceHistory[1].AllianceId);
 
-			ESI.NET.Models.Alliance.Alliance a = esiData.Alliance.GetAlliance(esiData.Corporation.AllianceHistory[1].AllianceId);
-
-            
-			if (esiData.Corporation.Structures.Count > 0)
+			if (esiData.Profiles[0].Corporation.Structures.Count > 0)
 			{
-				foreach (ESI.NET.Models.Corporation.Structure f in esiData.Corporation.Structures)
+				foreach (ESI.NET.Models.Corporation.Structure f in esiData.Profiles[0].Corporation.Structures)
 				{
 					Console.WriteLine(esiData.Universe.GetStructure(f.StructureId).Name + ", "
 						+ esiData.SDE.SolarSystems.Search(f.SystemId).SolarSystemName + ", "
@@ -38,8 +45,9 @@ namespace EvEESIToolExample
 			}
 			else
 			{
-				Console.WriteLine($"{esiData.Corporation.Information.Name} has no facilities.");
+				Console.WriteLine($"{esiData.Profiles[0].Corporation.Information.Name} has no facilities.");
 			}
+
 			// place a breakpoint below to hold the program to have a good look through the local items.
 
 			Console.WriteLine("Press a key to end");
