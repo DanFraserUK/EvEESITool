@@ -13,7 +13,7 @@ namespace EvEESIToolExample
 	{
 		static void Main(string[] args)
 		{
-			Data esiData = new Data();
+			Profile esiData = new Profile();
 
 			// examples
 			int characterID = esiData.Character.CharacterID;
