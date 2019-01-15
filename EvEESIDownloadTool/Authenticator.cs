@@ -94,7 +94,10 @@ namespace EvEESITool
 
 
 			List<string> scopesCheck = new List<string>();
-			scopesCheck.AddRange(Settings.AuthorisationData.Scopes.Split(' '));
+			if (Settings.AuthorisationData.Scopes != null)
+			{
+				scopesCheck.AddRange(Settings.AuthorisationData.Scopes.Split(' '));
+			}
 			if (scopesCheck.Count > 0)
 			{
 				// only load the scopes found in the profile

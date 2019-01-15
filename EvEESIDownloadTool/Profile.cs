@@ -24,7 +24,7 @@ namespace EvEESITool
 	{
 		[JsonIgnore]
 		public ProfileSettings Settings;
-		
+
 		public CharacterData Character;
 
 		// disabled for now during multiprofile development
@@ -45,6 +45,15 @@ namespace EvEESITool
 			CreateData();
 		}
 
+		public Profile(ref MainSettings mainSettings, ConfigClass config)
+		{
+			Settings = new ProfileSettings(ref mainSettings)
+			{
+				Config = config
+			};
+			CreateData();
+		}
+
 		/// <summary>
 		/// Loads an existing profile from the folder supplied
 		/// </summary>
@@ -54,7 +63,7 @@ namespace EvEESITool
 			Settings = new ProfileSettings(ref mainSettings, profileName);
 			CreateData();
 		}
-		
+
 
 
 
@@ -69,6 +78,11 @@ namespace EvEESITool
 			//Market = new MarketData(ref Settings);
 			//Public = new PublicData(ref Settings);
 			//Universe = new UniverseData(ref Settings);
+		}
+
+		public override string ToString()
+		{
+			return Character.Information.Name + ", " + Character.Wallet.ToString("N2") + " ISK, " + Corporation.Information.Name + ", " + Corporation.Information.Ticker;
 		}
 		public void Dispose()
 		{

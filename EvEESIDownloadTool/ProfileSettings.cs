@@ -34,7 +34,7 @@ namespace EvEESITool
 		internal string ProfileName;
 
 		public AuthorizedCharacterData AuthorisationData { get; set; } = new AuthorizedCharacterData();
-		public ConfigClass Config { get; private set; } = new ConfigClass();
+		public ConfigClass Config { get; internal set; } = new ConfigClass();
 		[JsonIgnore]
 		public EsiClient EsiClient { get; set; }
 		[JsonIgnore]

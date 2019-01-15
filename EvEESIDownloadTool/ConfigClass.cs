@@ -48,10 +48,13 @@ namespace EvEESITool
 			});
 			return result;
 		}
-
 		public ConfigClass()
 		{
 
+		}
+
+		public ConfigClass(string file)
+		{
 		}
 	}
 }
