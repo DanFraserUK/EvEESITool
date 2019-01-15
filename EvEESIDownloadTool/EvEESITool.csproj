@@ -103,6 +103,7 @@
     <Compile Include="DataClasses\AllianceData.cs" />
     <Compile Include="Authenticator.cs" />
     <Compile Include="DataClasses\CharacterData.cs" />
+    <Compile Include="DataClasses\CorporationWalletData.cs" />
     <Compile Include="DataClasses\CorporationData.cs" />
     <Compile Include="DataClasses\WalletData.cs" />
     <Compile Include="MainSettings.cs" />

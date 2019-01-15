@@ -89,10 +89,8 @@ namespace EvEESITool
 		public List<Job> IndustryJobs { get; private set; } = new List<Job>();
 		public List<Extraction> Extractions { get; private set; } = new List<Extraction>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
-		public List<Order> MarketOrders { get; private set; } = new List<Order>();
 		public List<CustomsOffice> CustomsOffices { get; private set; } = new List<CustomsOffice>();
-
-
+		public CorporationWalletData Wallet { get; set; } = new CorporationWalletData();
 
 
 
@@ -127,6 +125,8 @@ namespace EvEESITool
 		}
 		protected override void Download()
 		{
+			Wallet = new CorporationWalletData(ref Settings);
+
 			Information = DownloadData("Information", Settings.EsiClient.Corporation.Information(CorporationID));
 			AllianceHistory = DownloadData("Alliance history", Settings.EsiClient.Corporation.AllianceHistory(CorporationID));
 			Blueprints = DownloadData("Blueprints", Settings.EsiClient.Corporation.Blueprints(1));
@@ -157,7 +157,6 @@ namespace EvEESITool
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCorporation(false, 1));
 			Extractions = DownloadData("Extractions", Settings.EsiClient.Industry.Extractions());
 			Killmails = DownloadData("Killmails", Settings.EsiClient.Killmails.ForCorporation());
-			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CorporationOrders(1));
 			CustomsOffices = DownloadData("Customs offices", Settings.EsiClient.PlanetaryInteraction.CorporationCustomsOffices());
 
 
@@ -206,7 +205,6 @@ namespace EvEESITool
 				IndustryJobs = temp.IndustryJobs;
 				Extractions = temp.Extractions;
 				Killmails = temp.Killmails;
-				MarketOrders = temp.MarketOrders;
 				CustomsOffices = temp.CustomsOffices;
 
 
