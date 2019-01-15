@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using EvEESITool;
 using ESI.NET;
 using ESI.NET.Models.Skills;
+using ESI.NET.Enumerations;
+using System.Windows.Forms;
 
 namespace EvEESIToolExample
 {
 	class Program
 	{
+		[STAThread]
 		static void Main(string[] args)
 		{
 			Data esiData = new Data();
@@ -21,6 +24,7 @@ namespace EvEESIToolExample
 			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
 			{
 				esiData.CreateNewProfile();
+				Console.WriteLine();
 			}
 
 			// examples
@@ -31,6 +35,8 @@ namespace EvEESIToolExample
 			Profile p = esiData.Profiles[0];
 
 			var i = esiData.Public.Industry.GetFacilities();
+
+			
 
 			ESI.NET.Models.Alliance.Alliance a = esiData.Profiles[0].Alliance.GetAlliance(esiData.Profiles[0].Corporation.AllianceHistory[1].AllianceId);
 

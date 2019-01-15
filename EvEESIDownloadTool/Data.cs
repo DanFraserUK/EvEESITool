@@ -20,6 +20,7 @@ namespace EvEESITool
 		public MarketData Market;
 		public PublicData Public;
 		public UniverseData Universe;
+		public UserInterfaceData UI;
 
 		public Data()
 		{
@@ -74,6 +75,7 @@ namespace EvEESITool
 			Market = new MarketData(ref settings);
 			Public = new PublicData(ref settings);
 			Universe = new UniverseData(ref settings);
+			UI = new UserInterfaceData(ref settings);
 		}
 	}
 }

@@ -25,31 +25,52 @@ using System.Timers;
 
 namespace EvEESITool
 {
-    public class Enums
-    {
+	public class Enums
+	{
 
-    }
-    public static class Extensions
-    {
-        public static InvTypes Search(this List<InvTypes> item, int searchValue)
-        {
-            // list.Find(i => i.Property == value);
-            return item.Find(i => i.TypeID == searchValue);
-        }
-        public static InvItems Search(this List<InvItems> item, int searchValue)
-        {
-            // list.Find(i => i.Property == value);
-            return item.Find(i => i.ItemID == searchValue);
-        }
-        public static StaStations Search(this List<StaStations> item, int searchValue)
-        {
-            // list.Find(i => i.Property == value);
-            return item.Find(i => i.StationID == searchValue);
-        }
-        public static MapSolarSystems Search(this List<MapSolarSystems> item, int searchValue)
-        {
-            // list.Find(i => i.Property == value);
-            return item.Find(i => i.SolarSystemID == searchValue);
-        }
-    }
+	}
+	public static class Extensions
+	{
+		public static InvTypes Search(this List<InvTypes> item, int searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.TypeID == searchValue);
+		}
+		public static InvItems Search(this List<InvItems> item, int searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.ItemID == searchValue);
+		}
+		public static StaStations Search(this List<StaStations> item, int searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.StationID == searchValue);
+		}
+		public static StaStations Search(this List<StaStations> item, long searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.StationID == searchValue);
+		}
+		public static MapSolarSystems Search(this List<MapSolarSystems> item, int searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.SolarSystemID == searchValue);
+		}
+		public static MapSolarSystems Search(this List<MapSolarSystems> item, long searchValue)
+		{
+			// list.Find(i => i.Property == value);
+			return item.Find(i => i.SolarSystemID == searchValue);
+		}
+		public static void Sort(this List<Order> item)
+		{
+			item.Sort((x, y) => x.Price.CompareTo(y.Price));
+		}
+		public static Order GetLowestPrice(this List<Order> item, long locationID)
+		{
+			var newList = item.Where(w => w.LocationId == locationID).OrderBy(o => o.Price).ToList();
+			//newList.Sort((x, y) => x.Price.CompareTo(y.Price));
+
+			return newList[0];
+		}
+	}
 }

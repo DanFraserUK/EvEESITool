@@ -30,7 +30,7 @@ namespace EvEESITool
         public List<Order> Orders { get; private set; } = new List<Order>();
         public List<Order> GetOrders(int regionID, MarketOrderType orderType, int page, int? typeID)
         {
-            return DownloadData("Region orders", Settings.EsiClient.Market.RegionOrders(regionID, orderType, page, typeID));
+            return DownloadData(Settings.EsiClient.Market.RegionOrders(regionID, orderType, page, typeID));
         }
         public List<Statistic> TypeHistory { get; private set; } = new List<Statistic>();
         public List<Statistic> GetTypeHistory(int regionID, int typeID)

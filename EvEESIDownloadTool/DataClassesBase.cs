@@ -57,6 +57,46 @@ namespace EvEESITool
 			Timer.Elapsed += TimerEvent;
 			Timer.Enabled = true;
 		}
+		protected T DownloadData<T>(Task<EsiResponse<T>> myTask)
+		{
+			var workingObject = myTask;
+			dynamic result = default(T);
+			if (workingObject.Status == TaskStatus.WaitingForActivation)
+			{
+				while (workingObject.Status == TaskStatus.WaitingForActivation)
+				{
+					Task.Delay(100).Wait();
+				}
+			}
+			if (workingObject.IsFaulted)
+			{
+				// throw an error maybe?
+			}
+			else
+			{
+				if (workingObject.Status == TaskStatus.RanToCompletion)
+				{
+					var data = workingObject.Result;
+					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
+					{
+						if (data.Data != null && data.Data.GetType() == typeof(int))
+						{
+							result = int.Parse(data.Message);
+						}
+						else if (data.Data != null && data.Data.GetType() == typeof(decimal))
+						{
+							result = decimal.Parse(data.Message);
+						}
+						else
+						{
+							result = data.Data;
+						}
+					}
+				}
+				
+			}
+			return result;
+		}
 		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> myTask)
 		{
 			var workingObject = myTask;

@@ -105,6 +105,7 @@
     <Compile Include="DataClasses\CharacterData.cs" />
     <Compile Include="DataClasses\CorporationWalletData.cs" />
     <Compile Include="DataClasses\CorporationData.cs" />
+    <Compile Include="DataClasses\UserInterfaceData.cs" />
     <Compile Include="DataClasses\WalletData.cs" />
     <Compile Include="MainSettings.cs" />
     <Compile Include="Profile.cs" />
