@@ -82,7 +82,7 @@ namespace EvEESITool
 
 		public override string ToString()
 		{
-			return Character.Information.Name + ", " + Character.Wallet.ToString("N2") + " ISK, " + Corporation.Information.Name + ", " + Corporation.Information.Ticker;
+			return Character.Information.Name + ", " + Character.Wallet.Balance.ToString("N2") + " ISK, " + Corporation.Information.Name + ", " + Corporation.Information.Ticker;
 		}
 		public void Dispose()
 		{
