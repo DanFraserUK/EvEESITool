@@ -72,5 +72,12 @@ namespace EvEESITool
 
 			return newList[0];
 		}
+		public static Order GetHighestPrice(this List<Order> item, long locationID)
+		{
+			var newList = item.Where(w => w.LocationId == locationID).OrderByDescending(o => o.Price).ToList();
+			//newList.Sort((x, y) => x.Price.CompareTo(y.Price));
+
+			return newList[0];
+		}
 	}
 }
