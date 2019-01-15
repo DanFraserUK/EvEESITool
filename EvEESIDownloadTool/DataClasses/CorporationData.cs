@@ -61,7 +61,7 @@ namespace EvEESITool
 		public List<Shareholder> Shareholders { get; private set; } = new List<Shareholder>();
 		public List<Standing> Standings { get; private set; } = new List<Standing>();
 		public List<Starbase> Starbases { get; private set; } = new List<Starbase>();
-		public StarbaseInfo StarbaseInfo(int starbaseID, int systemID)// { get; private set; } = new List<StarbaseInfo>();
+		public StarbaseInfo StarbaseInfo(int starbaseID, int systemID)
 		{
 			return DownloadData("Starbase information", Settings.EsiClient.Corporation.Starbase(starbaseID, systemID));
 		}

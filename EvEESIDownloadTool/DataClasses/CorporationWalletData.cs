@@ -37,6 +37,7 @@ namespace EvEESITool
 		public List<List<JournalEntry>> Journal { get; private set; } = new List<List<JournalEntry>>();
 		public List<List<Transaction>> Transactions { get; private set; } = new List<List<Transaction>>();
 		public List<Order> MarketOrders { get; private set; } = new List<Order>();
+		public List<Order> MarketOrderHistory { get; private set; } = new List<Order>();
 
 		/// <summary>
 		/// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
@@ -59,6 +60,7 @@ namespace EvEESITool
 				Transactions.Add(DownloadData("Journal", Settings.EsiClient.Wallet.CorporationTransactions(i)));
 			}
 			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CorporationOrders());
+			MarketOrderHistory = DownloadData("Market order history",Settings.EsiClient.Market.CorporationOrderHistory());
 		}
 		protected override bool ReadInData()
 		{

@@ -31,21 +31,22 @@ using ESI.NET.Models.PlanetaryInteraction;
 
 namespace EvEESITool
 {
-	public class WalletData : DataClassesBase
+	public class CharacterWalletData : DataClassesBase
 	{
 		public decimal Balance { get; set; } = 0;
 		public List<JournalEntry> Journal { get; private set; } = new List<JournalEntry>();
 		public List<Transaction> Transactions { get; private set; } = new List<Transaction>();
 		public List<Order> MarketOrders { get; private set; } = new List<Order>();
+		public List<Order> MarketOrderHistory { get; private set; } = new List<Order>();
 
 		/// <summary>
 		/// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
 		/// </summary>
 		[JsonConstructor]
-		internal WalletData()
+		internal CharacterWalletData()
 		{
 		}
-		internal WalletData(ref ProfileSettings settings) : base(ref settings)
+		internal CharacterWalletData(ref ProfileSettings settings) : base(ref settings)
 		{
 			GetData();
 		}
@@ -56,6 +57,7 @@ namespace EvEESITool
 			Journal = DownloadData("Journal", Settings.EsiClient.Wallet.CharacterJournal());
 			Transactions = DownloadData("Transactions", Settings.EsiClient.Wallet.CharacterTransactions());
 			MarketOrders = DownloadData("Market orders", Settings.EsiClient.Market.CharacterOrders());
+			MarketOrderHistory = DownloadData("Market order history", Settings.EsiClient.Market.CharacterOrderHistory());
 		}
 		protected override bool ReadInData()
 		{

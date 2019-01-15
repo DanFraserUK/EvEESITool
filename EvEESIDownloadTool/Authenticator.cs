@@ -48,6 +48,7 @@ namespace EvEESITool
 			{
 				if (Settings.LoadedFromFile)
 				{
+					Scopes = null;
 					Console.WriteLine("Authorization data file exists, loading data.");
 					Console.WriteLine();
 					Console.WriteLine("Obtaining refresh token.");

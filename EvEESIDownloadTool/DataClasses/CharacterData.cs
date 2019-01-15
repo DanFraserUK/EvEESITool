@@ -104,7 +104,6 @@ namespace EvEESITool
 		public List<Entry> MiningLedger { get; private set; } = new List<Entry>();
 		public List<Killmail> Killmails { get; private set; } = new List<Killmail>();
 		public List<Points> LoyaltyPoints { get; private set; } = new List<Points>();
-		//public List<Order> MarketOrders { get; private set; } = new List<Order>();
 		public List<Planet> Planets { get; private set; } = new List<Planet>();
 		public ColonyLayout ColonyLayout(int planetID)
 		{
@@ -122,8 +121,7 @@ namespace EvEESITool
 
 
 		public int CharacterID { get; set; } = 0;
-		//public decimal Wallet { get; set; } = 0;
-		public WalletData Wallet { get; set; }
+		public CharacterWalletData Wallet { get; set; }
 
 		[JsonConstructor]
 		internal CharacterData()
@@ -141,7 +139,7 @@ namespace EvEESITool
 		protected override void Download()
 		{
 			//Wallet = DownloadData("Wallet Balance", Settings.EsiClient.Wallet.CharacterWallet());
-			Wallet = new WalletData(ref Settings);
+			Wallet = new CharacterWalletData(ref Settings);
 			Information = DownloadData("Information", Settings.EsiClient.Character.Information(CharacterID));
 			Skills = DownloadData("Skills", Settings.EsiClient.Skills.List());
 			Attributes = DownloadData("Attributes", Settings.EsiClient.Skills.Attributes());

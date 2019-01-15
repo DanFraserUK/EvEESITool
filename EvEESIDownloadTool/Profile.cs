@@ -27,9 +27,9 @@ namespace EvEESITool
 
 		public CharacterData Character;
 
-		// disabled for now during multiprofile development
 		public CorporationData Corporation;
 		public AllianceData Alliance;
+		
 		//public MarketData Market;
 		// public PublicData Public;
 		// public UniverseData Universe;
@@ -69,7 +69,6 @@ namespace EvEESITool
 
 		public void CreateData()
 		{
-			//SDE = new SDEData(ref Settings);
 			Authenticator = new Authenticator(ref Settings);
 			Settings.EsiClient = Authenticator.StartAuthenticating();
 			Character = new CharacterData(ref Settings);
