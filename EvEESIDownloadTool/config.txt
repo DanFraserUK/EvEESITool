@@ -1,8 +1,0 @@
-﻿{
-    "CCEsiUrl": "https://esi.evetech.net/",
-    "CCDataSource": 0,
-    "CCClientId": "<YOUR CLIENT ID>",
-    "CCSecretKey": ",YOUR SECRET KEY",
-    "CCCallbackUrl": "https://localhost/callback/",
-    "CCUserAgent": "YOUR EMAIL"
-}
