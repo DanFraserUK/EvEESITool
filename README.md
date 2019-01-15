@@ -28,7 +28,7 @@ Option one is to create a file called config.txt in the same directory as the Ev
 
 Option two, if no config.txt exists the dll will ask you if you are running a console application.
 
-Once these are entered, be warned that on first run of the dll it needs to download a lot of data!  Once the static data export is downloaded the program will open your default web browser to ask for authorization.  As experienced with many other applications choose your character and scroll down then click authorize.  Copy the url (all of it) and paste into the console.  From that point onwards no further input is needed.  The tool will download any data available and save it to disk.  It will also auto-update the data once an hour.
+Once the static data export (only particular parts, currently around 28MB) is downloaded the program will open your default web browser to ask for authorization.  As experienced with many other applications choose your character and scroll down then click authorize.  Copy the url (all of it) and paste into the console.  From that point onwards no further input is needed.  The tool will download any data available and save it to disk.  It will also auto-update the data once an hour.
 
 If you have concerns about the data being entered `ConfigDataConsoleEntry` in `AppSettings.cs` is where the data entry occurs.  `Authenticator.cs` is where the information gets used to authorise the connection to the EvE Swagger Interface.  This will be subject to changes in the future to appear like many other applications that access the Eve Swagger Interface.
 

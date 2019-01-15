@@ -22,8 +22,6 @@ namespace EvEESITool
 {
 	internal class Authenticator : IDisposable
 	{
-		[JsonIgnore]
-		private readonly string SaveFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\auth.txt";
 		public ProfileSettings Settings;
 		public EsiClient _client;
 		public SsoToken token;
@@ -76,14 +74,6 @@ namespace EvEESITool
 			AuthenticationStepsComplete = true;
 			return _client;
 		}
-		private void LoadData()
-		{
-			Console.CursorVisible = false;
-			Console.WriteLine();
-			//TryReadData();
-		}
-
-
 		public void Setup()
 		{
 			Console.WriteLine("Setting up authentication.");
@@ -102,7 +92,19 @@ namespace EvEESITool
 			Console.WriteLine($"UserAgent = {config.Value.UserAgent}");
 			Console.WriteLine();
 
-			Scopes = EvEESITool.Scopes.GetScopes();
+
+			List<string> scopesCheck = new List<string>();
+			scopesCheck.AddRange(Settings.AuthorisationData.Scopes.Split(' '));
+			if (scopesCheck.Count > 0)
+			{
+				// only load the scopes found in the profile
+				Scopes = scopesCheck;
+			}
+			else
+			{
+				// load all the scopes if nothing found
+				Scopes = EvEESITool.Scopes.GetScopes();
+			}
 			Console.WriteLine($"Scopes file loaded. {Scopes.Count} scopes added.");
 
 			_client = new EsiClient(config);

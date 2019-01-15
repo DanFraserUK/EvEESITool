@@ -113,6 +113,7 @@ namespace EvEESITool
 		}
 		public void Dispose()
 		{
+			Save();
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
