@@ -12,7 +12,7 @@ namespace EvEESITool
 	/// </summary>
 	public class Data
 	{
-		MainSettings Settings = new MainSettings();
+	public	MainSettings Settings = new MainSettings();
 
 		public List<Profile> Profiles;
 		public SDEData SDE;
@@ -25,14 +25,17 @@ namespace EvEESITool
 		public Data()
 		{
 			Startup();
-
-			DoProfileWork();
 		}
 		internal void Startup()
 		{
 			Profiles = new List<Profile>();
 			Settings = new MainSettings();
 			SDE = new SDEData(ref Settings);
+		}
+
+		public void LoadData()
+		{
+			DoProfileWork();
 		}
 
 		internal void DoProfileWork()

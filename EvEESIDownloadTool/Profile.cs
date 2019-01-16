@@ -42,7 +42,11 @@ namespace EvEESITool
 		public Profile(ref MainSettings mainSettings)
 		{
 			Settings = new ProfileSettings(ref mainSettings);
-			CreateData();
+			Authenticate();
+			if (!Settings.MainSettings.NoDownloading)
+			{
+				CreateData();
+			}
 		}
 
 		public Profile(ref MainSettings mainSettings, ConfigClass config)
@@ -51,7 +55,11 @@ namespace EvEESITool
 			{
 				Config = config
 			};
-			CreateData();
+			Authenticate();
+			if (!Settings.MainSettings.NoDownloading)
+			{
+				CreateData();
+			}
 		}
 
 		/// <summary>
@@ -61,16 +69,22 @@ namespace EvEESITool
 		public Profile(ref MainSettings mainSettings, string profileName)
 		{
 			Settings = new ProfileSettings(ref mainSettings, profileName);
-			CreateData();
+			Authenticate();
+			if (!Settings.MainSettings.NoDownloading)
+			{
+				CreateData();
+			}
 		}
 
-
+		public void Authenticate()
+		{
+			Authenticator = new Authenticator(ref Settings);
+			Settings.EsiClient = Authenticator.StartAuthenticating();
+		}
 
 
 		public void CreateData()
 		{
-			Authenticator = new Authenticator(ref Settings);
-			Settings.EsiClient = Authenticator.StartAuthenticating();
 			Character = new CharacterData(ref Settings);
 			Corporation = new CorporationData(ref Settings);
 			Alliance = new AllianceData(ref Settings);

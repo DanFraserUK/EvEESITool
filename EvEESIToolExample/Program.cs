@@ -18,6 +18,10 @@ namespace EvEESIToolExample
 			// starts the tool and loads any existing profiles
 			Data esiData = new Data();
 
+			esiData.Settings.NoDownloading = true;
+			// use this to start loading existing profiles/downloading data etc
+			esiData.LoadData();
+
 			// examples
 
 			// I know this is incredibly basic!

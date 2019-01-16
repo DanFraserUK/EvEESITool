@@ -43,8 +43,9 @@ namespace EvEESITool
 		public int MarketHistoryDays { get; private set; } = 10;
 		public int DefaultRegionID { get; private set; } = 10000002;
 		[JsonIgnore]
-		public bool InternetAccessAvailable { get; internal  set; } = false;
+		public bool InternetAccessAvailable { get; internal set; } = false;
 		public bool SkipAuthenticating { get; private set; } = false;
+		public bool NoDownloading { get; set; } = false;
 		public bool SaveDataWhenDownloaded { get; private set; } = true;
 		[JsonIgnore]
 		public int DefaultTimerTimeSpan { get; private set; } = 60 * 1000;//60 * 60 * 1000;
@@ -90,7 +91,7 @@ namespace EvEESITool
 			using (StreamReader myReader = new StreamReader(DataDirectory + "settings.json"))
 			{
 				MainSettings newFile = new MainSettings();
-				 jsonReader = new JsonTextReader(myReader);
+				jsonReader = new JsonTextReader(myReader);
 				newFile = serializer.Deserialize<MainSettings>(jsonReader);
 			}
 		}
