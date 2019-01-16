@@ -13,12 +13,12 @@ namespace EvEESIToolExample
 {
 	class Program
 	{
-		[STAThread]
 		static void Main(string[] args)
 		{
 			Data esiData = new Data();
-			//Profile esiData = new Profile();
 
+			// examples
+			
 			// I know this is incredibly basic!
 			Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
 			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
@@ -27,7 +27,6 @@ namespace EvEESIToolExample
 				Console.WriteLine();
 			}
 
-			// examples
 			int characterID = esiData.Profiles[0].Character.CharacterID;
 
 			SkillDetails skills = esiData.Profiles[0].Character.Skills;
@@ -35,8 +34,6 @@ namespace EvEESIToolExample
 			Profile p = esiData.Profiles[0];
 
 			var i = esiData.Public.Industry.GetFacilities();
-
-			
 
 			ESI.NET.Models.Alliance.Alliance a = esiData.Profiles[0].Alliance.GetAlliance(esiData.Profiles[0].Corporation.AllianceHistory[1].AllianceId);
 
