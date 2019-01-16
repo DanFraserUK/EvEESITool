@@ -59,7 +59,7 @@ namespace EvEESITool
 		}
 		protected T DownloadData<T>(Task<EsiResponse<T>> myTask)
 		{
-			var workingObject = myTask;
+			Task<EsiResponse<T>> workingObject = myTask;
 			dynamic result = default(T);
 			if (workingObject.Status == TaskStatus.WaitingForActivation)
 			{
@@ -76,7 +76,7 @@ namespace EvEESITool
 			{
 				if (workingObject.Status == TaskStatus.RanToCompletion)
 				{
-					var data = workingObject.Result;
+					EsiResponse<T> data = workingObject.Result;
 					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
 					{
 						if (data.Data != null && data.Data.GetType() == typeof(int))
@@ -97,6 +97,13 @@ namespace EvEESITool
 			}
 			return result;
 		}
+		/// <summary>
+		/// Verbose version with console logging
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="objectName"></param>
+		/// <param name="myTask"></param>
+		/// <returns></returns>
 		protected T DownloadData<T>(string objectName, Task<EsiResponse<T>> myTask)
 		{
 			var workingObject = myTask;
@@ -107,10 +114,6 @@ namespace EvEESITool
 				{
 					Task.Delay(100).Wait();
 				}
-			}
-			if (objectName == "Standings")
-			{
-				objectName += "";
 			}
 			if (workingObject.IsFaulted)
 			{
