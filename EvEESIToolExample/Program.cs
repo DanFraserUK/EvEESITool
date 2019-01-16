@@ -15,17 +15,32 @@ namespace EvEESIToolExample
 	{
 		static void Main(string[] args)
 		{
+			// starts the tool and loads any existing profiles
 			Data esiData = new Data();
 
 			// examples
-			
+
 			// I know this is incredibly basic!
+			// existing profiles or not, this adds a new one
 			Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
 			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
 			{
 				esiData.CreateNewProfile();
 				Console.WriteLine();
 			}
+
+			// or 
+			// this will obviously not run as it is
+			ConfigClass newConfig = new ConfigClass()
+			{
+				EsiUrl = "https://esi.evetech.net/",
+				DataSource = DataSource.Tranquility,
+				ClientID = "<YOUR CLIENT ID>",
+				SecretKey = "<YOUR SECRET KEY>",
+				CallbackUrl = "https://localhost/callback/",
+				UserAgent = "<YOUR EMAIL>"
+			};
+			esiData.CreateNewProfile(newConfig);
 
 			int characterID = esiData.Profiles[0].Character.CharacterID;
 

@@ -20,7 +20,7 @@ Option one is to create a file called config.txt in the same directory as the Ev
     {
         "EsiUrl": "https://esi.evetech.net/",
         "DataSource": Tranquility,
-        "ClientId": "<YOUR CLIENT ID>",
+        "ClientID": "<YOUR CLIENT ID>",
         "SecretKey": ",YOUR SECRET KEY",
         "CallbackUrl": "https://localhost/callback/",
         "UserAgent": "YOUR EMAIL"
