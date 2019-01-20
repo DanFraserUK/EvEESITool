@@ -28,6 +28,11 @@ namespace EvEESITool
 	/// </summary>
 	public class SDEData : IDisposable
 	{
+		public enum LoadingEnum
+		{
+
+		}
+
 		private void CommentStore()
 		{
 			//AgtAgents.AddRange(ReadSDEFile<List<AgtAgents>>("agtAgents"));
@@ -191,7 +196,6 @@ namespace EvEESITool
 			//public List<WarCombatZones> WarCombatZones = new List<WarCombatZones>();
 			//public List<WarCombatZoneSystems> WarCombatZoneSystems = new List<WarCombatZoneSystems>();
 		}
-		private readonly string AppDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 		private readonly string SourceUrl = "http://sde.zzeve.com/";
 		private MainSettings Settings { get; set; } = new MainSettings();
 		public SDEData(ref MainSettings settings)
@@ -201,6 +205,15 @@ namespace EvEESITool
 			InvTypes = GetSDEData<List<InvTypes>>("invTypes");
 			StaStations = GetSDEData<List<StaStations>>("staStations");
 			SolarSystems = GetSDEData<List<MapSolarSystems>>("mapSolarSystems");
+			Regions = GetSDEData<List<MapRegions>>("mapRegions");
+			MapDenormalize = GetSDEData<List<MapJumps>>("mapDenormalize");
+			MapUniverse = GetSDEData<List<MapUniverse>>("mapUniverse");
+
+			InvItems = GetSDEData<List<InvItems>>("invItems");
+			InvNames = GetSDEData<List<InvNames>>("invNames");
+			InvPositions = GetSDEData<List<InvPositions>>("invPositions");
+			InvUniqueNames = GetSDEData<List<InvUniqueNames>>("invUniqueNames");
+			InvGroups = GetSDEData<List<InvGroups>>("invGroups");
 		}
 
 		public T GetSDEData<T>(string fileName)
@@ -248,9 +261,18 @@ namespace EvEESITool
 			}
 		}
 
-		public List<InvTypes> InvTypes = new List<InvTypes>();
-		public List<StaStations> StaStations = new List<StaStations>();
-		public List<MapSolarSystems> SolarSystems = new List<MapSolarSystems>();
+		public List<InvTypes> InvTypes { get; private set; } = null;
+		public List<StaStations> StaStations { get; private set; } = null;
+		public List<MapSolarSystems> SolarSystems { get; private set; } = null;
+		public List<MapRegions> Regions { get; private set; } = null;
+		public List<MapJumps> MapDenormalize { get; private set; } = null;
+		public List<MapUniverse> MapUniverse { get; private set; } = null;
+
+		public List<InvItems> InvItems { get; private set; } = null;
+		public List<InvNames> InvNames { get; private set; } = null;
+		public List<InvPositions> InvPositions { get; private set; } = null;
+		public List<InvUniqueNames> InvUniqueNames { get; private set; } = null;
+		public List<InvGroups> InvGroups { get; private set; } = null;
 
 		public void Dispose()
 		{

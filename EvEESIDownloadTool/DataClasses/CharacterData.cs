@@ -152,7 +152,7 @@ namespace EvEESITool
 			Notifications = DownloadData("Notifications", Settings.EsiClient.Character.Notifications());
 			IndustryJobs = DownloadData("Industry jobs", Settings.EsiClient.Industry.JobsForCharacter());
 			Clones = DownloadData("Clones", Settings.EsiClient.Clones.List());
-			Implants.AddRange(DownloadData("Implants", Settings.EsiClient.Clones.Implants()));
+			//Implants.AddRange(DownloadData("Implants", Settings.EsiClient.Clones.Implants()));
 			Fittings = DownloadData("Fittings", Settings.EsiClient.Fittings.List());
 			Bookmarks = DownloadData("Bookmarks", Settings.EsiClient.Bookmarks.ForCharacter());
 			BookmarkFolders = DownloadData("Bookmark folders", Settings.EsiClient.Bookmarks.FoldersForCharacter());

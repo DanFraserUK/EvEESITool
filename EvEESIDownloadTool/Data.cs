@@ -70,7 +70,7 @@ namespace EvEESITool
 
 		public void CreateNewProfile(ConfigClass config)
 		{
-			Profiles.Add(new Profile(ref Settings));
+			Profiles.Add(new Profile(ref Settings, config));
 		}
 
 		public void CreatePublicAccess(ref ProfileSettings settings)

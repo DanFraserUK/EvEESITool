@@ -55,6 +55,20 @@ namespace EvEESITool
 
 		public ConfigClass(string file)
 		{
+			using (StreamReader myReader = new StreamReader(file))
+			{
+				JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
+				JsonReader jsonReader = new JsonTextReader(myReader);
+				var input = serializer.Deserialize<ConfigClass>(jsonReader);
+				EsiUrl = input.EsiUrl;
+				DataSource = input.DataSource;
+				ClientID = input.ClientID;
+				SecretKey = input.SecretKey;
+				CallbackUrl = input.CallbackUrl;
+				UserAgent = input.UserAgent;
+				Console.WriteLine("Config settings imported.");
+				Console.WriteLine();
+			}
 		}
 	}
 }

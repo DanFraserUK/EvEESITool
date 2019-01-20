@@ -40,6 +40,9 @@ namespace EvEESITool
 		[JsonIgnore]
 		public bool LoadedFromFile { get; private set; } = false;
 
+		public int? ErrorLimitRemain { get; internal set; }
+		public int? ErrorLimitReset { get; internal set; }
+
 		internal readonly MainSettings MainSettings;
 
 		public ProfileSettings()
@@ -67,9 +70,9 @@ namespace EvEESITool
 			}
 			else
 			{
-				if (File.Exists(MainSettings.DataDirectory + "config.txt"))
+				if (File.Exists("config.txt"))
 				{
-					using (StreamReader myReader = new StreamReader(MainSettings.DataDirectory + "config.txt"))
+					using (StreamReader myReader = new StreamReader("config.txt"))
 					{
 						MainSettings.jsonReader = new JsonTextReader(myReader);
 						Config = MainSettings.serializer.Deserialize<ConfigClass>(MainSettings.jsonReader);
@@ -146,25 +149,28 @@ namespace EvEESITool
 		}
 		private void ConfigDataConsoleEntry()
 		{
-			Config = new ConfigClass();
-			Console.WriteLine("Esi URL set to https://esi.evetech.net/");
-			Config.EsiUrl = "https://esi.evetech.net/";
-			Console.WriteLine("Data source set to Tranquility");
-			Config.DataSource = DataSource.Tranquility;
-			Console.WriteLine("Copy and paste the Client ID and press enter");
-			Config.ClientID = Console.ReadLine();
-			Console.WriteLine("Copy and paste the Secret Key and press enter");
-			Config.SecretKey = Console.ReadLine();
-			Console.WriteLine("Copy and paste the Callback Url and press enter");
-			Config.CallbackUrl = Console.ReadLine();
-			Console.WriteLine("Type an identifier for yourself such as an email address - quoting EvEESITool :");
-			Console.WriteLine("For your protection (and mine), you are required to supply a user_agent value.");
-			Console.WriteLine("This can be your character name and/or project name. CCP will be more likely to");
-			Console.WriteLine("contact you than just cut off access to ESI if you provide something that can");
-			Console.WriteLine("identify you within the New Eden galaxy. Without this property populated,");
-			Console.WriteLine("the wrapper will not work.");
-			Console.WriteLine("");
-			Config.UserAgent = Console.ReadLine();
+			if (Config.EsiUrl == null || Config.EsiUrl == "")
+			{
+				Config = new ConfigClass();
+				Console.WriteLine("Esi URL set to https://esi.evetech.net/");
+				Config.EsiUrl = "https://esi.evetech.net/";
+				Console.WriteLine("Data source set to Tranquility");
+				Config.DataSource = DataSource.Tranquility;
+				Console.WriteLine("Copy and paste the Client ID and press enter");
+				Config.ClientID = Console.ReadLine();
+				Console.WriteLine("Copy and paste the Secret Key and press enter");
+				Config.SecretKey = Console.ReadLine();
+				Console.WriteLine("Copy and paste the Callback Url and press enter");
+				Config.CallbackUrl = Console.ReadLine();
+				Console.WriteLine("Type an identifier for yourself such as an email address - quoting EvEESITool :");
+				Console.WriteLine("For your protection (and mine), you are required to supply a user_agent value.");
+				Console.WriteLine("This can be your character name and/or project name. CCP will be more likely to");
+				Console.WriteLine("contact you than just cut off access to ESI if you provide something that can");
+				Console.WriteLine("identify you within the New Eden galaxy. Without this property populated,");
+				Console.WriteLine("the wrapper will not work.");
+				Console.WriteLine("");
+				Config.UserAgent = Console.ReadLine();
+			}
 		}
 		public void Save()
 		{

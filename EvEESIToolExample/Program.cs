@@ -18,7 +18,7 @@ namespace EvEESIToolExample
 			// starts the tool and loads any existing profiles
 			Data esiData = new Data();
 
-			esiData.Settings.NoDownloading = true;
+			esiData.Settings.NoDownloading = false;
 			// use this to start loading existing profiles/downloading data etc
 			esiData.LoadData();
 
@@ -26,25 +26,27 @@ namespace EvEESIToolExample
 
 			// I know this is incredibly basic!
 			// existing profiles or not, this adds a new one
-			Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
-			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
-			{
-				esiData.CreateNewProfile();
-				Console.WriteLine();
-			}
+			//Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
+			//if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
+			//{
+			//	esiData.CreateNewProfile();
+			//	Console.WriteLine();
+			//}
 
 			// or 
 			// this will obviously not run as it is
-			ConfigClass newConfig = new ConfigClass()
-			{
-				EsiUrl = "https://esi.evetech.net/",
-				DataSource = DataSource.Tranquility,
-				ClientID = "<YOUR CLIENT ID>",
-				SecretKey = "<YOUR SECRET KEY>",
-				CallbackUrl = "https://localhost/callback/",
-				UserAgent = "<YOUR EMAIL>"
-			};
-			esiData.CreateNewProfile(newConfig);
+			//ConfigClass newConfig = new ConfigClass()
+			//{
+			//	EsiUrl = "https://esi.evetech.net/",
+			//	DataSource = DataSource.Tranquility,
+			//	ClientID = "<YOUR CLIENT ID>",
+			//	SecretKey = "<YOUR SECRET KEY>",
+			//	CallbackUrl = "https://localhost/callback/",
+			//	UserAgent = "<YOUR EMAIL>"
+			//};
+			//esiData.CreateNewProfile(newConfig);
+
+			var test = esiData.Market.GetRegionTypes(10000032,1);
 
 			int characterID = esiData.Profiles[0].Character.CharacterID;
 

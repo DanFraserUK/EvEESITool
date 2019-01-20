@@ -93,8 +93,59 @@ namespace EvEESITool
 						}
 					}
 				}
-				
+
 			}
+			return result;
+		}
+
+		/// <summary>
+		/// Temporary solution for now for the pages issue
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="myTask"></param>
+		/// <param name="pages"></param>
+		/// <returns></returns>
+		protected T DownloadData<T>(Task<EsiResponse<T>> myTask, out int? pages)
+		{
+			int? pagesResult = null;
+			Task<EsiResponse<T>> workingObject = myTask;
+			dynamic result = default(T);
+			if (workingObject.Status == TaskStatus.WaitingForActivation)
+			{
+				while (workingObject.Status == TaskStatus.WaitingForActivation)
+				{
+					Task.Delay(100).Wait();
+				}
+			}
+			if (workingObject.IsFaulted)
+			{
+				// throw an error maybe?
+			}
+			else
+			{
+				if (workingObject.Status == TaskStatus.RanToCompletion)
+				{
+					EsiResponse<T> data = workingObject.Result;
+					pagesResult = data.Pages;
+					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
+					{
+						if (data.Data != null && data.Data.GetType() == typeof(int))
+						{
+							result = int.Parse(data.Message);
+						}
+						else if (data.Data != null && data.Data.GetType() == typeof(decimal))
+						{
+							result = decimal.Parse(data.Message);
+						}
+						else
+						{
+							result = data.Data;
+						}
+					}
+				}
+
+			}
+			pages = pagesResult;
 			return result;
 		}
 		/// <summary>
@@ -125,6 +176,12 @@ namespace EvEESITool
 				if (workingObject.Status == TaskStatus.RanToCompletion)
 				{
 					var data = workingObject.Result;
+					Settings.ErrorLimitRemain = data.ErrorLimitRemain;
+					Settings.ErrorLimitReset = data.ErrorLimitReset;
+					if(data.StatusCode == System.Net.HttpStatusCode.Forbidden)
+					{
+						return default(T);
+					}
 					if (data.StatusCode != System.Net.HttpStatusCode.NotFound)
 					{
 						if (data.Data != null && data.Data.GetType() == typeof(int))

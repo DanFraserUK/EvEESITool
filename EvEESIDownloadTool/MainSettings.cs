@@ -29,11 +29,9 @@ namespace EvEESITool
 	public class MainSettings
 	{
 		[JsonIgnore]
-		internal readonly string DataDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\Data\\";
+		internal readonly string DataDirectory = "\\Data\\";
 		[JsonIgnore]
-		internal readonly string SDEDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\SDE\\";
-		[JsonIgnore]
-		internal readonly string AppDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\";
+		internal readonly string SDEDirectory = "\\SDE\\";
 
 		[JsonIgnore]
 		internal JsonSerializer serializer = new JsonSerializer() { Formatting = Formatting.Indented };
@@ -44,18 +42,18 @@ namespace EvEESITool
 		public int DefaultRegionID { get; private set; } = 10000002;
 		[JsonIgnore]
 		public bool InternetAccessAvailable { get; internal set; } = false;
-		public bool SkipAuthenticating { get; private set; } = false;
+		public bool SkipAuthenticating { get; set; } = false;
 		public bool NoDownloading { get; set; } = false;
-		public bool SaveDataWhenDownloaded { get; private set; } = true;
+		public bool SaveDataWhenDownloaded { get; set; } = true;
 		[JsonIgnore]
-		public int DefaultTimerTimeSpan { get; private set; } = 60 * 1000;//60 * 60 * 1000;
+		internal int DefaultTimerTimeSpan { get; private set; } = 60 * 1000;//60 * 60 * 1000;
 		[JsonIgnore]
-		public int TimerEventCounters { get; set; } = 0;
-		public int TimerMinutes { get; private set; } = 60;
+		internal int TimerEventCounters { get; set; } = 0;
+		internal int TimerMinutes { get; private set; } = 60;
 		[JsonIgnore]
-		public int TimerSeconds { get; private set; } = 60;
+		internal int TimerSeconds { get; private set; } = 60;
 		[JsonIgnore]
-		public int TimerMilliseconds { get; private set; } = 1000;
+		internal int TimerMilliseconds { get; private set; } = 1000;
 
 
 		public MainSettings()
