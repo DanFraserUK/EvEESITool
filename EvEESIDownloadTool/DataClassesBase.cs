@@ -63,9 +63,15 @@ namespace EvEESITool
 			dynamic result = default(T);
 			if (workingObject.Status == TaskStatus.WaitingForActivation)
 			{
+				int waitCounter = 0;
 				while (workingObject.Status == TaskStatus.WaitingForActivation)
 				{
 					Task.Delay(100).Wait();
+					waitCounter++;
+					if (waitCounter > 150)
+					{
+						return default(T);
+					}
 				}
 			}
 			if (workingObject.IsFaulted)
@@ -112,9 +118,16 @@ namespace EvEESITool
 			dynamic result = default(T);
 			if (workingObject.Status == TaskStatus.WaitingForActivation)
 			{
+				int waitCounter = 0;
 				while (workingObject.Status == TaskStatus.WaitingForActivation)
 				{
 					Task.Delay(100).Wait();
+					waitCounter++;
+					if(waitCounter>150)
+					{
+						pages = 0;
+						return default(T);
+					}
 				}
 			}
 			if (workingObject.IsFaulted)
@@ -161,9 +174,15 @@ namespace EvEESITool
 			dynamic result = default(T);
 			if (workingObject.Status == TaskStatus.WaitingForActivation)
 			{
+				int waitCounter = 0;
 				while (workingObject.Status == TaskStatus.WaitingForActivation)
 				{
 					Task.Delay(100).Wait();
+					waitCounter++;
+					if (waitCounter > 150)
+					{
+						return default(T);
+					}
 				}
 			}
 			if (workingObject.IsFaulted)
@@ -196,7 +215,6 @@ namespace EvEESITool
 						{
 							result = data.Data;
 						}
-						Console.WriteLine($"Downloaded {objectName}");
 					}
 					else
 					{

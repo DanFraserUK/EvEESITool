@@ -13,6 +13,7 @@ namespace EvEESIToolExample
 {
 	class Program
 	{
+		[STAThread]
 		static void Main(string[] args)
 		{
 			// starts the tool and loads any existing profiles
@@ -24,14 +25,14 @@ namespace EvEESIToolExample
 
 			// examples
 
-			// I know this is incredibly basic!
-			// existing profiles or not, this adds a new one
-			//Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
-			//if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
-			//{
-			//	esiData.CreateNewProfile();
-			//	Console.WriteLine();
-			//}
+			//I know this is incredibly basic!
+			//existing profiles or not, this adds a new one
+			Console.WriteLine("Would you like to add a new profile? (Y/N) : ");
+			if (Console.ReadKey().KeyChar.ToString().ToLower() == "y")
+			{
+				esiData.CreateNewProfile();
+				Console.WriteLine();
+			}
 
 			// or 
 			// this will obviously not run as it is

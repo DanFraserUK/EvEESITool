@@ -54,8 +54,6 @@ namespace EvEESITool
 		{
 			return DownloadData("Asset name", Settings.EsiClient.Assets.NamesForCharacter(assetsItemID));
 		}
-		//public List<JournalEntry> Journal { get; private set; } = new List<JournalEntry>();
-		//public List<Transaction> Transactions { get; private set; } = new List<Transaction>();
 		public List<Notification> Notifications { get; private set; } = new List<Notification>();
 		public List<Job> IndustryJobs { get; private set; } = new List<Job>();
 		public Clones Clones { get; private set; } = new Clones();

@@ -25,6 +25,7 @@ namespace EvEESITool
 {
 	/// <summary>
 	/// I'm doing something with this, I don't know what but there's something
+	/// oh i know, make loading of the data customisable
 	/// </summary>
 	public class SDEData : IDisposable
 	{
@@ -198,10 +199,20 @@ namespace EvEESITool
 		}
 		private readonly string SourceUrl = "http://sde.zzeve.com/";
 		private MainSettings Settings { get; set; } = new MainSettings();
+		/// <summary>
+		/// Default constructor, settings must be passed in
+		/// This will load all available data.
+		/// </summary>
+		/// <param name="settings"></param>
 		public SDEData(ref MainSettings settings)
 		{
 			Settings = settings;
 
+			LoadData();
+		}
+
+		public void LoadData()
+		{
 			InvTypes = GetSDEData<List<InvTypes>>("invTypes");
 			StaStations = GetSDEData<List<StaStations>>("staStations");
 			SolarSystems = GetSDEData<List<MapSolarSystems>>("mapSolarSystems");
@@ -214,6 +225,7 @@ namespace EvEESITool
 			InvPositions = GetSDEData<List<InvPositions>>("invPositions");
 			InvUniqueNames = GetSDEData<List<InvUniqueNames>>("invUniqueNames");
 			InvGroups = GetSDEData<List<InvGroups>>("invGroups");
+			CrpNPCCorporations = GetSDEData<List<CrpNPCCorporations>>("crpNPCCorporations");
 		}
 
 		public T GetSDEData<T>(string fileName)
@@ -267,12 +279,12 @@ namespace EvEESITool
 		public List<MapRegions> Regions { get; private set; } = null;
 		public List<MapJumps> MapDenormalize { get; private set; } = null;
 		public List<MapUniverse> MapUniverse { get; private set; } = null;
-
 		public List<InvItems> InvItems { get; private set; } = null;
 		public List<InvNames> InvNames { get; private set; } = null;
 		public List<InvPositions> InvPositions { get; private set; } = null;
 		public List<InvUniqueNames> InvUniqueNames { get; private set; } = null;
 		public List<InvGroups> InvGroups { get; private set; } = null;
+		public List<CrpNPCCorporations> CrpNPCCorporations { get; private set; } = null;
 
 		public void Dispose()
 		{
@@ -292,5 +304,93 @@ namespace EvEESITool
 				// Dispose remaining objects,
 			}
 		}
+	}
+	public enum SDEFlags
+	{
+		agtAgents,
+		agtAgentTypes,
+		agtResearchAgents,
+		certCerts,
+		certMasteries,
+		certSkills,
+		chrAncestries,
+		chrAttributes,
+		chrBloodlines,
+		chrFactions,
+		chrRaces,
+		crpActivities,
+		crpNPCCorporationDivisions,
+		crpNPCCorporationResearchFields,
+		crpNPCCorporations,
+		crpNPCCorporationTrades,
+		crpNPCDivisions,
+		dgmAttributeCategories,
+		dgmAttributeTypes,
+		dgmEffects,
+		dgmExpressions,
+		dgmTypeAttributes,
+		dgmTypeEffects,
+		eveGraphics,
+		eveIcons,
+		eveUnits,
+		industryActivity,
+		industryActivityMaterials,
+		industryActivityProbabilities,
+		industryActivityProducts,
+		industryActivityRaces,
+		industryActivitySkills,
+		industryBlueprints,
+		invCategories,
+		invContrabandTypes,
+		invControlTowerResourcePurposes,
+		invControlTowerResources,
+		invFlags,
+		invGroups,
+		invItems,
+		invMarketGroups,
+		invMetaGroups,
+		invMetaTypes,
+		invNames,
+		invPositions,
+		invTraits,
+		invTypeMaterials,
+		invTypeReactions,
+		invTypes,
+		invUniqueNames,
+		invVolumes,
+		mapConstellationJumps,
+		mapConstellations,
+		mapJumps,
+		mapLandmarks,
+		mapLocationScenes,
+		mapLocationWormholeClasses,
+		mapRegionJumps,
+		mapRegions,
+		mapSolarSystemJumps,
+		mapSolarSystems,
+		mapUniverse,
+		planetSchematics,
+		planetSchematicsPinMap,
+		planetSchematicsTypeMap,
+		ramActivities,
+		ramAssemblyLineStations,
+		ramAssemblyLineTypeDetailPerCategory,
+		ramAssemblyLineTypeDetailPerGroup,
+		ramAssemblyLineTypes,
+		ramInstallationTypeContents,
+		skinLicense,
+		skinMaterials,
+		skins,
+		skinShip,
+		staOperations,
+		staOperationServices,
+		staServices,
+		staStations,
+		staStationTypes,
+		translationTables,
+		trnTranslationColumns,
+		trnTranslationLanguages,
+		warCombatZones,
+		warCombatZoneSystems
 	}
 }

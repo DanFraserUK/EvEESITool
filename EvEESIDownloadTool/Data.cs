@@ -41,6 +41,7 @@ namespace EvEESITool
 		internal void DoProfileWork()
 		{
 			List<string> existingFolders = FindExistingProfiles();
+			// todo investigate parallelising this
 			foreach (string s in existingFolders)
 			{
 				Profiles.Add(new Profile(ref Settings, new DirectoryInfo(s).Name));

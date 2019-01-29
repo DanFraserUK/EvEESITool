@@ -19,6 +19,10 @@ namespace EvEESITool
         {
             return DownloadData("Search", Settings.EsiClient.Universe.IDs(names));
         }
+		public ESI.NET.Models.Universe.Type TypeInformation(int typeID)
+		{
+			return DownloadData(Settings.EsiClient.Universe.Type(typeID));
+		}
         /// <summary>
         /// Do not remove this constructor.  Even though it might say 0 references, it does get called by the deserialization in ReadInData()
         /// </summary>
