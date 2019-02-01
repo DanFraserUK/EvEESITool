@@ -15,7 +15,15 @@ namespace EvEESITool
 			// who cares about this warning?
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			Settings.EsiClient.UserInterface.MarketDetails(typeID);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+		}
+
+		public void SetWaypoint(int destinationID)
+		{
+			Settings.EsiClient.UserInterface.Waypoint(destinationID, false, true);
+		}
+		public void AddWaypoint(int destinationID)
+		{
+			Settings.EsiClient.UserInterface.Waypoint(destinationID, false, false);
 		}
 
 		internal UserInterfaceData(ref ProfileSettings settings) : base(ref settings)
@@ -23,4 +31,5 @@ namespace EvEESITool
 
 		}
 	}
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 }

@@ -49,6 +49,8 @@ namespace EvEESIToolExample
 
 			var test = esiData.Market.GetRegionTypes(10000032,1);
 
+			esiData.UI.SetWaypoint(10000002);
+
 			int characterID = esiData.Profiles[0].Character.CharacterID;
 
 			SkillDetails skills = esiData.Profiles[0].Character.Skills;
