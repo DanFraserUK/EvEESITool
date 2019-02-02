@@ -1,0 +1,31 @@
+﻿int holder = 0;
+			List<string> gSheetsLines = new List<string>();
+			StringBuilder myBuilder;
+			foreach (InvTypes invTypes in esiData.SDE.InvTypes)
+			{
+				int ID = invTypes.TypeID;
+				string name = invTypes.TypeName;
+				int groupID = invTypes.GroupID;
+				int categoryID = esiData.SDE.InvGroups.Find(x => x.GroupID == groupID).CategoryID;
+				string categoryName = esiData.SDE.InvCategories.Find(x => x.CategoryID == categoryID).CategoryName;
+
+				 myBuilder = new StringBuilder();
+				myBuilder.Append(ID + ",");
+				myBuilder.Append(name + ",");
+				myBuilder.Append(ID + ",");
+				myBuilder.Append(groupID + ",");
+				myBuilder.Append(categoryID + ",");
+				myBuilder.Append(categoryName);
+
+				gSheetsLines.Add(myBuilder.ToString());
+
+				holder++;
+			}
+			myBuilder = new StringBuilder();
+			string toClip = "";
+			foreach(string s in gSheetsLines)
+			{
+				toClip += s + "\r\n";
+			}
+			Clipboard.SetText(toClip);
+
