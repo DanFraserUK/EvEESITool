@@ -47,7 +47,7 @@ namespace EvEESIToolExample
 			//};
 			//esiData.CreateNewProfile(newConfig);
 
-			var test = esiData.Market.GetRegionTypes(10000032,1);
+			var test = esiData.Market.GetRegionTypes(10000032, 1);
 
 			esiData.UI.SetWaypoint(10000002);
 

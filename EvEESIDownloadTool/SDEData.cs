@@ -219,13 +219,13 @@ namespace EvEESITool
 			Regions = GetSDEData<List<MapRegions>>("mapRegions");
 			MapDenormalize = GetSDEData<List<MapJumps>>("mapDenormalize");
 			MapUniverse = GetSDEData<List<MapUniverse>>("mapUniverse");
-
 			InvItems = GetSDEData<List<InvItems>>("invItems");
 			InvNames = GetSDEData<List<InvNames>>("invNames");
 			InvPositions = GetSDEData<List<InvPositions>>("invPositions");
 			InvUniqueNames = GetSDEData<List<InvUniqueNames>>("invUniqueNames");
 			InvGroups = GetSDEData<List<InvGroups>>("invGroups");
 			CrpNPCCorporations = GetSDEData<List<CrpNPCCorporations>>("crpNPCCorporations");
+			InvCategories = GetSDEData<List<InvCategories>>("invCategories");
 		}
 
 		public T GetSDEData<T>(string fileName)
@@ -285,6 +285,7 @@ namespace EvEESITool
 		public List<InvUniqueNames> InvUniqueNames { get; private set; } = null;
 		public List<InvGroups> InvGroups { get; private set; } = null;
 		public List<CrpNPCCorporations> CrpNPCCorporations { get; private set; } = null;
+		public List<InvCategories> InvCategories { get; private set; } = null;
 
 		public void Dispose()
 		{
