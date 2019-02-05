@@ -1,13 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿#pragma warning disable IDE1006 // Naming Styles
+using Newtonsoft.Json;
     
 namespace ESI.NET.Models
 {
     public class Images
     {
         [JsonProperty("px512x512")]
-        public string x512 { get; set; }
+		public string x512 { get; set; }
 
-        [JsonProperty("px256x256")]
+		[JsonProperty("px256x256")]
         public string x256 { get; set; }
 
         [JsonProperty("px128x128")]
@@ -17,3 +18,4 @@ namespace ESI.NET.Models
         public string x64 { get; set; }
     }
 }
+#pragma warning restore IDE1006 // Naming Styles

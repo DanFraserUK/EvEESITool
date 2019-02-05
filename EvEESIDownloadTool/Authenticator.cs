@@ -17,6 +17,10 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using ESI.NET.Models.Skills;
+using JWT;
+using JWT.Builder;
+using JWT.Algorithms;
+using JWT.Serializers;
 
 namespace EvEESITool
 {
