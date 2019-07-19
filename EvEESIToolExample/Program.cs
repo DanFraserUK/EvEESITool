@@ -17,7 +17,7 @@ namespace EvEESIToolExample
 		static void Main(string[] args)
 		{
 			// starts the tool and loads any existing profiles
-			Data esiData = new Data();
+			var esiData = new Data();
 
 			esiData.Settings.NoDownloading = false;
 			// use this to start loading existing profiles/downloading data etc
@@ -51,15 +51,15 @@ namespace EvEESIToolExample
 
 			esiData.UI.SetWaypoint(10000002);
 
-			int characterID = esiData.Profiles[0].Character.CharacterID;
+			var characterID = esiData.Profiles[0].Character.CharacterID;
 
-			SkillDetails skills = esiData.Profiles[0].Character.Skills;
+			var skills = esiData.Profiles[0].Character.Skills;
 
-			Profile p = esiData.Profiles[0];
+			var p = esiData.Profiles[0];
 
 			var i = esiData.Public.Industry.GetFacilities();
 
-			ESI.NET.Models.Alliance.Alliance a = esiData.Profiles[0].Alliance.GetAlliance(esiData.Profiles[0].Corporation.AllianceHistory[1].AllianceId);
+			var a = esiData.Profiles[0].Alliance.GetAlliance(esiData.Profiles[0].Corporation.AllianceHistory[1].AllianceId);
 
 			if (esiData.Profiles[0].Corporation.Structures.Count > 0)
 			{
